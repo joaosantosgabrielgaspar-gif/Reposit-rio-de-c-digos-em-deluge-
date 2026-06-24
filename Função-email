@@ -1,0 +1,50 @@
+tituloDemanda = ifnull(input.tituloDaDemanda,"").trim();
+if(tituloDemanda == "")
+{
+	tituloDemanda = "Sem título informado";
+}
+areaSolicitante = ifnull(input.area_solicitante,"").trim().toLowerCase();
+mensagemEmail = "<!DOCTYPE html><html><body style='margin:0;padding:0;background-color:#f3f5f7;font-family:Arial,Helvetica,sans-serif;color:#263238;'><table role='presentation' width='100%' cellspacing='0' cellpadding='0' border='0' style='width:100%;background-color:#f3f5f7;'><tr><td align='center' style='padding:40px 15px;'><table role='presentation' width='640' cellspacing='0' cellpadding='0' border='0' style='width:100%;max-width:640px;background-color:#ffffff;border:1px solid #e4e9ee;border-radius:12px;box-shadow:0 6px 22px rgba(25,55,85,0.08);overflow:hidden;'><tr><td style='height:6px;background-color:#173f68;font-size:0;line-height:0;'> </td></tr><tr><td style='background-color:#0b5b9b;padding:30px 38px;'><table role='presentation' width='100%' cellspacing='0' cellpadding='0' border='0'><tr><td style='border-left:5px solid #72b9e8;padding-left:18px;color:#ffffff;font-size:22px;line-height:28px;font-weight:bold;letter-spacing:1.5px;'>Gazin - Administrativo Geral</td></tr></table></td></tr><tr><td style='padding:38px 38px 20px 38px;'><p style='margin:0 0 18px 0;color:#173f68;font-size:22px;line-height:30px;font-weight:bold;'>Olá!</p><p style='margin:0 0 14px 0;color:#4a5965;font-size:15px;line-height:24px;'>Informamos que uma nova atividade foi adicionada recentemente no sistema.</p><p style='margin:0;color:#4a5965;font-size:15px;line-height:24px;'>Acesse o aplicativo Zoho Creator para visualizar os detalhes e dar andamento à solicitação.</p></td></tr><tr><td style='padding:10px 38px 0 38px;'><table role='presentation' width='100%' cellspacing='0' cellpadding='0' border='0' style='width:100%;background-color:#ffffff;border:1px solid #dce5ed;border-radius:10px;box-shadow:0 3px 12px rgba(25,55,85,0.07);'><tr><td style='padding:22px 24px;'><p style='margin:0 0 9px 0;color:#0b5b9b;font-size:11px;line-height:16px;font-weight:bold;letter-spacing:1.3px;'>TÍTULO DA DEMANDA</p><p style='margin:0;color:#1f2f3d;font-size:18px;line-height:27px;font-weight:bold;'>" + tituloDemanda + "</p></td></tr></table></td></tr><tr><td style='padding:14px 38px 0 38px;'><table role='presentation' width='100%' cellspacing='0' cellpadding='0' border='0' style='width:100%;background-color:#f7f9fb;border:1px solid #e3e9ee;border-radius:10px;'><tr><td style='padding:20px 24px;'><p style='margin:0 0 8px 0;color:#657682;font-size:11px;line-height:16px;font-weight:bold;letter-spacing:1.2px;'>ÁREA RESPONSÁVEL</p><p style='margin:0;color:#263b4b;font-size:15px;line-height:23px;font-weight:bold;'>" + input.area_solicitante + "</p></td></tr></table></td></tr><tr><td align='center' style='padding:30px 38px 26px 38px;'><table role='presentation' cellspacing='0' cellpadding='0' border='0'><tr><td align='center' bgcolor='#173f68' style='background-color:#173f68;border-radius:7px;mso-padding-alt:14px 32px;'><a href='https://creatorapp.zoho.com/gazinadmin/administrativo-geral-gazin-2#Report:demandas_Report' target='_blank' style='display:inline-block;padding:14px 32px;color:#ffffff;font-size:15px;line-height:18px;font-weight:bold;text-decoration:none;border-radius:7px;'>Acessar Sistema</a></td></tr></table></td></tr><tr><td style='padding:0 38px 30px 38px;'><table role='presentation' width='100%' cellspacing='0' cellpadding='0' border='0' style='width:100%;background-color:#f1f5f8;border-left:4px solid #91a7b8;border-radius:7px;'><tr><td style='padding:15px 18px;color:#637480;font-size:12px;line-height:19px;'>Esta é uma mensagem automática. Não responda este e-mail.</td></tr></table></td></tr><tr><td style='padding:0 38px 28px 38px;'><table role='presentation' width='100%' cellspacing='0' cellpadding='0' border='0' style='width:100%;border-top:1px solid #dfe5ea;'><tr><td align='center' style='padding-top:22px;color:#768692;font-size:12px;line-height:18px;'>Gazin - Administrativo Geral</td></tr></table></td></tr></table></td></tr></table></body></html>";
+if(areaSolicitante == "inteligência de dados")
+{
+	sendmail
+	[
+		from :zoho.adminuserid
+		to :{"joao.gaspar@gazin.com.br","rafael.rodrigues@gazin.com.br"}
+		subject :"Nova Demanda Registrada - " + tituloDemanda
+		message :mensagemEmail
+	]
+}
+else if(areaSolicitante == "projetos e processos")
+{
+	sendmail
+	[
+		from :zoho.adminuserid
+		to :"maiara.fernandes@gazin.com.br"
+		subject :"Nova Demanda Registrada - " + tituloDemanda
+		message :mensagemEmail
+	]
+}
+else if(areaSolicitante == "gestão de contratos corporativos")
+{
+	sendmail
+	[
+		from :zoho.adminuserid
+		to :"fabielly.souza@gazin.com.br"
+		subject :"Nova Demanda Registrada - " + tituloDemanda
+		message :mensagemEmail
+	]
+}
+else if(areaSolicitante == "contratos imobiliários")
+{
+	sendmail
+	[
+		from :zoho.adminuserid
+		to :{"daiane.santos@gazin.com.br","heloisa.pegoraro@gazin.com.br"}
+		subject :"Nova Demanda Registrada - " + tituloDemanda
+		message :mensagemEmail
+	]
+}
+else if(areaSolicitante == "gestão energética")
+{
+	sendmail
