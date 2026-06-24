@@ -1,0 +1,8055 @@
+/*
+ * Author       : gazinadmin
+ * Generated on : 24-Jun-2026 11:58:23
+ * Version      : 1.0
+ */
+ application "micro agm "
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "America/Sao_Paulo"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form ALUGU_IS_POR_FAIXA
+		{
+			displayname = "ALUGUÉIS POR FAIXA"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Percentuais_Sobre_a_Venda_S_F
+			(
+    			type = text
+				displayname = "Percentuais Sobre a Venda S/F"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			M_VEIS_GAZIN
+			(
+    			type = text
+				displayname = "MÓVEIS GAZIN "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			FUNDO_IMOBILI_RIO
+			(
+    			type = text
+				displayname = "FUNDO IMOBILIÁRIO"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			ADM_BENS_GAZIN
+			(
+    			type = text
+				displayname = "ADM. BENS GAZIN "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			ALUGADO
+			(
+    			type = text
+				displayname = "ALUGADO "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Apresenta_o_Micro_AGM
+		{
+			displayname = "Apresentação Micro AGM"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			rea
+			(
+    			type = text
+				displayname = "Contratos ativos por área "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Book_a_Meeting_Room
+		{
+			displayname = "Book a Meeting Room"
+			success message = "Booked Successfully! Confirmation mail has been sent to you."
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Name
+			(
+    			type = name
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Staff_ID
+			(
+    			type = text
+				displayname = "Staff ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Official_Email
+			(
+    			type = email
+				displayname = "Official Email"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Department
+			(
+				type = picklist
+				values = {"Department 1","Department 2","Department 3"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Choose_a_room
+			(
+				type = radiobuttons
+				displayname = "Choose a Room"
+				values = {"Conference Room 1","Conference Room 2","Conference Room 3"}
+	 			row = 1
+	 			column = 1   
+				width = 300px
+			)
+			must have From
+			(
+    			type = datetime
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have To
+			(
+    			type = datetime
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Brief_Description_of_Conference
+			(
+    			type = textarea
+				displayname = "Brief Description of Conference"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Book Now"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Comparativo
+		{
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			plain
+			(
+    			type = plaintext
+				value = "<div>COMPARATIVO MARÇO <br /></div>"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			FILIAL
+			(
+    			type = text
+				displayname = "FILIAL "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Venda_S_F
+			(
+    			type = text
+				displayname = "Venda S/F"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			ALUGUEL
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			TIPO_DE_ALUGUEL
+			(
+    			type = text
+				displayname = "TIPO DE ALUGUEL"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			ALUGUEL1
+			(
+    			type = text
+				displayname = "% ALUGUEL"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			FAIXA
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Contratos_a_vencer
+		{
+			displayname = "Contratos a vencer"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Contratos_a_vencer
+			(
+    			type = text
+				displayname = "Contratos a vencer "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Contratos_a_vencer1
+		{
+			displayname = "Contratos a vencer"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Contratos_a_vencer
+			(
+    			type = text
+				displayname = "Contratos a vencer "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Data_do_vencimento
+			(
+    			type = text
+				displayname = "Data do vencimento "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Contratos_por_Departamento
+		{
+			displayname = "Contratos por Departamento"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			R_tulos_de_Linha
+			(
+    			type = text
+				displayname = "Rótulos de Linha"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Contagem_de_Departamento
+			(
+    			type = text
+				displayname = "Contagem de Departamento"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Soma_de_Valor_Or_ado
+			(
+    			type = text
+				displayname = "Soma de Valor Orçado"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Soma_de_Valor_Negociado
+			(
+    			type = text
+				displayname = "Soma de Valor Negociado"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Gest_o_de_contratos_corporativos
+		{
+			displayname = "Contratos por responsável"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Respons_vel
+			(
+    			type = text
+				displayname = "Responsável "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Or_ado
+			(
+    			type = text
+				displayname = "Orçado "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Realizado
+			(
+    			type = text
+				displayname = "Realizado "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Realizado_Or_ado
+			(
+    			type = text
+				displayname = "Realizado % Orçado "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Economia_em_Reais
+			(
+    			type = text
+				displayname = "Economia R$"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Contratos_por_ndice_reajuste
+		{
+			displayname = "Contratos por índice reajuste"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			R_tulos_de_Linha
+			(
+    			type = text
+				displayname = "Rótulos de Linha"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Diss_dio
+			(
+    			type = text
+				displayname = "Dissídio"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			IGP_DI
+			(
+    			type = text
+				displayname = "IGP-DI"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			IGPM
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			IGPM_INPC
+			(
+    			type = text
+				displayname = "IGPM/INPC"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			IGPM_INPC_IPCA
+			(
+    			type = text
+				displayname = "IGPM/INPC/IPCA"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			IGPM_IPCA
+			(
+    			type = text
+				displayname = "IGPM/IPCA"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			INPC
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			INTC
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			IPCA
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			IST
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			PTAX
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			SEM_REAJUSTE
+			(
+    			type = text
+				displayname = "SEM REAJUSTE"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Single_Line
+			(
+    			type = text
+				displayname = "-"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			IPCA_IGPM
+			(
+    			type = text
+				displayname = "IPCA/IGPM"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Total_Geral
+			(
+    			type = text
+				displayname = "Total Geral"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Contratos_vigentes_vencidos_encerrados
+		{
+			displayname = "Contratos vigentes vencidos encerrados"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			R_tulos_de_Linha1
+			(
+    			type = text
+				displayname = "Departamentos "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			R_tulos_de_Linha
+			(
+    			type = text
+				displayname = "Encerrado"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Vencido
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Vigente
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Total_Geral
+			(
+    			type = text
+				displayname = "Total Geral"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Dados
+		{
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Demanda
+			(
+    			type = text
+				displayname = "Demanda "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Status
+			(
+    			type = text
+				displayname = "Status "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Respons_vel_pela_execu_o
+			(
+    			type = text
+				displayname = "Responsável pela execução "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Dados1
+		{
+			displayname = "Dados"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Demandas_Pendentes
+			(
+    			type = text
+				displayname = "Demandas Pendentes "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Demandas_em_andamento
+			(
+    			type = text
+				displayname = "Demandas em andamento "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Projetos_em_desenvolvimento
+			(
+    			type = text
+				displayname = "Projetos em desenvolvimento "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Projetos_prontos_para_iniciar
+			(
+    			type = text
+				displayname = "Projetos prontos para iniciar "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Demandas_finalizadas
+			(
+    			type = text
+				displayname = "Demandas finalizadas "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Atividades_continuas
+			(
+    			type = text
+				displayname = "Atividades continuas "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form DATA_BASE_REAJUSTE_ABRIL
+		{
+			displayname = "DATA BASE REAJUSTE"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			FILIAL
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Cidade1
+			(
+    			type = text
+				displayname = "Cidade"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			CIDADE
+			(
+    			type = text
+				displayname = "MÊS REAJ."
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			ANOTA_ES_NDICES
+			(
+    			type = text
+				displayname = "ANOTAÇÕES ÍNDICES"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			TIPO_PR_DIO
+			(
+    			type = text
+				displayname = "TIPO PRÉDIO"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			STATUS_DO_CONTRATO
+			(
+    			type = text
+				displayname = "STATUS DO CONTRATO"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Demandas_pendentes
+		{
+			displayname = "Demandas pendentes"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Demanda
+			(
+    			type = text
+				displayname = "Demanda "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Demandas_zoho_pendente
+			(
+    			type = text
+				displayname = "Demandas zoho pendente "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Demandas_que_foram_finalizadas
+		{
+			displayname = "Demandas que foram finalizadas"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Demanda
+			(
+    			type = text
+				displayname = "Demanda "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Status
+			(
+    			type = text
+				displayname = "Status "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Departamentos
+		{
+			success message = "Data Added Successfully!"
+			Varia_o
+			(
+				type = section
+				displayname = "Variação"
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Departamentos
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Or_ado
+			(
+    			type = text
+				displayname = "Orçado"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Realizado
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Single_Line3
+			(
+    			type = text
+				displayname = "Single Line"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form ECONOMIA_PROVISIONADO
+		{
+			displayname = "ECONOMIA - PROVISIONADO"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			PROVIS_ES_ABRIL
+			(
+    			type = text
+				displayname = "PROVISÕES ABRIL"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Quant_Filiais
+			(
+    			type = text
+				displayname = "Quant. Filiais"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Valor
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			ACUMULADO_JANEIRO_A_ABRIL
+			(
+    			type = text
+				displayname = "ACUMULADO JANEIRO A ABRIL"
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			Valor1
+			(
+    			type = text
+				displayname = "Valor"
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form FILIAIS_COM_ALUGUEL_ACIMA_DE_3_0_ABRIL
+		{
+			displayname = "FILIAIS COM ALUGUEL ACIMA DE 3,0% ABRIL"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			FILIAL
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			CIDADE
+			(
+    			type = text
+				displayname = "CIDADE "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			REGI_O
+			(
+    			type = text
+				displayname = "REGIÃO "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			REGIONAIS
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			GERENTE
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Venda_S_F
+			(
+    			type = text
+				displayname = "Venda S/F "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			ALUGUEL
+			(
+    			type = text
+				displayname = "ALUGUEL "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			TIPO
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			ALUGUEL1
+			(
+    			type = text
+				displayname = "% ALUGUEL"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			FAIXA
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form ILIAIS_POR_ESTADO_E_NDICE_DE_REAJUSTE
+		{
+			displayname = "FILIAIS POR ESTADO"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Quantidade_de_contratos_por_UF
+			(
+    			type = text
+				displayname = "UF"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			QUANTIDADE
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form FILIAIS_POR_NEG_CIO
+		{
+			displayname = "FILIAIS POR NEGÓCIO"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			TIPO_IM_VEL
+			(
+    			type = text
+				displayname = "TIPO -IMÓVEL"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			QUANTIDADE
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			POR_TITULARIDADE
+			(
+    			type = text
+				displayname = "% POR TITULARIDADE"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form FILIAIS_POR_REGI_O
+		{
+			displayname = "FILIAIS POR REGIÃO"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Regi_o
+			(
+    			type = text
+				displayname = "Região"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Regional
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Qtde
+			(
+    			type = text
+				displayname = "Qtde "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Venda_S_F
+			(
+    			type = text
+				displayname = "Venda S/F"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Aluguel
+			(
+    			type = text
+				displayname = "Aluguel "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Single_Line
+			(
+    			type = text
+				displayname = "%"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form gest_o_de_contratos
+		{
+			displayname = "gestão de contratos"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Contratos_ativos_por_rea
+			(
+    			type = text
+				displayname = "Área"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Quantidade_de_contratos
+			(
+    			type = text
+				displayname = "Quantidade de contratos "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Gest_o_energ_tica
+		{
+			displayname = "Gestão energética"
+			success message = "Data Added Successfully!"
+			A_depreciar
+			(
+				type = section
+				displayname = "A depreciar "
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Usina
+			(
+    			type = text
+				displayname = "Usina "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Gera_o_M_s
+			(
+    			type = text
+				displayname = "Geração Até o momento Mês atual MWh "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Gera_o_m_s_anterior
+			(
+    			type = text
+				displayname = "Geração mês anterior MWH"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Investimento_Realizado
+			(
+    			type = text
+				displayname = "Investimento Realizado "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Gera_o_acumulada
+			(
+    			type = text
+				displayname = "Geração acumulada "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Status_Atual
+			(
+    			type = text
+				displayname = "Status Atual "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Inevestimentos_or_ado
+			(
+    			type = text
+				displayname = "Inevestimentos orçado "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Investimento_total
+			(
+    			type = text
+				displayname = "Investimento total "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Amortizado
+			(
+    			type = text
+				displayname = "Depreciado "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			A_depreciar1
+			(
+    			type = text
+				displayname = "A depreciar "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Despesa_Or_ada
+			(
+    			type = text
+				displayname = "Despesa Orçada "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Despesa_Real
+			(
+    			type = text
+				displayname = "Despesa Real "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Diferen_a
+			(
+    			type = text
+				displayname = "Diferença "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Manuten_o_preventivas
+			(
+    			type = text
+				displayname = "Manutenção preventivas "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Manuten_o_corretivas
+			(
+    			type = text
+				displayname = "Manutenção corretivas "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Manuten_es_conclu_das
+			(
+    			type = text
+				displayname = "Manutenções concluídas "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			In_cio_da_pr_xima_rota
+			(
+    			type = text
+				displayname = "Início da próxima rota "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Quantidades_de_desarmes
+			(
+    			type = text
+				displayname = "Quantidades de desarmes "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Hist_rrio_de_consumo_por_UF
+		{
+			displayname = "Histórrio de consumo por UF"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			UF
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Consumo_KWH_P
+			(
+    			type = text
+				displayname = "Consumo KWH P"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Consumo_KWH_FP
+			(
+    			type = text
+				displayname = "Consumo KWH FP"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form micro_agm
+		{
+			displayname = "micro agm"
+			success message = "Data Added Successfully!"
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form M_dia_de_Aluguel
+		{
+			displayname = "Média de Aluguel"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			M_dia_de_Aluguel
+			(
+    			type = text
+				displayname = "Média de Aluguel"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Venda_S_F
+			(
+    			type = text
+				displayname = "Venda S/F"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Aluguel
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Single_Line1
+			(
+    			type = text
+				displayname = "%"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form M_dia_de_alugu_l
+		{
+			displayname = "Média de aluguél"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Percentuais_Sobre_a_Venda_S_F
+			(
+    			type = text
+				displayname = "Percentuais Sobre a Venda S/F"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Venda_S_F1
+			(
+    			type = text
+				displayname = "Venda S/F "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Aluguel
+			(
+    			type = text
+				displayname = "Aluguel "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Venda_S_F
+			(
+    			type = text
+				displayname = "%"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Nova_passagem
+		{
+			displayname = "Nova passagem"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			M_s_de_refer_ncia
+			(
+    			type = text
+				displayname = "Mês de referência "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			rea_neg_cio
+			(
+    			type = text
+				displayname = "Área / negócio"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Valor_or_ado_R
+			(
+    			type = text
+				displayname = "Valor orçado (R$) "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Valor_realizado_R
+			(
+    			type = text
+				displayname = "Valor realizado (R$) "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Tipo_de_passagem
+			(
+    			type = text
+				displayname = "Tipo de passagem "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Observa_es
+			(
+    			type = textarea
+				displayname = "Observações"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Or_ado_X_Realizado_Neg_cios
+		{
+			displayname = "Orçado X Realizado - Negócios"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			NEG_CIOS
+			(
+    			type = text
+				displayname = "NEGÓCIOS"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Or_ado
+			(
+    			type = text
+				displayname = "Realizado"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Single_Line3
+			(
+    			type = text
+				displayname = "Single Line"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Varia_o
+			(
+    			type = text
+				displayname = "Variação"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form PAGAMENTO_DE_ALUGUEL_PR_DIOS_PR_PRIOS
+		{
+			displayname = "PAGAMENTO DE ALUGUEL – PRÉDIOS PRÓPRIOS"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			LOCAT_RIO
+			(
+    			type = text
+				displayname = "LOCATÁRIO"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			CNPJ_CPF
+			(
+    			type = text
+				displayname = "CNPJ/CPF"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			MUNIC_PIO
+			(
+    			type = text
+				displayname = "MUNICÍPIO"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			VALOR_DA_LOCA_O
+			(
+    			type = text
+				displayname = "VALOR DA LOCAÇÃO"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			DATA_DE_PAGAMENTO
+			(
+    			type = text
+				displayname = "DATA DE PAGAMENTO"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Pessoas_transportadas
+		{
+			displayname = "Pessoas transportadas"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			M_s_de_refer_ncia
+			(
+    			type = text
+				displayname = "Mês de referência "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			rea_Neg_cio
+			(
+    			type = text
+				displayname = "Área / Negócio"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Trecho
+			(
+    			type = text
+				displayname = "Trecho "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Quantidade_de_pessoas
+			(
+    			type = text
+				displayname = "Quantidade de pessoas "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Modalidade
+			(
+    			type = text
+				displayname = "Modalidade "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Finalidade
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Projetos_e_Processos
+		{
+			displayname = "Projetos e Processos"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Demandas_Pendentes
+			(
+    			type = text
+				displayname = "Demandas Pendentes "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Demandas_em_andamento
+			(
+    			type = text
+				displayname = "Demandas em andamento "
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+			Demandas_finalizadas
+			(
+    			type = text
+				displayname = "Demandas finalizadas "
+	 			row = 1
+	 			column = 3   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Projetos_em_andamento
+		{
+			displayname = "Projetos em andamento"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Projetos_em_andamento
+			(
+    			type = text
+				displayname = "Projetos em andamento "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Demandas_relevantes_finalizadas
+			(
+    			type = text
+				displayname = "Demandas relevantes finalizadas "
+	 			row = 1
+	 			column = 2   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Saving_da_negocia_o
+		{
+			displayname = "Saving da negociação"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Contrato
+			(
+    			type = text
+				displayname = "Contrato "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Or_ado
+			(
+    			type = text
+				displayname = "Orçado "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Realizado
+			(
+    			type = text
+				displayname = "Realizado "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Saving_do_contrato
+			(
+    			type = text
+				displayname = "Saving do contrato "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form SLA_e_penalidades
+		{
+			displayname = "SLA e penalidades"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			M_tricas_de_desempenho
+			(
+    			type = text
+				displayname = "Métricas de desempenho"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			responsabilidades_entre_fornecedor_e_Gazin
+			(
+    			type = text
+				displayname = "responsabilidades entre fornecedor e Gazin"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			garantia_de_que_o_servi_o_contratado_ser_entregue_conforme_o_combinado
+			(
+    			type = textarea
+				displayname = "garantia de que o serviço contratado será entregue conforme o combinado"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Tickets
+		{
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			TICKETS_ABERTOS
+			(
+    			type = text
+				displayname = "TICKETS ABERTOS"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			TICKETS_RESOLVIDOS
+			(
+    			type = text
+				displayname = "TICKETS RESOLVIDOS"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form TIPO
+		{
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			TIPO
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			QTDE
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Tipo_de_pagamento
+		{
+			displayname = "Tipo de pagamento"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			R_tulos_de_Linha
+			(
+    			type = text
+				displayname = "Rótulos de Linha"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Fixo
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Por_evento
+			(
+    			type = text
+				displayname = "Por evento"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Vari_vel
+			(
+    			type = text
+				displayname = "Variável"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Single_Line1
+			(
+    			type = text
+				displayname = "-"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Total_Geral
+			(
+    			type = text
+				displayname = "Total Geral"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Valores_dos_contratos
+		{
+			displayname = "Valores dos contratos"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			rea
+			(
+    			type = text
+				displayname = "Área "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Contrato
+			(
+    			type = text
+				displayname = "Contrato "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Valor_do_contrato
+			(
+    			type = text
+				displayname = "Valor do contrato "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form VALORES_FECHADOS_POR_SERVI_O_ABRIL
+		{
+			displayname = "VALORES FECHADOS POR SERVIÇO (ABRIL)"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			EMISS_O_A_REO
+			(
+    			type = text
+				displayname = "EMISSÃO AÉREO R$"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			LOCA_O_DE_CARRO_R
+			(
+    			type = text
+				displayname = "LOCAÇÃO DE CARRO R$"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			PASSAGENS_RODOVI_RIAS
+			(
+    			type = text
+				displayname = "PASSAGENS RODOVIÁRIAS"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			SERVI_OS
+			(
+    			type = text
+				displayname = "SERVIÇOS "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			HOTEL
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Viagens
+		{
+			success message = "Data Added Successfully!"
+			CIDADE
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			EVENTO_SUPORTE
+			(
+    			type = text
+				displayname = "EVENTO / SUPORTE"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			IN_CIO_FIM
+			(
+    			type = text
+				displayname = "INÍCIO / FIM"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			QUANTIDADE_PESSOAS
+			(
+    			type = text
+				displayname = "QUANTIDADE PESSOAS"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			CENTRO_DE_CUSTO1
+			(
+    			type = text
+				displayname = "CENTRO DE CUSTO"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			CENTRO_DE_CUSTO
+			(
+    			type = text
+				displayname = "CIDADE"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			RESPONS_VEL
+			(
+    			type = text
+				displayname = "RESPOSÁVEL"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form NDICE_DE_REAJUSTE
+		{
+			displayname = "ÍNDICE DE REAJUSTE"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			INDICE_GERAL
+			(
+    			type = text
+				displayname = "INDICE GERAL"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Qtde
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Valor_do_ndice
+			(
+    			type = text
+				displayname = "Valor do índice"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list Apresenta_o_Micro_AGM_Report
+		{
+			displayName = "Apresentação Micro AGM Relatório"
+			show all rows from Apresenta_o_Micro_AGM    
+			(
+				rea as "Contratos ativos por área "
+			)
+		}
+		default list Contratos_a_vencer_Report
+		{
+			displayName = "Contratos a vencer Relatório"
+			show all rows from Contratos_a_vencer    
+			(
+				Contratos_a_vencer as "Contratos a vencer "
+			)
+		}
+		calendar Meeting_Schedules
+		{
+			displayName = "Meeting Schedules"
+			show all rows from Book_a_Meeting_Room    
+			(
+				Name 
+				From
+				To
+				Brief_Description_of_Conference as "Brief Description of Conference"
+				Department
+				Official_Email as "Official Email"
+				Staff_ID as "Staff ID"
+				Choose_a_room as "Choose a Room"
+			)
+			filters
+			(
+				Choose_a_room
+			)
+			options
+			(
+				display type = week
+				display field = Name
+				start date = From
+				end date = To
+			)
+		}
+		default list micro_agm_Report
+		{
+			displayName = "micro agm Relatório"
+			show all rows from micro_agm    
+		}
+		default list gest_o_de_contratos_Report
+		{
+			displayName = "gestão de contratos Relatório"
+			show all rows from gest_o_de_contratos    
+			(
+				Contratos_ativos_por_rea as "Área"
+				Quantidade_de_contratos as "Quantidade de contratos "
+			)
+		}
+		default list Contratos_a_vencer1_Report
+		{
+			displayName = "Contratos a vencer Relatório"
+			show all rows from Contratos_a_vencer1    
+			(
+				Contratos_a_vencer as "Contratos a vencer "
+				Data_do_vencimento as "Data do vencimento "
+			)
+		}
+		default list Saving_da_negocia_o_Report
+		{
+			displayName = "Saving da negociação Relatório"
+			show all rows from Saving_da_negocia_o    
+			(
+				Contrato as "Contrato "
+				Or_ado as "Orçado "
+				Realizado as "Realizado "
+				Saving_do_contrato as "Saving do contrato "
+			)
+		}
+		default list Valores_dos_contratos_Report
+		{
+			displayName = "Valores dos contratos Relatório"
+			show all rows from Valores_dos_contratos    
+			(
+				Contrato as "Contrato "
+				rea as "Área "
+				Valor_do_contrato as "Valor do contrato "
+			)
+		}
+		default list Dados_Report
+		{
+			displayName = "Dados Relatório"
+			show all rows from Dados    
+			(
+				Demanda as "Demanda "
+				Status as "Status "
+				Respons_vel_pela_execu_o as "Responsável pela execução "
+			)
+		}
+		default list Demandas_pendentes_Report
+		{
+			displayName = "Demandas pendentes Relatório"
+			show all rows from Demandas_pendentes    
+			(
+				Demanda as "Demanda "
+				Demandas_zoho_pendente as "Demandas zoho pendente "
+			)
+		}
+		default list Demandas_que_foram_finalizadas_Report
+		{
+			displayName = "Demandas que foram finalizadas Relatório"
+			show all rows from Demandas_que_foram_finalizadas    
+			(
+				Demanda as "Demanda "
+				Status as "Status "
+			)
+		}
+		default list Projetos_em_andamento_Report
+		{
+			displayName = "Projetos em andamento Relatório"
+			show all rows from Projetos_em_andamento    
+			(
+				Projetos_em_andamento as "Projetos em andamento "
+				Demandas_relevantes_finalizadas as "Demandas relevantes finalizadas "
+			)
+		}
+		default list Dados1_Report
+		{
+			displayName = "Dados Relatório"
+			show all rows from Dados1    
+			(
+				Demandas_Pendentes as "Demandas Pendentes "
+				Demandas_em_andamento as "Demandas em andamento "
+				Demandas_finalizadas as "Demandas finalizadas "
+				Projetos_em_desenvolvimento as "Projetos em desenvolvimento "
+				Atividades_continuas as "Atividades continuas "
+				Projetos_prontos_para_iniciar as "Projetos prontos para iniciar "
+			)
+		}
+		default list Projetos_e_Processos_Report
+		{
+			displayName = "Projetos e Processos Report"
+			show all rows from Projetos_e_Processos    
+			(
+				Demandas_Pendentes as "Demandas Pendentes "
+				Demandas_em_andamento as "Demandas em andamento "
+				Demandas_finalizadas as "Demandas finalizadas "
+			)
+		}
+		default list Gest_o_energ_tica_Report
+		{
+			displayName = "Gestão energética Relatório"
+			show all rows from Gest_o_energ_tica    
+			(
+				Usina as "Usina "
+				Investimento_total as "Investimento total "
+				Amortizado as "Depreciado "
+				A_depreciar1 as "A depreciar "
+				Inevestimentos_or_ado as "Inevestimentos orçado "
+				Investimento_Realizado as "Investimento Realizado "
+				Gera_o_M_s as "Geração Até o momento Mês atual MWh "
+				Gera_o_m_s_anterior as "Geração mês anterior MWH"
+				Gera_o_acumulada as "Geração acumulada "
+				Status_Atual as "Status Atual "
+				Despesa_Or_ada as "Despesa Orçada "
+				Despesa_Real as "Despesa Real "
+				Diferen_a as "Diferença "
+				Manuten_o_preventivas as "Manutenção preventivas "
+				Manuten_o_corretivas as "Manutenção corretivas "
+				Manuten_es_conclu_das as "Manutenções concluídas "
+				In_cio_da_pr_xima_rota as "Início da próxima rota "
+				Quantidades_de_desarmes as "Quantidades de desarmes "
+			)
+		}
+		default list Hist_rrio_de_consumo_por_UF_Report
+		{
+			displayName = "Histórrio de consumo por UF Relatório"
+			show all rows from Hist_rrio_de_consumo_por_UF    
+			(
+				UF
+				Consumo_KWH_P as "Consumo KWH P"
+				Consumo_KWH_FP as "Consumo KWH FP"
+			)
+		}
+		default list SLA_e_penalidades_Report
+		{
+			displayName = "SLA e penalidades Relatório"
+			show all rows from SLA_e_penalidades    
+			(
+				M_tricas_de_desempenho as "Métricas de desempenho"
+				responsabilidades_entre_fornecedor_e_Gazin as "responsabilidades entre fornecedor e Gazin"
+				garantia_de_que_o_servi_o_contratado_ser_entregue_conforme_o_combinado as "garantia de que o serviço contratado será entregue conforme o combinado"
+			)
+		}
+		default list Viagens_Report
+		{
+			displayName = "Viagens Relatório"
+			show all rows from Viagens    
+			(
+				EVENTO_SUPORTE as "EVENTO / SUPORTE"
+				IN_CIO_FIM as "INÍCIO / FIM"
+				QUANTIDADE_PESSOAS as "QUANTIDADE PESSOAS"
+				CENTRO_DE_CUSTO1 as "CENTRO DE CUSTO"
+				CENTRO_DE_CUSTO as "CIDADE"
+				RESPONS_VEL as "RESPOSÁVEL"
+			)
+		}
+		default list Tickets_Report
+		{
+			displayName = "Tickets Relatório"
+			show all rows from Tickets    
+			(
+				TICKETS_ABERTOS as "TICKETS ABERTOS"
+				TICKETS_RESOLVIDOS as "TICKETS RESOLVIDOS"
+			)
+		}
+		default list Nova_passagem_Report
+		{
+			displayName = "Nova passagem Relatório"
+			show all rows from Nova_passagem    
+			(
+				M_s_de_refer_ncia as "Mês de referência "
+				rea_neg_cio as "Área / negócio"
+				Valor_or_ado_R as "Valor orçado (R$) "
+				Valor_realizado_R as "Valor realizado (R$) "
+				Observa_es as "Observações"
+				Tipo_de_passagem as "Tipo de passagem "
+			)
+		}
+		default list Pessoas_transportadas_Report
+		{
+			displayName = "Pessoas transportadas Relatório"
+			show all rows from Pessoas_transportadas    
+			(
+				M_s_de_refer_ncia as "Mês de referência "
+				rea_Neg_cio as "Área / Negócio"
+				Trecho as "Trecho "
+				Quantidade_de_pessoas as "Quantidade de pessoas "
+				Modalidade as "Modalidade "
+				Finalidade
+			)
+		}
+		default list FILIAIS_POR_NEG_CIO_Report
+		{
+			displayName = "FILIAIS POR NEGÓCIO Relatório"
+			show all rows from FILIAIS_POR_NEG_CIO    
+			(
+				TIPO_IM_VEL as "TIPO -IMÓVEL"
+				QUANTIDADE
+				POR_TITULARIDADE as "% POR TITULARIDADE"
+			)
+		}
+		default list TIPO_Report
+		{
+			displayName = "TIPO Relatório"
+			show all rows from TIPO    
+			(
+				TIPO
+				QTDE
+			)
+		}
+		default list ILIAIS_POR_ESTADO_E_NDICE_DE_REAJUSTE_Report
+		{
+			displayName = "ILIAIS POR ESTADO E ÍNDICE DE REAJUSTE Relatório"
+			show all rows from ILIAIS_POR_ESTADO_E_NDICE_DE_REAJUSTE    
+			(
+				Quantidade_de_contratos_por_UF as "UF"
+				QUANTIDADE
+			)
+		}
+		default spreadsheet NDICE_DE_REAJUSTE_Report
+		{
+			displayName = "ÍNDICE DE REAJUSTE Relatório"
+			show all rows from NDICE_DE_REAJUSTE    
+			(
+				INDICE_GERAL as "INDICE GERAL"
+				Qtde
+				Valor_do_ndice as "Valor do índice"
+			)
+		}
+		default spreadsheet FILIAIS_POR_REGI_O_Report
+		{
+			displayName = "FILIAIS POR REGIÃO Relatório"
+			show all rows from FILIAIS_POR_REGI_O    
+			(
+				Regi_o as "Região"
+				Qtde as "Qtde "
+				Venda_S_F as "Venda S/F"
+				Aluguel as "Aluguel "
+				Single_Line as "%"
+				Regional
+			)
+		}
+		default spreadsheet ALUGU_IS_POR_FAIXA_Report
+		{
+			displayName = "ALUGUÉIS POR FAIXA Relatório"
+			show all rows from ALUGU_IS_POR_FAIXA    
+			(
+				Percentuais_Sobre_a_Venda_S_F as "Percentuais Sobre a Venda S/F"
+				M_VEIS_GAZIN as "MÓVEIS GAZIN "
+				FUNDO_IMOBILI_RIO as "FUNDO IMOBILIÁRIO"
+				ADM_BENS_GAZIN as "ADM. BENS GAZIN "
+				ALUGADO as "ALUGADO "
+			)
+		}
+		default list FILIAIS_COM_ALUGUEL_ACIMA_DE_3_0_ABRIL_Report
+		{
+			displayName = "FILIAIS COM ALUGUEL ACIMA DE 3,0% ABRIL Relatório"
+			show all rows from FILIAIS_COM_ALUGUEL_ACIMA_DE_3_0_ABRIL    
+			(
+				FILIAL
+				CIDADE as "CIDADE "
+				REGI_O as "REGIÃO "
+				REGIONAIS
+				GERENTE
+				Venda_S_F as "Venda S/F "
+				ALUGUEL as "ALUGUEL "
+				TIPO
+				ALUGUEL1 as "% ALUGUEL"
+				FAIXA
+			)
+		}
+		default spreadsheet Comparativo_Report
+		{
+			displayName = "Comparativo Relatório"
+			show all rows from Comparativo    
+			(
+				FILIAL as "FILIAL "
+				Venda_S_F as "Venda S/F"
+				ALUGUEL
+				TIPO_DE_ALUGUEL as "TIPO DE ALUGUEL"
+				ALUGUEL1 as "% ALUGUEL"
+				FAIXA
+			)
+		}
+		default spreadsheet DATA_BASE_REAJUSTE_ABRIL_Report
+		{
+			displayName = "DATA BASE REAJUSTE  Relatório"
+			show all rows from DATA_BASE_REAJUSTE_ABRIL    
+			(
+				FILIAL
+				CIDADE as "MÊS REAJ."
+				Cidade1 as "Cidade"
+				ANOTA_ES_NDICES as "ANOTAÇÕES ÍNDICES"
+				STATUS_DO_CONTRATO as "STATUS DO CONTRATO"
+				TIPO_PR_DIO as "TIPO PRÉDIO"
+			)
+		}
+		default list PAGAMENTO_DE_ALUGUEL_PR_DIOS_PR_PRIOS_Report
+		{
+			displayName = "PAGAMENTO DE ALUGUEL – PRÉDIOS PRÓPRIOS Relatório"
+			show all rows from PAGAMENTO_DE_ALUGUEL_PR_DIOS_PR_PRIOS    
+			(
+				LOCAT_RIO as "LOCATÁRIO"
+				CNPJ_CPF as "CNPJ/CPF"
+				MUNIC_PIO as "MUNICÍPIO"
+				VALOR_DA_LOCA_O as "VALOR DA LOCAÇÃO"
+				DATA_DE_PAGAMENTO as "DATA DE PAGAMENTO"
+			)
+		}
+		default spreadsheet ECONOMIA_PROVISIONADO_Report
+		{
+			displayName = "ECONOMIA - PROVISIONADO Relatório"
+			show all rows from ECONOMIA_PROVISIONADO    
+			(
+				PROVIS_ES_ABRIL as "PROVISÕES ABRIL"
+				Quant_Filiais as "Quant. Filiais"
+				Valor
+				ACUMULADO_JANEIRO_A_ABRIL as "ACUMULADO JANEIRO A ABRIL"
+				Valor1 as "Valor"
+			)
+		}
+		default list M_dia_de_Aluguel_Report
+		{
+			displayName = "Média de Aluguel Relatório"
+			show all rows from M_dia_de_Aluguel    
+			(
+				M_dia_de_Aluguel as "Média de Aluguel"
+				Venda_S_F as "Venda S/F"
+				Aluguel
+				Single_Line1 as "%"
+			)
+		}
+		default spreadsheet M_dia_de_alugu_l_Report
+		{
+			displayName = "Média de aluguél Relatório"
+			show all rows from M_dia_de_alugu_l    
+			(
+				Percentuais_Sobre_a_Venda_S_F as "Percentuais Sobre a Venda S/F"
+				Venda_S_F1 as "Venda S/F "
+				Aluguel as "Aluguel "
+				Venda_S_F as "%"
+			)
+		}
+		default list Gest_o_de_contratos_corporativos_Report
+		{
+			displayName = "Contratos por responsável Relatório"
+			show all rows from Gest_o_de_contratos_corporativos    
+			(
+				Economia_em_Reais as "Economia R$"
+				Respons_vel as "Responsável "
+				Realizado_Or_ado as "Realizado % Orçado "
+				Or_ado as "Orçado "
+				Realizado as "Realizado "
+			)
+		}
+		default list Contratos_por_ndice_reajuste_Report
+		{
+			displayName = "Contratos por índice reajuste Relatório"
+			show all rows from Contratos_por_ndice_reajuste    
+			(
+				INPC
+				Diss_dio as "Dissídio"
+				IGPM_INPC_IPCA as "IGPM/INPC/IPCA"
+				IGPM
+				IGP_DI as "IGP-DI"
+				IGPM_INPC as "IGPM/INPC"
+				Single_Line as "-"
+				IPCA_IGPM as "IPCA/IGPM"
+				SEM_REAJUSTE as "SEM REAJUSTE"
+				PTAX
+				IST
+				IPCA
+				Total_Geral as "Total Geral"
+				INTC
+				IGPM_IPCA as "IGPM/IPCA"
+				R_tulos_de_Linha as "Rótulos de Linha"
+			)
+		}
+		default list Tipo_de_pagamento_Report
+		{
+			displayName = "Tipo de pagamento Relatório"
+			show all rows from Tipo_de_pagamento    
+			(
+				R_tulos_de_Linha as "Rótulos de Linha"
+				Fixo
+				Por_evento as "Por evento"
+				Vari_vel as "Variável"
+				Single_Line1 as "-"
+				Total_Geral as "Total Geral"
+			)
+		}
+		default list Contratos_por_Departamento_Report
+		{
+			displayName = "Contratos por Departamento Relatório"
+			show all rows from Contratos_por_Departamento    
+			(
+				R_tulos_de_Linha as "Rótulos de Linha"
+				Contagem_de_Departamento as "Contagem de Departamento"
+				Soma_de_Valor_Or_ado as "Soma de Valor Orçado"
+				Soma_de_Valor_Negociado as "Soma de Valor Negociado"
+			)
+		}
+		default list Or_ado_X_Realizado_Neg_cios_Report
+		{
+			displayName = "Orçado X Realizado - Negócios Relatório"
+			show all rows from Or_ado_X_Realizado_Neg_cios    
+			(
+				Or_ado as "Realizado"
+				Varia_o as "Variação"
+				NEG_CIOS as "NEGÓCIOS"
+				Single_Line3 as "Orçado"
+			)
+		}
+		default list Departamentos_Report
+		{
+			displayName = "Departamentos Relatório"
+			show all rows from Departamentos    
+			(
+				Departamentos
+				Or_ado as "Orçado"
+				Realizado
+				Single_Line3 as "Variação"
+			)
+		}
+		default list Contratos_vigentes_vencidos_encerrados_Report
+		{
+			displayName = "Contratos vigentes vencidos encerrados Relatório"
+			show all rows from Contratos_vigentes_vencidos_encerrados    
+			(
+				R_tulos_de_Linha1 as "Departamentos "
+				Vencido
+				Vigente
+				R_tulos_de_Linha as "Encerrado"
+				Total_Geral as "Total Geral"
+			)
+		}
+		default list VALORES_FECHADOS_POR_SERVI_O_ABRIL_Report
+		{
+			displayName = "VALORES FECHADOS POR SERVIÇO (ABRIL) Relatório"
+			show all rows from VALORES_FECHADOS_POR_SERVI_O_ABRIL    
+			(
+				LOCA_O_DE_CARRO_R as "LOCAÇÃO DE CARRO R$"
+				PASSAGENS_RODOVI_RIAS as "PASSAGENS RODOVIÁRIAS"
+				SERVI_OS as "SERVIÇOS "
+				HOTEL
+				EMISS_O_A_REO as "EMISSÃO AÉREO R$"
+			)
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			Run_Scripts_On_Always as "Run Scripts - On Always"
+			{
+				type =  form
+				form = Book_a_Meeting_Room
+
+				record event = on add or edit
+
+				on user input of From
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											//validating 'From' and 'To' time values
+										if(input.From <= zoho.currenttime)
+										{
+											alert "Please enter a valid future date!";
+										}
+										else if(input.From > input.To)
+										{
+											alert "Plaese enter valid 'From' time according to 'To' time!";
+										}
+						)
+					}
+				}
+
+			}
+			Run_Scripts_On_Always1 as "Run Scripts - On Always"
+			{
+				type =  form
+				form = Book_a_Meeting_Room
+
+				record event = on add or edit
+
+				on user input of To
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											//validating 'From' and 'To' time values
+										if(input.To <= zoho.currenttime)
+										{
+											alert "Please enter a valid future date!";
+										}
+										else if(input.From > input.To)
+										{
+											alert "Plaese enter valid 'To' time according to 'From' time !";
+										}
+						)
+					}
+				}
+
+			}
+			Run_Scripts_While_Adding_ as "Run Scripts - While Adding a Record"
+			{
+				type =  form
+				form = Book_a_Meeting_Room
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											//Booking confirmation notification to user
+										sendmail
+										[
+											from :zoho.adminuserid
+											to :input.Official_Email
+											subject :"Conference Room Booking - Confirmation"
+											message :"Hi " + input.Name + ",<div>&nbsp;&nbsp;</div><div>&nbsp;Your booking has been successfully completed.&nbsp;</div><div><br></div><div>&nbsp;Please find the booking details here,</div><div>&nbsp;</div><div>&nbsp;Booked Room :" + input.Choose_a_room + "</div><div><br></div><div>&nbsp;From&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; :" + input.From + "</div><div><br></div><div>&nbsp;To&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; :" + input.To + "</div><div><br></div><div><br></div><div><br></div><div>Thanks and Regards,</div><div>" + zoho.adminuser + "</div>"
+										]
+						)
+					}
+				}
+
+			}
+			Run_Scripts_While_Adding_1 as "Run Scripts - While Adding a Record"
+			{
+				type =  form
+				form = Book_a_Meeting_Room
+
+				record event = on add
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											//validating 'From' and 'To' time values
+										if(input.From <= zoho.currenttime || input.To <= zoho.currenttime)
+										{
+											alert "Please enter a valid future date for booking!";
+											cancel submit;
+										}
+										if(input.From > input.To)
+										{
+											alert "Plaese enter valid 'From' and 'To' time!";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+		}
+
+
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+	customize
+	{
+		icon
+		{
+			icon = "zc-ab-project-mgmt8"
+			background color = "#0d0e10"
+			foreground color = "#ffffff"
+		}
+	}
+
+	web
+	{
+		forms
+		{
+			form ALUGU_IS_POR_FAIXA
+			{
+				label placement = left
+			}
+			form Apresenta_o_Micro_AGM
+			{
+				label placement = left
+			}
+			form Book_a_Meeting_Room
+			{
+				label placement = left
+			}
+			form Comparativo
+			{
+				label placement = labelinplace
+			}
+			form Contratos_a_vencer
+			{
+				label placement = left
+			}
+			form Contratos_a_vencer1
+			{
+				label placement = left
+			}
+			form Contratos_por_Departamento
+			{
+				label placement = left
+			}
+			form Gest_o_de_contratos_corporativos
+			{
+				label placement = left
+			}
+			form Contratos_por_ndice_reajuste
+			{
+				label placement = left
+			}
+			form Contratos_vigentes_vencidos_encerrados
+			{
+				label placement = left
+			}
+			form Dados
+			{
+				label placement = left
+			}
+			form Dados1
+			{
+				label placement = labelinplace
+			}
+			form DATA_BASE_REAJUSTE_ABRIL
+			{
+				label placement = left
+			}
+			form Demandas_pendentes
+			{
+				label placement = left
+			}
+			form Demandas_que_foram_finalizadas
+			{
+				label placement = left
+			}
+			form Departamentos
+			{
+				label placement = left
+			}
+			form ECONOMIA_PROVISIONADO
+			{
+				label placement = left
+			}
+			form FILIAIS_COM_ALUGUEL_ACIMA_DE_3_0_ABRIL
+			{
+				label placement = left
+			}
+			form ILIAIS_POR_ESTADO_E_NDICE_DE_REAJUSTE
+			{
+				label placement = left
+			}
+			form FILIAIS_POR_NEG_CIO
+			{
+				label placement = left
+			}
+			form FILIAIS_POR_REGI_O
+			{
+				label placement = left
+			}
+			form gest_o_de_contratos
+			{
+				label placement = left
+			}
+			form Gest_o_energ_tica
+			{
+				label placement = labelinplace
+			}
+			form Hist_rrio_de_consumo_por_UF
+			{
+				label placement = left
+			}
+			form micro_agm
+			{
+				label placement = left
+			}
+			form M_dia_de_Aluguel
+			{
+				label placement = left
+			}
+			form M_dia_de_alugu_l
+			{
+				label placement = left
+			}
+			form Nova_passagem
+			{
+				label placement = left
+			}
+			form Or_ado_X_Realizado_Neg_cios
+			{
+				label placement = left
+			}
+			form PAGAMENTO_DE_ALUGUEL_PR_DIOS_PR_PRIOS
+			{
+				label placement = left
+			}
+			form Pessoas_transportadas
+			{
+				label placement = left
+			}
+			form Projetos_e_Processos
+			{
+				label placement = labelinplace
+			}
+			form Projetos_em_andamento
+			{
+				label placement = top
+			}
+			form Saving_da_negocia_o
+			{
+				label placement = left
+			}
+			form SLA_e_penalidades
+			{
+				label placement = labelinplace
+			}
+			form Tickets
+			{
+				label placement = left
+			}
+			form TIPO
+			{
+				label placement = left
+			}
+			form Tipo_de_pagamento
+			{
+				label placement = left
+			}
+			form Valores_dos_contratos
+			{
+				label placement = left
+			}
+			form VALORES_FECHADOS_POR_SERVI_O_ABRIL
+			{
+				label placement = left
+			}
+			form Viagens
+			{
+				label placement = left
+			}
+			form NDICE_DE_REAJUSTE
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report Apresenta_o_Micro_AGM_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								rea as "Contratos ativos por área "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								rea as "Contratos ativos por área "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Contratos_a_vencer_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Contratos_a_vencer as "Contratos a vencer "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Contratos_a_vencer as "Contratos a vencer "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Meeting_Schedules
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+		     				title = "Overview"
+							fields
+							(
+								Name
+								Choose_a_room as "Choose a Room"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Add 
+								Print 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Print   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							Print   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								Name
+								Staff_ID as "Staff ID"
+								Official_Email as "Official Email"
+								Department
+								Choose_a_room as "Choose a Room"
+								From
+								To
+								Brief_Description_of_Conference as "Brief Description of Conference"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Print 
+								Delete 
+							)
+						)
+				)
+			}
+			report micro_agm_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report gest_o_de_contratos_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Contratos_ativos_por_rea as "Área"
+								Quantidade_de_contratos as "Quantidade de contratos "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Contratos_ativos_por_rea as "Área"
+								Quantidade_de_contratos as "Quantidade de contratos "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Contratos_a_vencer1_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Contratos_a_vencer as "Contratos a vencer "
+								Data_do_vencimento as "Data do vencimento "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Contratos_a_vencer as "Contratos a vencer "
+								Data_do_vencimento as "Data do vencimento "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Saving_da_negocia_o_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Contrato as "Contrato "
+								Or_ado as "Orçado "
+								Realizado as "Realizado "
+								Saving_do_contrato as "Saving do contrato "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Contrato as "Contrato "
+								Or_ado as "Orçado "
+								Realizado as "Realizado "
+								Saving_do_contrato as "Saving do contrato "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Valores_dos_contratos_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Contrato as "Contrato "
+								rea as "Área "
+								Valor_do_contrato as "Valor do contrato "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Contrato as "Contrato "
+								rea as "Área "
+								Valor_do_contrato as "Valor do contrato "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Dados_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Demanda as "Demanda "
+								Status as "Status "
+								Respons_vel_pela_execu_o as "Responsável pela execução "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Demanda as "Demanda "
+								Status as "Status "
+								Respons_vel_pela_execu_o as "Responsável pela execução "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Demandas_pendentes_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Demanda as "Demanda "
+								Demandas_zoho_pendente as "Demandas zoho pendente "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Demanda as "Demanda "
+								Demandas_zoho_pendente as "Demandas zoho pendente "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Demandas_que_foram_finalizadas_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Demanda as "Demanda "
+								Status as "Status "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Demanda as "Demanda "
+								Status as "Status "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Projetos_em_andamento_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Projetos_em_andamento as "Projetos em andamento "
+								Demandas_relevantes_finalizadas as "Demandas relevantes finalizadas "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Projetos_em_andamento as "Projetos em andamento "
+								Demandas_relevantes_finalizadas as "Demandas relevantes finalizadas "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Dados1_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Demandas_Pendentes as "Demandas Pendentes "
+								Demandas_em_andamento as "Demandas em andamento "
+								Demandas_finalizadas as "Demandas finalizadas "
+								Projetos_em_desenvolvimento as "Projetos em desenvolvimento "
+								Atividades_continuas as "Atividades continuas "
+								Projetos_prontos_para_iniciar as "Projetos prontos para iniciar "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 2
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								Demandas_Pendentes as "Demandas Pendentes "
+								Demandas_em_andamento as "Demandas em andamento "
+								Demandas_finalizadas as "Demandas finalizadas "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Projetos_e_Processos_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Demandas_Pendentes as "Demandas Pendentes "
+								Demandas_em_andamento as "Demandas em andamento "
+								Demandas_finalizadas as "Demandas finalizadas "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Demandas_Pendentes as "Demandas Pendentes "
+								Demandas_em_andamento as "Demandas em andamento "
+								Demandas_finalizadas as "Demandas finalizadas "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Gest_o_energ_tica_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Usina as "Usina "
+								Gera_o_M_s as "Geração Até o momento Mês atual MWh "
+								Gera_o_m_s_anterior as "Geração mês anterior MWH"
+								Gera_o_acumulada as "Geração acumulada "
+								Status_Atual as "Status Atual "
+								Investimento_total as "Investimento total "
+								Inevestimentos_or_ado as "Inevestimentos orçado "
+								Investimento_Realizado as "Investimento Realizado "
+								Amortizado as "Depreciado "
+								A_depreciar1 as "A depreciar "
+								Despesa_Or_ada as "Despesa Orçada "
+								Despesa_Real as "Despesa Real "
+								Diferen_a as "Diferença "
+								Manuten_o_preventivas as "Manutenção preventivas "
+								Manuten_o_corretivas as "Manutenção corretivas "
+								Manuten_es_conclu_das as "Manutenções concluídas "
+								In_cio_da_pr_xima_rota as "Início da próxima rota "
+								Quantidades_de_desarmes as "Quantidades de desarmes "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Usina as "Usina "
+								Investimento_total as "Investimento total "
+								Amortizado as "Depreciado "
+								A_depreciar1 as "A depreciar "
+								Inevestimentos_or_ado as "Inevestimentos orçado "
+								Investimento_Realizado as "Investimento Realizado "
+								Gera_o_M_s as "Geração Até o momento Mês atual MWh "
+								Gera_o_m_s_anterior as "Geração mês anterior MWH"
+								Gera_o_acumulada as "Geração acumulada "
+								Status_Atual as "Status Atual "
+								Despesa_Or_ada as "Despesa Orçada "
+								Despesa_Real as "Despesa Real "
+								Diferen_a as "Diferença "
+								Manuten_o_preventivas as "Manutenção preventivas "
+								Manuten_o_corretivas as "Manutenção corretivas "
+								Manuten_es_conclu_das as "Manutenções concluídas "
+								In_cio_da_pr_xima_rota as "Início da próxima rota "
+								Quantidades_de_desarmes as "Quantidades de desarmes "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Hist_rrio_de_consumo_por_UF_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								UF
+								Consumo_KWH_P as "Consumo KWH P"
+								Consumo_KWH_FP as "Consumo KWH FP"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								UF
+								Consumo_KWH_P as "Consumo KWH P"
+								Consumo_KWH_FP as "Consumo KWH FP"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report SLA_e_penalidades_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								M_tricas_de_desempenho as "Métricas de desempenho"
+								responsabilidades_entre_fornecedor_e_Gazin as "responsabilidades entre fornecedor e Gazin"
+								garantia_de_que_o_servi_o_contratado_ser_entregue_conforme_o_combinado as "garantia de que o serviço contratado será entregue conforme o combinado"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								M_tricas_de_desempenho as "Métricas de desempenho"
+								responsabilidades_entre_fornecedor_e_Gazin as "responsabilidades entre fornecedor e Gazin"
+								garantia_de_que_o_servi_o_contratado_ser_entregue_conforme_o_combinado as "garantia de que o serviço contratado será entregue conforme o combinado"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Viagens_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								EVENTO_SUPORTE as "EVENTO / SUPORTE"
+								IN_CIO_FIM as "INÍCIO / FIM"
+								QUANTIDADE_PESSOAS as "QUANTIDADE PESSOAS"
+								CENTRO_DE_CUSTO1 as "CENTRO DE CUSTO"
+								CENTRO_DE_CUSTO as "CIDADE"
+								RESPONS_VEL as "RESPOSÁVEL"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								EVENTO_SUPORTE as "EVENTO / SUPORTE"
+								IN_CIO_FIM as "INÍCIO / FIM"
+								QUANTIDADE_PESSOAS as "QUANTIDADE PESSOAS"
+								CENTRO_DE_CUSTO1 as "CENTRO DE CUSTO"
+								CENTRO_DE_CUSTO as "CIDADE"
+								RESPONS_VEL as "RESPOSÁVEL"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Tickets_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								TICKETS_ABERTOS as "TICKETS ABERTOS"
+								TICKETS_RESOLVIDOS as "TICKETS RESOLVIDOS"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								TICKETS_ABERTOS as "TICKETS ABERTOS"
+								TICKETS_RESOLVIDOS as "TICKETS RESOLVIDOS"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Nova_passagem_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								M_s_de_refer_ncia as "Mês de referência "
+								rea_neg_cio as "Área / negócio"
+								Valor_or_ado_R as "Valor orçado (R$) "
+								Valor_realizado_R as "Valor realizado (R$) "
+								Observa_es as "Observações"
+								Tipo_de_passagem as "Tipo de passagem "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								M_s_de_refer_ncia as "Mês de referência "
+								rea_neg_cio as "Área / negócio"
+								Valor_or_ado_R as "Valor orçado (R$) "
+								Valor_realizado_R as "Valor realizado (R$) "
+								Observa_es as "Observações"
+								Tipo_de_passagem as "Tipo de passagem "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Pessoas_transportadas_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								M_s_de_refer_ncia as "Mês de referência "
+								rea_Neg_cio as "Área / Negócio"
+								Trecho as "Trecho "
+								Quantidade_de_pessoas as "Quantidade de pessoas "
+								Modalidade as "Modalidade "
+								Finalidade
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								M_s_de_refer_ncia as "Mês de referência "
+								rea_Neg_cio as "Área / Negócio"
+								Trecho as "Trecho "
+								Quantidade_de_pessoas as "Quantidade de pessoas "
+								Modalidade as "Modalidade "
+								Finalidade
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report FILIAIS_POR_NEG_CIO_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								TIPO_IM_VEL as "TIPO -IMÓVEL"
+								QUANTIDADE
+								POR_TITULARIDADE as "% POR TITULARIDADE"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								TIPO_IM_VEL as "TIPO -IMÓVEL"
+								QUANTIDADE
+								POR_TITULARIDADE as "% POR TITULARIDADE"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report TIPO_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								TIPO
+								QTDE
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								TIPO
+								QTDE
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report ILIAIS_POR_ESTADO_E_NDICE_DE_REAJUSTE_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Quantidade_de_contratos_por_UF as "UF"
+								QUANTIDADE
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Quantidade_de_contratos_por_UF as "UF"
+								QUANTIDADE
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report NDICE_DE_REAJUSTE_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -3
+						datablock1
+						(
+							layout type = -3
+							fields
+							(
+								INDICE_GERAL as "INDICE GERAL"
+								Qtde
+								Valor_do_ndice as "Valor do índice"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								INDICE_GERAL as "INDICE GERAL"
+								Qtde
+								Valor_do_ndice as "Valor do índice"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report FILIAIS_POR_REGI_O_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -3
+						datablock1
+						(
+							layout type = -3
+							fields
+							(
+								Regi_o as "Região"
+								Regional
+								Qtde as "Qtde "
+								Venda_S_F as "Venda S/F"
+								Aluguel as "Aluguel "
+								Single_Line as "%"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Regi_o as "Região"
+								Qtde as "Qtde "
+								Venda_S_F as "Venda S/F"
+								Aluguel as "Aluguel "
+								Single_Line as "%"
+								Regional
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report ALUGU_IS_POR_FAIXA_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -3
+						datablock1
+						(
+							layout type = -3
+							fields
+							(
+								Percentuais_Sobre_a_Venda_S_F as "Percentuais Sobre a Venda S/F"
+								M_VEIS_GAZIN as "MÓVEIS GAZIN "
+								FUNDO_IMOBILI_RIO as "FUNDO IMOBILIÁRIO"
+								ADM_BENS_GAZIN as "ADM. BENS GAZIN "
+								ALUGADO as "ALUGADO "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Percentuais_Sobre_a_Venda_S_F as "Percentuais Sobre a Venda S/F"
+								M_VEIS_GAZIN as "MÓVEIS GAZIN "
+								FUNDO_IMOBILI_RIO as "FUNDO IMOBILIÁRIO"
+								ADM_BENS_GAZIN as "ADM. BENS GAZIN "
+								ALUGADO as "ALUGADO "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report FILIAIS_COM_ALUGUEL_ACIMA_DE_3_0_ABRIL_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								FILIAL
+								CIDADE as "CIDADE "
+								REGI_O as "REGIÃO "
+								REGIONAIS
+								GERENTE
+								Venda_S_F as "Venda S/F "
+								ALUGUEL as "ALUGUEL "
+								TIPO
+								ALUGUEL1 as "% ALUGUEL"
+								FAIXA
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								FILIAL
+								CIDADE as "CIDADE "
+								REGI_O as "REGIÃO "
+								REGIONAIS
+								GERENTE
+								Venda_S_F as "Venda S/F "
+								ALUGUEL as "ALUGUEL "
+								TIPO
+								ALUGUEL1 as "% ALUGUEL"
+								FAIXA
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Comparativo_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -3
+						datablock1
+						(
+							layout type = -3
+							fields
+							(
+								FILIAL as "FILIAL "
+								Venda_S_F as "Venda S/F"
+								ALUGUEL
+								TIPO_DE_ALUGUEL as "TIPO DE ALUGUEL"
+								ALUGUEL1 as "% ALUGUEL"
+								FAIXA
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								FILIAL as "FILIAL "
+								Venda_S_F as "Venda S/F"
+								ALUGUEL
+								TIPO_DE_ALUGUEL as "TIPO DE ALUGUEL"
+								ALUGUEL1 as "% ALUGUEL"
+								FAIXA
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report DATA_BASE_REAJUSTE_ABRIL_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -3
+						datablock1
+						(
+							layout type = -3
+							fields
+							(
+								FILIAL
+								Cidade1 as "Cidade"
+								CIDADE as "MÊS REAJ."
+								ANOTA_ES_NDICES as "ANOTAÇÕES ÍNDICES"
+								TIPO_PR_DIO as "TIPO PRÉDIO"
+								STATUS_DO_CONTRATO as "STATUS DO CONTRATO"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								FILIAL
+								CIDADE as "MÊS REAJ."
+								Cidade1 as "Cidade"
+								ANOTA_ES_NDICES as "ANOTAÇÕES ÍNDICES"
+								STATUS_DO_CONTRATO as "STATUS DO CONTRATO"
+								TIPO_PR_DIO as "TIPO PRÉDIO"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report PAGAMENTO_DE_ALUGUEL_PR_DIOS_PR_PRIOS_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								LOCAT_RIO as "LOCATÁRIO"
+								CNPJ_CPF as "CNPJ/CPF"
+								MUNIC_PIO as "MUNICÍPIO"
+								VALOR_DA_LOCA_O as "VALOR DA LOCAÇÃO"
+								DATA_DE_PAGAMENTO as "DATA DE PAGAMENTO"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								LOCAT_RIO as "LOCATÁRIO"
+								CNPJ_CPF as "CNPJ/CPF"
+								MUNIC_PIO as "MUNICÍPIO"
+								VALOR_DA_LOCA_O as "VALOR DA LOCAÇÃO"
+								DATA_DE_PAGAMENTO as "DATA DE PAGAMENTO"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report ECONOMIA_PROVISIONADO_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -3
+						datablock1
+						(
+							layout type = -3
+							fields
+							(
+								PROVIS_ES_ABRIL as "PROVISÕES ABRIL"
+								Quant_Filiais as "Quant. Filiais"
+								Valor
+								ACUMULADO_JANEIRO_A_ABRIL as "ACUMULADO JANEIRO A ABRIL"
+								Valor1 as "Valor"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								PROVIS_ES_ABRIL as "PROVISÕES ABRIL"
+								Quant_Filiais as "Quant. Filiais"
+								Valor
+								ACUMULADO_JANEIRO_A_ABRIL as "ACUMULADO JANEIRO A ABRIL"
+								Valor1 as "Valor"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report M_dia_de_Aluguel_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								M_dia_de_Aluguel as "Média de Aluguel"
+								Venda_S_F as "Venda S/F"
+								Aluguel
+								Single_Line1 as "%"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								M_dia_de_Aluguel as "Média de Aluguel"
+								Venda_S_F as "Venda S/F"
+								Aluguel
+								Single_Line1 as "%"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report M_dia_de_alugu_l_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -3
+						datablock1
+						(
+							layout type = -3
+							fields
+							(
+								Percentuais_Sobre_a_Venda_S_F as "Percentuais Sobre a Venda S/F"
+								Venda_S_F1 as "Venda S/F "
+								Aluguel as "Aluguel "
+								Venda_S_F as "%"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Percentuais_Sobre_a_Venda_S_F as "Percentuais Sobre a Venda S/F"
+								Venda_S_F1 as "Venda S/F "
+								Aluguel as "Aluguel "
+								Venda_S_F as "%"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Gest_o_de_contratos_corporativos_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Respons_vel as "Responsável "
+								Or_ado as "Orçado "
+								Realizado as "Realizado "
+								Realizado_Or_ado as "Realizado % Orçado "
+								Economia_em_Reais as "Economia R$"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Economia_em_Reais as "Economia R$"
+								Respons_vel as "Responsável "
+								Realizado_Or_ado as "Realizado % Orçado "
+								Or_ado as "Orçado "
+								Realizado as "Realizado "
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Contratos_por_ndice_reajuste_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								R_tulos_de_Linha as "Rótulos de Linha"
+								Diss_dio as "Dissídio"
+								IGP_DI as "IGP-DI"
+								IGPM
+								IGPM_INPC as "IGPM/INPC"
+								IGPM_INPC_IPCA as "IGPM/INPC/IPCA"
+								IGPM_IPCA as "IGPM/IPCA"
+								INPC
+								INTC
+								IPCA
+								IST
+								PTAX
+								SEM_REAJUSTE as "SEM REAJUSTE"
+								Single_Line as "-"
+								IPCA_IGPM as "IPCA/IGPM"
+								Total_Geral as "Total Geral"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								INPC
+								Diss_dio as "Dissídio"
+								IGPM_INPC_IPCA as "IGPM/INPC/IPCA"
+								IGPM
+								IGP_DI as "IGP-DI"
+								IGPM_INPC as "IGPM/INPC"
+								Single_Line as "-"
+								IPCA_IGPM as "IPCA/IGPM"
+								SEM_REAJUSTE as "SEM REAJUSTE"
+								PTAX
+								IST
+								IPCA
+								Total_Geral as "Total Geral"
+								INTC
+								IGPM_IPCA as "IGPM/IPCA"
+								R_tulos_de_Linha as "Rótulos de Linha"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Tipo_de_pagamento_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								R_tulos_de_Linha as "Rótulos de Linha"
+								Fixo
+								Por_evento as "Por evento"
+								Vari_vel as "Variável"
+								Single_Line1 as "-"
+								Total_Geral as "Total Geral"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								R_tulos_de_Linha as "Rótulos de Linha"
+								Fixo
+								Por_evento as "Por evento"
+								Vari_vel as "Variável"
+								Single_Line1 as "-"
+								Total_Geral as "Total Geral"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Contratos_por_Departamento_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								R_tulos_de_Linha as "Rótulos de Linha"
+								Contagem_de_Departamento as "Contagem de Departamento"
+								Soma_de_Valor_Or_ado as "Soma de Valor Orçado"
+								Soma_de_Valor_Negociado as "Soma de Valor Negociado"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								R_tulos_de_Linha as "Rótulos de Linha"
+								Contagem_de_Departamento as "Contagem de Departamento"
+								Soma_de_Valor_Or_ado as "Soma de Valor Orçado"
+								Soma_de_Valor_Negociado as "Soma de Valor Negociado"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Or_ado_X_Realizado_Neg_cios_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								NEG_CIOS as "NEGÓCIOS"
+								Single_Line3 as "Orçado"
+								Or_ado as "Realizado"
+								Varia_o as "Variação"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Or_ado as "Realizado"
+								Varia_o as "Variação"
+								NEG_CIOS as "NEGÓCIOS"
+								Single_Line3 as "Orçado"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Departamentos_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Departamentos
+								Or_ado as "Orçado"
+								Realizado
+								Single_Line3 as "Variação"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Departamentos
+								Or_ado as "Orçado"
+								Realizado
+								Single_Line3 as "Variação"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Contratos_vigentes_vencidos_encerrados_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								R_tulos_de_Linha1 as "Departamentos "
+								Vencido
+								Vigente
+								R_tulos_de_Linha as "Encerrado"
+								Total_Geral as "Total Geral"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								R_tulos_de_Linha1 as "Departamentos "
+								Vencido
+								Vigente
+								R_tulos_de_Linha as "Encerrado"
+								Total_Geral as "Total Geral"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report VALORES_FECHADOS_POR_SERVI_O_ABRIL_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								LOCA_O_DE_CARRO_R as "LOCAÇÃO DE CARRO R$"
+								PASSAGENS_RODOVI_RIAS as "PASSAGENS RODOVIÁRIAS"
+								SERVI_OS as "SERVIÇOS "
+								HOTEL
+								EMISS_O_A_REO as "EMISSÃO AÉREO R$"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								LOCA_O_DE_CARRO_R as "LOCAÇÃO DE CARRO R$"
+								PASSAGENS_RODOVI_RIAS as "PASSAGENS RODOVIÁRIAS"
+								SERVI_OS as "SERVIÇOS "
+								HOTEL
+								EMISS_O_A_REO as "EMISSÃO AÉREO R$"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			unused
+			{
+				report Apresenta_o_Micro_AGM_Report
+				{
+					icon = "tech-desktop"
+				}
+				systemcomponent
+				{
+					type = localization
+					displayname = "Language Selection"
+					icon = "education-language"
+				}
+				systemcomponent
+				{
+					type = connection
+					displayname = "Integrations"
+					icon = "tech-2-connection"
+				}
+				systemcomponent
+				{
+					type = approval
+					approval status = completed
+					displayname = "Completed Tasks"
+					icon = "design-todo"
+				}
+				form  Contratos_a_vencer
+				{
+					icon = "tech-desktop"
+				}
+				form  micro_agm
+				{
+					icon = "tech-desktop"
+				}
+				report micro_agm_Report
+				{
+					icon = "tech-desktop"
+				}
+				form  Book_a_Meeting_Room
+				{
+					icon = "business-notes"
+				}
+				report Meeting_Schedules
+				{
+					icon = "ui-1-calendar-grid-58"
+				}
+				report Contratos_a_vencer_Report
+				{
+					icon = "tech-desktop"
+				}
+				report Dados_Report
+				{
+					icon = "tech-desktop"
+				}
+				report Demandas_pendentes_Report
+				{
+					icon = "tech-desktop"
+				}
+				report Demandas_que_foram_finalizadas_Report
+				{
+					icon = "tech-desktop"
+				}
+				report Projetos_em_andamento_Report
+				{
+					icon = "tech-desktop"
+				}
+				form  Dados
+				{
+					icon = "tech-desktop"
+				}
+				form  Demandas_pendentes
+				{
+					icon = "tech-desktop"
+				}
+				form  Demandas_que_foram_finalizadas
+				{
+					icon = "design-bullet-list-69"
+				}
+				form  Projetos_em_andamento
+				{
+					icon = "tech-desktop"
+				}
+				systemcomponent
+				{
+					type = approval
+					approval status = pending
+					displayname = "Pending Tasks"
+					icon = "ui-2-hourglass"
+				}
+				form  Apresenta_o_Micro_AGM
+				{
+					icon = "tech-desktop"
+				}
+				form  M_dia_de_Aluguel
+				{
+					icon = "sport-fencing"
+				}
+				report M_dia_de_Aluguel_Report
+				{
+					icon = "tech-desktop"
+				}
+				report Contratos_a_vencer1_Report
+				{
+					icon = "tech-desktop"
+				}
+				report gest_o_de_contratos_Report
+				{
+					icon = "tech-desktop"
+				}
+				report Saving_da_negocia_o_Report
+				{
+					icon = "tech-desktop"
+				}
+				report Valores_dos_contratos_Report
+				{
+					icon = "tech-desktop"
+				}
+				report SLA_e_penalidades_Report
+				{
+					icon = "tech-desktop"
+				}
+				form  gest_o_de_contratos
+				{
+					icon = "sport-fencing"
+				}
+				form  Contratos_a_vencer1
+				{
+					icon = "tech-desktop"
+				}
+				form  SLA_e_penalidades
+				{
+					icon = "tech-desktop"
+				}
+				form  Valores_dos_contratos
+				{
+					icon = "design-bullet-list-69"
+				}
+				form  Saving_da_negocia_o
+				{
+					icon = "education-book-bookmark"
+				}
+				report Nova_passagem_Report
+				{
+					icon = "tech-desktop"
+				}
+				form  Nova_passagem
+				{
+					icon = "tech-desktop"
+				}
+				report Pessoas_transportadas_Report
+				{
+					icon = "tech-desktop"
+				}
+				form  Pessoas_transportadas
+				{
+					icon = "tech-desktop"
+				}
+				form  Gest_o_de_contratos_corporativos
+				{
+					icon = "sport-fencing"
+				}
+				report Gest_o_de_contratos_corporativos_Report
+				{
+					icon = "tech-desktop"
+				}
+				form  Or_ado_X_Realizado_Neg_cios
+				{
+					icon = "tech-desktop"
+				}
+				report Or_ado_X_Realizado_Neg_cios_Report
+				{
+					icon = "tech-desktop"
+				}
+				form  Departamentos
+				{
+					icon = "tech-desktop"
+				}
+				report Departamentos_Report
+				{
+					icon = "tech-desktop"
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+			}
+			space Processos_e_projetos
+			{
+				displayname = "Processos e projetos"
+				icon = "objects-spaceship"
+
+				section Projetos_e_Processos
+				{
+					displayname = "Projetos e Processos"
+					icon = "tech-desktop"
+					report Projetos_e_Processos_Report
+					{
+						icon = "tech-desktop"
+					}
+					form  Projetos_e_Processos
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space Dados
+			{
+				displayname = "Dados"
+				icon = "objects-spaceship"
+
+				section Dados
+				{
+					displayname = "Dados"
+					icon = "tech-desktop"
+					report Dados1_Report
+					{
+						icon = "tech-desktop"
+					}
+					form  Dados1
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space Gest_o_energ_tica
+			{
+				displayname = "Gestão energética"
+				icon = "objects-spaceship"
+
+				section Gest_o_energ_tica
+				{
+					displayname = "Gestão energética"
+					icon = "tech-desktop"
+					report Gest_o_energ_tica_Report
+					{
+						icon = "tech-desktop"
+					}
+					form  Gest_o_energ_tica
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Hist_rrio_de_consumo_por_UF
+				{
+					displayname = "Histórrio de consumo por UF"
+					icon = "sport-fencing"
+					report Hist_rrio_de_consumo_por_UF_Report
+					{
+						icon = "tech-desktop"
+					}
+					form  Hist_rrio_de_consumo_por_UF
+					{
+						icon = "sport-fencing"
+					}
+				}
+			}
+			space Gest_o_de_contratos_corporativos
+			{
+				displayname = "Gestão de contratos corporativos"
+				icon = "objects-spaceship"
+
+				section Contratos_vigentes_vencidos_encerrados
+				{
+					displayname = "Contratos vigentes vencidos encerrados"
+					icon = "tech-desktop"
+					form  Contratos_vigentes_vencidos_encerrados
+					{
+						icon = "tech-desktop"
+					}
+					report Contratos_vigentes_vencidos_encerrados_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Contratos_por_ndice_reajuste
+				{
+					displayname = "Contratos por índice reajuste"
+					icon = "design-bullet-list-69"
+					form  Contratos_por_ndice_reajuste
+					{
+						icon = "design-bullet-list-69"
+					}
+					report Contratos_por_ndice_reajuste_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Tipo_de_pagamento
+				{
+					displayname = "Tipo de pagamento"
+					icon = "sport-fencing"
+					form  Tipo_de_pagamento
+					{
+						icon = "sport-fencing"
+					}
+					report Tipo_de_pagamento_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Contratos_por_Departamento
+				{
+					displayname = "Contratos por Departamento"
+					icon = "design-bullet-list-69"
+					form  Contratos_por_Departamento
+					{
+						icon = "design-bullet-list-69"
+					}
+					report Contratos_por_Departamento_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space Contratos_de_alugu_is
+			{
+				displayname = "Contratos de aluguéis"
+				icon = "objects-spaceship"
+
+				section FILIAIS_POR_NEG_CIO
+				{
+					displayname = "FILIAIS POR NEGÓCIO"
+					icon = "design-bullet-list-69"
+					report FILIAIS_POR_NEG_CIO_Report
+					{
+						icon = "tech-desktop"
+					}
+					report TIPO_Report
+					{
+						icon = "tech-desktop"
+					}
+					form  TIPO
+					{
+						icon = "tech-desktop"
+					}
+					form  FILIAIS_POR_NEG_CIO
+					{
+						icon = "design-bullet-list-69"
+					}
+				}
+				section Filiais_por_estado
+				{
+					displayname = "Filiais por estado"
+					icon = "sport-fencing"
+					form  ILIAIS_POR_ESTADO_E_NDICE_DE_REAJUSTE
+					{
+						icon = "sport-fencing"
+					}
+					report ILIAIS_POR_ESTADO_E_NDICE_DE_REAJUSTE_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section NDICE_DE_REAJUSTE
+				{
+					displayname = "ÍNDICE DE REAJUSTE"
+					icon = "sport-fencing"
+					form  NDICE_DE_REAJUSTE
+					{
+						icon = "sport-fencing"
+					}
+					report NDICE_DE_REAJUSTE_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section FILIAIS_POR_REGI_O
+				{
+					displayname = "FILIAIS POR REGIÃO"
+					icon = "design-bullet-list-69"
+					form  FILIAIS_POR_REGI_O
+					{
+						icon = "design-bullet-list-69"
+					}
+					report FILIAIS_POR_REGI_O_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section ALUGU_IS_POR_FAIXA
+				{
+					displayname = "ALUGUÉIS POR FAIXA"
+					icon = "design-bullet-list-69"
+					form  ALUGU_IS_POR_FAIXA
+					{
+						icon = "design-bullet-list-69"
+					}
+					report ALUGU_IS_POR_FAIXA_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section M_dia_de_aluguel
+				{
+					displayname = "Média de aluguel"
+					icon = "sport-fencing"
+					form  M_dia_de_alugu_l
+					{
+						icon = "sport-fencing"
+					}
+					report M_dia_de_alugu_l_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section FILIAIS_COM_ALUGUEL_ACIMA_DE_3_0_ABRIL
+				{
+					displayname = "FILIAIS COM ALUGUEL ACIMA DE 3,0% ABRIL"
+					icon = "sport-fencing"
+					form  FILIAIS_COM_ALUGUEL_ACIMA_DE_3_0_ABRIL
+					{
+						icon = "sport-fencing"
+					}
+					report FILIAIS_COM_ALUGUEL_ACIMA_DE_3_0_ABRIL_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Comparativo
+				{
+					displayname = "Comparativo"
+					icon = "tech-desktop"
+					form  Comparativo
+					{
+						icon = "tech-desktop"
+					}
+					report Comparativo_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section DATA_BASE_REAJUSTE_ABRIL
+				{
+					displayname = "DATA/BASE REAJUSTE – ABRIL"
+					icon = "tech-desktop"
+					form  DATA_BASE_REAJUSTE_ABRIL
+					{
+						icon = "tech-desktop"
+					}
+					report DATA_BASE_REAJUSTE_ABRIL_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section PAGAMENTO_DE_ALUGUEL_PR_DIOS_PR_PRIOS
+				{
+					displayname = "PAGAMENTO DE ALUGUEL – PRÉDIOS PRÓPRIOS"
+					icon = "sport-fencing"
+					form  PAGAMENTO_DE_ALUGUEL_PR_DIOS_PR_PRIOS
+					{
+						icon = "sport-fencing"
+					}
+					report PAGAMENTO_DE_ALUGUEL_PR_DIOS_PR_PRIOS_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section ECONOMIA_PROVISIONADO
+				{
+					displayname = "ECONOMIA - PROVISIONADO"
+					icon = "design-bullet-list-69"
+					form  ECONOMIA_PROVISIONADO
+					{
+						icon = "design-bullet-list-69"
+					}
+					report ECONOMIA_PROVISIONADO_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space Viagens
+			{
+				displayname = "Viagens"
+				icon = "objects-spaceship"
+
+				section Treinamentos_GVC
+				{
+					displayname = "Treinamentos GVC"
+					icon = "tech-desktop"
+					report Viagens_Report
+					{
+						icon = "tech-desktop"
+					}
+					form  Viagens
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Tickets_Abril
+				{
+					displayname = "Tickets Abril"
+					icon = "media-1-ticket-75"
+					report Tickets_Report
+					{
+						icon = "tech-desktop"
+					}
+					form  Tickets
+					{
+						icon = "media-1-ticket-75"
+					}
+				}
+				section VALORES_FECHADOS_POR_SERVI_O_ABRIL
+				{
+					displayname = "VALORES FECHADOS POR SERVIÇO (ABRIL)"
+					icon = "design-bullet-list-69"
+					form  VALORES_FECHADOS_POR_SERVI_O_ABRIL
+					{
+						icon = "design-bullet-list-69"
+					}
+					report VALORES_FECHADOS_POR_SERVI_O_ABRIL_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space Gest_o_de_contratos
+			{
+				displayname = "Gestão de contratos"
+				icon = "objects-spaceship"
+
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+				}
+			}
+		}
+		customize
+		{
+			layout
+			{
+				theme = "theme_8"
+			}
+			font = "lato"
+			color options
+			{
+				name = "custom_color_4"
+				brand color = "#1d508e"
+				navigation background color = "#000000"
+				type = "custom"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form ALUGU_IS_POR_FAIXA
+			{
+				label placement = auto
+			}
+			form Apresenta_o_Micro_AGM
+			{
+				label placement = auto
+			}
+			form Book_a_Meeting_Room
+			{
+				label placement = left
+			}
+			form Comparativo
+			{
+				label placement = auto
+			}
+			form Contratos_a_vencer
+			{
+				label placement = auto
+			}
+			form Contratos_a_vencer1
+			{
+				label placement = auto
+			}
+			form Contratos_por_Departamento
+			{
+				label placement = auto
+			}
+			form Gest_o_de_contratos_corporativos
+			{
+				label placement = auto
+			}
+			form Contratos_por_ndice_reajuste
+			{
+				label placement = auto
+			}
+			form Contratos_vigentes_vencidos_encerrados
+			{
+				label placement = auto
+			}
+			form Dados
+			{
+				label placement = auto
+			}
+			form Dados1
+			{
+				label placement = auto
+			}
+			form DATA_BASE_REAJUSTE_ABRIL
+			{
+				label placement = auto
+			}
+			form Demandas_pendentes
+			{
+				label placement = auto
+			}
+			form Demandas_que_foram_finalizadas
+			{
+				label placement = auto
+			}
+			form Departamentos
+			{
+				label placement = auto
+			}
+			form ECONOMIA_PROVISIONADO
+			{
+				label placement = auto
+			}
+			form FILIAIS_COM_ALUGUEL_ACIMA_DE_3_0_ABRIL
+			{
+				label placement = auto
+			}
+			form ILIAIS_POR_ESTADO_E_NDICE_DE_REAJUSTE
+			{
+				label placement = auto
+			}
+			form FILIAIS_POR_NEG_CIO
+			{
+				label placement = auto
+			}
+			form FILIAIS_POR_REGI_O
+			{
+				label placement = auto
+			}
+			form gest_o_de_contratos
+			{
+				label placement = auto
+			}
+			form Gest_o_energ_tica
+			{
+				label placement = auto
+			}
+			form Hist_rrio_de_consumo_por_UF
+			{
+				label placement = auto
+			}
+			form micro_agm
+			{
+				label placement = auto
+			}
+			form M_dia_de_Aluguel
+			{
+				label placement = auto
+			}
+			form M_dia_de_alugu_l
+			{
+				label placement = auto
+			}
+			form Nova_passagem
+			{
+				label placement = auto
+			}
+			form Or_ado_X_Realizado_Neg_cios
+			{
+				label placement = auto
+			}
+			form PAGAMENTO_DE_ALUGUEL_PR_DIOS_PR_PRIOS
+			{
+				label placement = auto
+			}
+			form Pessoas_transportadas
+			{
+				label placement = auto
+			}
+			form Projetos_e_Processos
+			{
+				label placement = auto
+			}
+			form Projetos_em_andamento
+			{
+				label placement = auto
+			}
+			form Saving_da_negocia_o
+			{
+				label placement = auto
+			}
+			form SLA_e_penalidades
+			{
+				label placement = auto
+			}
+			form Tickets
+			{
+				label placement = auto
+			}
+			form TIPO
+			{
+				label placement = auto
+			}
+			form Tipo_de_pagamento
+			{
+				label placement = auto
+			}
+			form Valores_dos_contratos
+			{
+				label placement = auto
+			}
+			form VALORES_FECHADOS_POR_SERVI_O_ABRIL
+			{
+				label placement = auto
+			}
+			form Viagens
+			{
+				label placement = auto
+			}
+			form NDICE_DE_REAJUSTE
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form ALUGU_IS_POR_FAIXA
+			{
+				label placement = auto
+			}
+			form Apresenta_o_Micro_AGM
+			{
+				label placement = auto
+			}
+			form Book_a_Meeting_Room
+			{
+				label placement = left
+			}
+			form Comparativo
+			{
+				label placement = auto
+			}
+			form Contratos_a_vencer
+			{
+				label placement = auto
+			}
+			form Contratos_a_vencer1
+			{
+				label placement = auto
+			}
+			form Contratos_por_Departamento
+			{
+				label placement = auto
+			}
+			form Gest_o_de_contratos_corporativos
+			{
+				label placement = auto
+			}
+			form Contratos_por_ndice_reajuste
+			{
+				label placement = auto
+			}
+			form Contratos_vigentes_vencidos_encerrados
+			{
+				label placement = auto
+			}
+			form Dados
+			{
+				label placement = auto
+			}
+			form Dados1
+			{
+				label placement = auto
+			}
+			form DATA_BASE_REAJUSTE_ABRIL
+			{
+				label placement = auto
+			}
+			form Demandas_pendentes
+			{
+				label placement = auto
+			}
+			form Demandas_que_foram_finalizadas
+			{
+				label placement = auto
+			}
+			form Departamentos
+			{
+				label placement = auto
+			}
+			form ECONOMIA_PROVISIONADO
+			{
+				label placement = auto
+			}
+			form FILIAIS_COM_ALUGUEL_ACIMA_DE_3_0_ABRIL
+			{
+				label placement = auto
+			}
+			form ILIAIS_POR_ESTADO_E_NDICE_DE_REAJUSTE
+			{
+				label placement = auto
+			}
+			form FILIAIS_POR_NEG_CIO
+			{
+				label placement = auto
+			}
+			form FILIAIS_POR_REGI_O
+			{
+				label placement = auto
+			}
+			form gest_o_de_contratos
+			{
+				label placement = auto
+			}
+			form Gest_o_energ_tica
+			{
+				label placement = auto
+			}
+			form Hist_rrio_de_consumo_por_UF
+			{
+				label placement = auto
+			}
+			form micro_agm
+			{
+				label placement = auto
+			}
+			form M_dia_de_Aluguel
+			{
+				label placement = auto
+			}
+			form M_dia_de_alugu_l
+			{
+				label placement = auto
+			}
+			form Nova_passagem
+			{
+				label placement = auto
+			}
+			form Or_ado_X_Realizado_Neg_cios
+			{
+				label placement = auto
+			}
+			form PAGAMENTO_DE_ALUGUEL_PR_DIOS_PR_PRIOS
+			{
+				label placement = auto
+			}
+			form Pessoas_transportadas
+			{
+				label placement = auto
+			}
+			form Projetos_e_Processos
+			{
+				label placement = auto
+			}
+			form Projetos_em_andamento
+			{
+				label placement = auto
+			}
+			form Saving_da_negocia_o
+			{
+				label placement = auto
+			}
+			form SLA_e_penalidades
+			{
+				label placement = auto
+			}
+			form Tickets
+			{
+				label placement = auto
+			}
+			form TIPO
+			{
+				label placement = auto
+			}
+			form Tipo_de_pagamento
+			{
+				label placement = auto
+			}
+			form Valores_dos_contratos
+			{
+				label placement = auto
+			}
+			form VALORES_FECHADOS_POR_SERVI_O_ABRIL
+			{
+				label placement = auto
+			}
+			form Viagens
+			{
+				label placement = auto
+			}
+			form NDICE_DE_REAJUSTE
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = green
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
