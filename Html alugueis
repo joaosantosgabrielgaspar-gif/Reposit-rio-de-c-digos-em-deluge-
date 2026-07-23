@@ -1,0 +1,1623 @@
+<%{
+	/* MICRO AGM — PÁGINA ÚNICA */
+	filiaisNegocio = FILIAIS_POR_NEG_CIO[ID != null];
+	tiposImovel = TIPO[ID != null];
+	filiaisEstado = ILIAIS_POR_ESTADO_E_NDICE_DE_REAJUSTE[ID != null];
+	indicesReajuste = NDICE_DE_REAJUSTE[ID != null];
+	filiaisRegiao = FILIAIS_POR_REGI_O[ID != null];
+	alugueisPorFaixa = ALUGU_IS_POR_FAIXA[ID != null];
+	mediaAluguel = M_dia_de_alugu_l[ID != null];
+	filiaisAcimaTres = FILIAIS_COM_ALUGUEL_ACIMA_DE_3_0_ABRIL[ID != null];
+	analiseAcimaTres = An_lise_aluguel_acima_de_3_0[ID != null];
+	dadosComparativo = Comparativo[ID != null];
+	dataBaseReajuste = DATA_BASE_REAJUSTE_ABRIL[ID != null];
+	pagamentosPrediosProprios = PAGAMENTO_DE_ALUGUEL_PR_DIOS_PR_PRIOS[ID != null];
+	economiaProvisionado = ECONOMIA_PROVISIONADO[ID != null];
+	%>
+<style>
+    .agm,
+    .agm * {
+        box-sizing: border-box;
+    }
+
+    .agm {
+        --navy: #003087;
+        --blue: #0057d9;
+        --sky: #21b7ff;
+        --white: #ffffff;
+        --bg: #f4f8ff;
+        --text: #111827;
+        --muted: #667085;
+        --line: #dce7f7;
+        width: 100%;
+        min-height: 100%;
+        padding: 24px;
+        overflow: hidden;
+        color: var(--text);
+        background: var(--bg);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .agm-radio {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .agm-shell {
+        width: 100%;
+        max-width: 1440px;
+        margin: auto;
+    }
+
+    .agm-hero {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 28px;
+        min-height: 200px;
+        padding: 34px 40px;
+        overflow: hidden;
+        border-radius: 24px;
+        color: #ffffff;
+        background: linear-gradient(
+            125deg,
+            #001d52,
+            #003087 53%,
+            #0057d9
+        );
+        box-shadow: 0 20px 46px rgba(0, 48, 135, 0.20);
+    }
+
+    .agm-hero::after {
+        content: "";
+        position: absolute;
+        top: -135px;
+        right: -55px;
+        width: 350px;
+        height: 350px;
+        border: 44px solid rgba(33, 183, 255, 0.20);
+        border-radius: 50%;
+    }
+
+    .agm-hero-content,
+    .agm-hero-side {
+        position: relative;
+        z-index: 1;
+    }
+
+    .agm-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 22px;
+    }
+
+    .agm-logo {
+        padding: 8px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.38);
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.12);
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 1.4px;
+    }
+
+    .agm-brand small {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        opacity: 0.75;
+    }
+
+    .agm h1 {
+        margin: 0;
+        font-size: clamp(34px, 5vw, 54px);
+        line-height: 1;
+        letter-spacing: -1.5px;
+    }
+
+    .agm-hero p {
+        max-width: 720px;
+        margin: 14px 0 0;
+        font-size: 16px;
+        line-height: 1.5;
+        opacity: 0.82;
+    }
+
+    .agm-hero-side {
+        padding: 9px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .agm-tabs {
+        display: flex;
+        gap: 8px;
+        margin: 18px 0;
+        padding: 8px;
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 8px 24px rgba(0, 48, 135, 0.07);
+    }
+
+    .agm-tab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        flex: 1 0 210px;
+        min-height: 50px;
+        padding: 10px 14px;
+        border: 1px solid transparent;
+        border-radius: 11px;
+        color: #475467;
+        font-size: 12px;
+        font-weight: 800;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .agm-num {
+        display: grid;
+        place-items: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        color: var(--blue);
+        background: #eaf2ff;
+        font-size: 11px;
+    }
+
+    #agm-visao:checked ~ .agm-shell label[for="agm-visao"],
+    #agm-indicadores:checked ~ .agm-shell label[for="agm-indicadores"],
+    #agm-financeiro:checked ~ .agm-shell label[for="agm-financeiro"] {
+        color: #ffffff;
+        border-color: var(--blue);
+        background: linear-gradient(
+            135deg,
+            var(--navy),
+            var(--blue)
+        );
+        box-shadow: 0 8px 18px rgba(0, 87, 217, 0.20);
+    }
+
+    #agm-visao:checked ~ .agm-shell label[for="agm-visao"] .agm-num,
+    #agm-indicadores:checked ~ .agm-shell label[for="agm-indicadores"] .agm-num,
+    #agm-financeiro:checked ~ .agm-shell label[for="agm-financeiro"] .agm-num {
+        color: var(--navy);
+        background: #ffffff;
+    }
+
+    .agm-panel {
+        display: none;
+    }
+
+    #agm-visao:checked ~ .agm-shell .agm-visao,
+    #agm-indicadores:checked ~ .agm-shell .agm-indicadores,
+    #agm-financeiro:checked ~ .agm-shell .agm-financeiro {
+        display: block;
+    }
+
+    .agm-intro {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin: 26px 4px 17px;
+    }
+
+    .agm-intro h2 {
+        margin: 0;
+        color: var(--navy);
+        font-size: 24px;
+    }
+
+    .agm-intro p {
+        margin: 5px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    .agm-live {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: none;
+        color: #0b6b46;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .agm-live::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #12b76a;
+        box-shadow: 0 0 0 4px rgba(18, 183, 106, 0.13);
+    }
+
+    .agm-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .agm-card {
+        grid-column: span 12;
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #ffffff;
+        box-shadow: 0 10px 30px rgba(0, 48, 135, 0.08);
+    }
+
+    .agm-w4 {
+        grid-column: span 4;
+    }
+
+    .agm-w5 {
+        grid-column: span 5;
+    }
+
+    .agm-w6 {
+        grid-column: span 6;
+    }
+
+    .agm-w7 {
+        grid-column: span 7;
+    }
+
+    .agm-w8 {
+        grid-column: span 8;
+    }
+
+    .agm-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        min-height: 82px;
+        padding: 18px 20px;
+        border-bottom: 1px solid #e8eef8;
+        background: linear-gradient(#ffffff, #f9fbff);
+    }
+
+    .agm-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    .agm-icon {
+        display: grid;
+        place-items: center;
+        flex: 0 0 40px;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #cfe1ff;
+        border-radius: 11px;
+        color: var(--blue);
+        background: #edf5ff;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .agm-head h3 {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.25;
+    }
+
+    .agm-head p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 11px;
+    }
+
+    .agm-count {
+        min-width: 31px;
+        padding: 7px 9px;
+        border-radius: 999px;
+        color: var(--navy);
+        background: #eaf2ff;
+        font-size: 11px;
+        font-weight: 800;
+        text-align: center;
+    }
+
+    .agm-scroll {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .agm-table {
+        width: 100%;
+        min-width: 560px;
+        border-collapse: collapse;
+        font-size: 12px;
+    }
+
+    .agm-table.m {
+        min-width: 850px;
+    }
+
+    .agm-table.w {
+        min-width: 1280px;
+    }
+
+    .agm-table.xw {
+        min-width: 1640px;
+    }
+
+    .agm-table th,
+    .agm-table td {
+        padding: 13px 16px;
+        border-bottom: 1px solid #edf1f7;
+        text-align: left;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .agm-table th {
+        color: #475467;
+        background: #f8faff;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.65px;
+        text-transform: uppercase;
+    }
+
+    .agm-table tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .agm-table tbody tr:hover td {
+        background: #f8fbff;
+    }
+
+    .agm-main {
+        font-weight: 700;
+    }
+
+    .agm-value {
+        color: var(--navy);
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .agm-badge {
+        display: inline-flex;
+        padding: 5px 9px;
+        border: 1px solid #cfe1ff;
+        border-radius: 999px;
+        color: var(--navy);
+        background: #edf5ff;
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+    .agm-alert {
+        color: #b42318;
+        border-color: #ffd1cc;
+        background: #fff1f0;
+    }
+
+    .agm-note {
+        max-width: 340px;
+        white-space: normal !important;
+        line-height: 1.4;
+    }
+
+    .agm-empty {
+        padding: 30px !important;
+        color: var(--muted);
+        text-align: center !important;
+    }
+
+    .agm-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 18px;
+        padding: 16px 20px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.80);
+        font-size: 11px;
+    }
+
+    .agm-footer strong {
+        color: var(--navy);
+    }
+
+    @media (max-width: 1000px) {
+        .agm-w4,
+        .agm-w5,
+        .agm-w6,
+        .agm-w7,
+        .agm-w8 {
+            grid-column: span 12;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .agm {
+            padding: 12px;
+        }
+
+        .agm-hero {
+            align-items: flex-start;
+            flex-direction: column;
+            min-height: 0;
+            padding: 27px 21px;
+            border-radius: 18px;
+        }
+
+        .agm h1 {
+            font-size: 35px;
+        }
+
+        .agm-intro,
+        .agm-footer {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .agm-head {
+            padding: 16px;
+        }
+
+        .agm-table th,
+        .agm-table td {
+            padding: 12px 14px;
+        }
+    }
+</style>
+
+<main class="agm">
+    <input
+        class="agm-radio"
+        type="radio"
+        name="agm-abas"
+        id="agm-visao"
+        checked
+    >
+
+    <input
+        class="agm-radio"
+        type="radio"
+        name="agm-abas"
+        id="agm-indicadores"
+    >
+
+    <input
+        class="agm-radio"
+        type="radio"
+        name="agm-abas"
+        id="agm-financeiro"
+    >
+
+    <div class="agm-shell">
+        <header class="agm-hero">
+            <div class="agm-hero-content">
+                <div class="agm-brand">
+                    <span class="agm-logo">GAZIN</span>
+                    <small>Gestão Administrativa</small>
+                </div>
+
+                <h1>Micro AGM</h1>
+
+                <p>
+                    Contratos de Aluguéis — visão executiva,
+                    indicadores e gestão financeira em uma única página.
+                </p>
+            </div>
+
+            <span class="agm-hero-side">Painel integrado</span>
+        </header>
+
+        <nav class="agm-tabs" aria-label="Seções da Micro AGM">
+            <label class="agm-tab" for="agm-visao">
+                <span class="agm-num">1</span>
+                Visão Geral
+            </label>
+
+            <label class="agm-tab" for="agm-indicadores">
+                <span class="agm-num">2</span>
+                Indicadores e Análises
+            </label>
+
+            <label class="agm-tab" for="agm-financeiro">
+                <span class="agm-num">3</span>
+                Financeiro
+            </label>
+        </nav>
+
+        <!-- ABA 1: VISÃO GERAL -->
+        <section class="agm-panel agm-visao">
+            <div class="agm-intro">
+                <div>
+                    <h2>Panorama dos contratos</h2>
+                    <p>Titularidade, tipo, estado, reajuste e região.</p>
+                </div>
+
+                <span class="agm-live">Dados do Zoho Creator</span>
+            </div>
+
+            <div class="agm-grid">
+                <article class="agm-card agm-w8">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">FN</span>
+
+                            <div>
+                                <h3>Filiais por Negócio</h3>
+                                <p>Distribuição por titularidade</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=filiaisNegocio.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table">
+                            <thead>
+                                <tr>
+                                    <th>Tipo de imóvel</th>
+                                    <th>Quantidade</th>
+                                    <th>% por titularidade</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(filiaisNegocio.count() > 0)
+	{
+		for each  itemNegocio in filiaisNegocio
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemNegocio.TIPO_IM_VEL,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemNegocio.QUANTIDADE,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <span class="agm-badge">
+                                            <%=ifnull(itemNegocio.POR_TITULARIDADE,"—")%>
+                                        </span>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="3">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="agm-card agm-w4">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">TI</span>
+
+                            <div>
+                                <h3>Tipo</h3>
+                                <p>Classificação dos imóveis</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=tiposImovel.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table">
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Qtde</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(tiposImovel.count() > 0)
+	{
+		for each  itemTipo in tiposImovel
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemTipo.TIPO,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemTipo.QTDE,"—")%>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="2">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="agm-card agm-w6">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">UF</span>
+
+                            <div>
+                                <h3>Filiais por Estado</h3>
+                                <p>Quantidade de contratos por UF</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=filiaisEstado.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table">
+                            <thead>
+                                <tr>
+                                    <th>UF</th>
+                                    <th>Quantidade</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(filiaisEstado.count() > 0)
+	{
+		for each  itemEstado in filiaisEstado
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemEstado.Quantidade_de_contratos_por_UF,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemEstado.QUANTIDADE,"—")%>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="2">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="agm-card agm-w6">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">IR</span>
+
+                            <div>
+                                <h3>Índice de Reajuste</h3>
+                                <p>Índices aplicados aos contratos</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=indicesReajuste.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table">
+                            <thead>
+                                <tr>
+                                    <th>Índice geral</th>
+                                    <th>Qtde</th>
+                                    <th>Valor do índice</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(indicesReajuste.count() > 0)
+	{
+		for each  itemIndice in indicesReajuste
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemIndice.INDICE_GERAL,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemIndice.Qtde,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <span class="agm-badge">
+                                            <%=ifnull(itemIndice.Valor_do_ndice,"—")%>
+                                        </span>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="3">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="agm-card">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">FR</span>
+
+                            <div>
+                                <h3>Filiais por Região</h3>
+                                <p>Visão regional de quantidade e aluguel</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=filiaisRegiao.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table m">
+                            <thead>
+                                <tr>
+                                    <th>Região</th>
+                                    <th>Regional</th>
+                                    <th>Qtde</th>
+                                    <th>Venda S/F</th>
+                                    <th>Aluguel</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(filiaisRegiao.count() > 0)
+	{
+		for each  itemRegiao in filiaisRegiao
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemRegiao.Regi_o,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemRegiao.Regional,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemRegiao.Qtde,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemRegiao.Venda_S_F,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemRegiao.Aluguel,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <span class="agm-badge">
+                                            <%=ifnull(itemRegiao.Single_Line,"—")%>
+                                        </span>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="6">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ABA 2: INDICADORES -->
+        <section class="agm-panel agm-indicadores">
+            <div class="agm-intro">
+                <div>
+                    <h2>Desempenho dos aluguéis</h2>
+                    <p>Faixas, médias, alertas e comparações.</p>
+                </div>
+
+                <span class="agm-live">Dados do Zoho Creator</span>
+            </div>
+
+            <div class="agm-grid">
+                <article class="agm-card agm-w5">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">AF</span>
+
+                            <div>
+                                <h3>Aluguéis por Faixa</h3>
+                                <p>Distribuição por titularidade</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=alugueisPorFaixa.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table m">
+                            <thead>
+                                <tr>
+                                    <th>Percentuais sobre a Venda S/F</th>
+                                    <th>Móveis Gazin</th>
+                                    <th>Fundo Imobiliário</th>
+                                    <th>ADM. Bens Gazin</th>
+                                    <th>Alugado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(alugueisPorFaixa.count() > 0)
+	{
+		for each  itemFaixa in alugueisPorFaixa
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemFaixa.Percentuais_Sobre_a_Venda_S_F,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemFaixa.M_VEIS_GAZIN,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemFaixa.FUNDO_IMOBILI_RIO,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemFaixa.ADM_BENS_GAZIN,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemFaixa.ALUGADO,"—")%>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="5">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="agm-card agm-w7">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">MA</span>
+
+                            <div>
+                                <h3>Média de Aluguel</h3>
+                                <p>Venda, aluguel e percentual médio</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=mediaAluguel.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table">
+                            <thead>
+                                <tr>
+                                    <th>Percentuais sobre a Venda S/F</th>
+                                    <th>Venda S/F</th>
+                                    <th>Aluguel</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(mediaAluguel.count() > 0)
+	{
+		for each  itemMedia in mediaAluguel
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemMedia.Percentuais_Sobre_a_Venda_S_F,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemMedia.Venda_S_F1,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemMedia.Aluguel,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <span class="agm-badge">
+                                            <%=ifnull(itemMedia.Venda_S_F,"—")%>
+                                        </span>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="4">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="agm-card">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">3+</span>
+
+                            <div>
+                                <h3>Filiais com Aluguel Acima de 3,0%</h3>
+                                <p>Filiais que exigem acompanhamento</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=filiaisAcimaTres.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table w">
+                            <thead>
+                                <tr>
+                                    <th>Filial</th>
+                                    <th>Cidade</th>
+                                    <th>Região</th>
+                                    <th>Regionais</th>
+                                    <th>Gerente</th>
+                                    <th>Venda S/F</th>
+                                    <th>Aluguel</th>
+                                    <th>Tipo</th>
+                                    <th>% Aluguel</th>
+                                    <th>Faixa</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(filiaisAcimaTres.count() > 0)
+	{
+		for each  itemAcima in filiaisAcimaTres
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemAcima.FILIAL,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemAcima.CIDADE,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemAcima.REGI_O,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemAcima.REGIONAIS,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemAcima.GERENTE,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemAcima.Venda_S_F,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemAcima.ALUGUEL,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemAcima.TIPO,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <span class="agm-badge agm-alert">
+                                            <%=ifnull(itemAcima.ALUGUEL1,"—")%>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemAcima.FAIXA,"—")%>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="10">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="agm-card">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">AA</span>
+
+                            <div>
+                                <h3>Análise do Aluguel Acima de 3,0%</h3>
+                                <p>Meta, faturamento, cenário ideal e déficit</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=analiseAcimaTres.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table xw">
+                            <thead>
+                                <tr>
+                                    <th>Filial</th>
+                                    <th>Cidade</th>
+                                    <th>Meta R$</th>
+                                    <th>Faturamento R$</th>
+                                    <th>% Meta atingida</th>
+                                    <th>Aluguel R$</th>
+                                    <th>% Aluguel / faturamento real</th>
+                                    <th>% Aluguel / meta</th>
+                                    <th>Situação</th>
+                                    <th>Déficit de faturamento R$</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(analiseAcimaTres.count() > 0)
+	{
+		for each  itemAnalise in analiseAcimaTres
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemAnalise.Filial,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemAnalise.Cidade,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemAnalise.Meta_R,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemAnalise.Faturamento_R,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <span class="agm-badge">
+                                            <%=ifnull(itemAnalise.meta_atingida,"—")%>
+                                        </span>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemAnalise.Alug,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <span class="agm-badge agm-alert">
+                                            <%=ifnull(itemAnalise.aluguel_faturamento_real,"—")%>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="agm-badge">
+                                            <%=ifnull(itemAnalise.aluguel_meta_cen_rio_ideal,"—")%>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemAnalise.Situa_o,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemAnalise.D_ficit_de_faturamento_R,"—")%>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="10">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="agm-card">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">CP</span>
+
+                            <div>
+                                <h3>Comparativo</h3>
+                                <p>Venda, aluguel, tipo e faixa contratual</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=dadosComparativo.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table m">
+                            <thead>
+                                <tr>
+                                    <th>Filial</th>
+                                    <th>Venda S/F</th>
+                                    <th>Aluguel</th>
+                                    <th>Tipo de aluguel</th>
+                                    <th>% Aluguel</th>
+                                    <th>Faixa</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(dadosComparativo.count() > 0)
+	{
+		for each  itemComparativo in dadosComparativo
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemComparativo.FILIAL,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemComparativo.Venda_S_F,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemComparativo.ALUGUEL,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemComparativo.TIPO_DE_ALUGUEL,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <span class="agm-badge">
+                                            <%=ifnull(itemComparativo.ALUGUEL1,"—")%>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemComparativo.FAIXA,"—")%>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="6">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ABA 3: FINANCEIRO -->
+        <section class="agm-panel agm-financeiro">
+            <div class="agm-intro">
+                <div>
+                    <h2>Gestão contratual e financeira</h2>
+                    <p>Reajustes, pagamentos e economia provisionada.</p>
+                </div>
+
+                <span class="agm-live">Dados do Zoho Creator</span>
+            </div>
+
+            <div class="agm-grid">
+                <article class="agm-card">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">DR</span>
+
+                            <div>
+                                <h3>Data-base de Reajuste</h3>
+                                <p>Acompanhamento contratual e valores reajustados</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=dataBaseReajuste.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table w">
+                            <thead>
+                                <tr>
+                                    <th>Filial</th>
+                                    <th>Cidade</th>
+                                    <th>Mês Reaj.</th>
+                                    <th>Anotações Índices</th>
+                                    <th>Tipo Prédio</th>
+                                    <th>Status do Contrato</th>
+                                    <th>Valor Anterior</th>
+                                    <th>Valor Reajustado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(dataBaseReajuste.count() > 0)
+	{
+		for each  itemReajuste in dataBaseReajuste
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemReajuste.FILIAL,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemReajuste.Cidade1,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <span class="agm-badge">
+                                            <%=ifnull(itemReajuste.CIDADE,"—")%>
+                                        </span>
+                                    </td>
+
+                                    <td class="agm-note">
+                                        <%=ifnull(itemReajuste.ANOTA_ES_NDICES,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemReajuste.TIPO_PR_DIO,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemReajuste.STATUS_DO_CONTRATO,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemReajuste.Valor_anterior,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemReajuste.VALOR_REAJUSTADO,"—")%>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="8">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="agm-card">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">PP</span>
+
+                            <div>
+                                <h3>Pagamento de Aluguel — Prédios Próprios</h3>
+                                <p>Locatários, valores e datas de pagamento</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=pagamentosPrediosProprios.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table m">
+                            <thead>
+                                <tr>
+                                    <th>Locatário</th>
+                                    <th>CNPJ/CPF</th>
+                                    <th>Município</th>
+                                    <th>Valor da Locação</th>
+                                    <th>Data de Pagamento</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(pagamentosPrediosProprios.count() > 0)
+	{
+		for each  itemPagamento in pagamentosPrediosProprios
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemPagamento.LOCAT_RIO,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemPagamento.CNPJ_CPF,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemPagamento.MUNIC_PIO,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemPagamento.VALOR_DA_LOCA_O,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <span class="agm-badge">
+                                            <%=ifnull(itemPagamento.DATA_DE_PAGAMENTO,"—")%>
+                                        </span>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="5">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="agm-card">
+                    <div class="agm-head">
+                        <div class="agm-title">
+                            <span class="agm-icon">EP</span>
+
+                            <div>
+                                <h3>Economia — Provisionado</h3>
+                                <p>Provisões mensais e valores acumulados</p>
+                            </div>
+                        </div>
+
+                        <span class="agm-count">
+                            <%=economiaProvisionado.count()%>
+                        </span>
+                    </div>
+
+                    <div class="agm-scroll">
+                        <table class="agm-table m">
+                            <thead>
+                                <tr>
+                                    <th>Provisões Abril</th>
+                                    <th>Quant. Filiais</th>
+                                    <th>Valor</th>
+                                    <th>Acumulado Janeiro a Abril</th>
+                                    <th>Valor Acumulado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+<%
+	if(economiaProvisionado.count() > 0)
+	{
+		for each  itemEconomia in economiaProvisionado
+		{
+			%>
+<tr>
+                                    <td class="agm-main">
+                                        <%=ifnull(itemEconomia.PROVIS_ES_ABRIL,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemEconomia.Quant_Filiais,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemEconomia.Valor,"—")%>
+                                    </td>
+
+                                    <td>
+                                        <%=ifnull(itemEconomia.ACUMULADO_JANEIRO_A_ABRIL,"—")%>
+                                    </td>
+
+                                    <td class="agm-value">
+                                        <%=ifnull(itemEconomia.Valor1,"—")%>
+                                    </td>
+                                </tr>
+<%
+		}
+	}
+	else
+	{
+		%>
+<tr>
+                                    <td class="agm-empty" colspan="5">
+                                        Nenhum registro disponível.
+                                    </td>
+                                </tr>
+<%
+	}
+	%>
+</tbody>
+                        </table>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <footer class="agm-footer">
+            <span>
+                <strong>Micro AGM</strong> · Contratos de Aluguéis
+            </span>
+
+            <span>
+                Visão Geral · Indicadores · Financeiro
+            </span>
+        </footer>
+    </div>
+</main>
+<%
+
+}%>
