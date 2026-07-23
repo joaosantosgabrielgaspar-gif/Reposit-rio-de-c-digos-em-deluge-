@@ -1,0 +1,1087 @@
+<%{
+	registrosCarteira = Contratos_vigentes_vencidos_encerrados[ID != null];
+	registrosFluxo = Fluxo[ID != null];
+	registrosNovosContratos = novos_contratos[ID != null];
+	registrosRenovados = Contratos_renovados[ID != null];
+	registrosVencimentoJulho = Contratos_com_vencimento_em_Julho[ID != null];
+	registrosOrcadoNegociado = Or_ado_x_Realizado[ID != null];
+	emAnalise = 0;
+	emValidacaoOrcamento = 0;
+	rejeitadoOrcamento = 0;
+	departamentoCompras = 0;
+	informacoesAdicionais = 0;
+	emDefinicaoFornecedor = 0;
+	revalidacaoOrcamento = 0;
+	emProcessoMinuta = 0;
+	emRevisaoJuridica = 0;
+	emAnaliseGestaoContratos = 0;
+	emRevisaoContrato = 0;
+	emRevisaoDiretoria = 0;
+	aguardandoSolicitante = 0;
+	aprovadoDiretoria = 0;
+	rejeitadoDiretoria = 0;
+	emAssinatura = 0;
+	finalizado = 0;
+	cancelado = 0;
+	for each  registroFluxo in registrosFluxo
+	{
+		emAnalise = emAnalise + ifnull(registroFluxo.Em_An_lise,0);
+		emValidacaoOrcamento = emValidacaoOrcamento + ifnull(registroFluxo.Em_valida_o_D_Or_amento,0);
+		rejeitadoOrcamento = rejeitadoOrcamento + ifnull(registroFluxo.Rejeitado_por_D_Or_amento,0);
+		departamentoCompras = departamentoCompras + ifnull(registroFluxo.Departamento_de_Compras,0);
+		informacoesAdicionais = informacoesAdicionais + ifnull(registroFluxo.Informa_es_Adicionais,0);
+		emDefinicaoFornecedor = emDefinicaoFornecedor + ifnull(registroFluxo.Em_defini_o_de_Fornecedor,0);
+		revalidacaoOrcamento = revalidacaoOrcamento + ifnull(registroFluxo.Revalida_o_de_Or_amento,0);
+		emProcessoMinuta = emProcessoMinuta + ifnull(registroFluxo.Em_processo_de_Minuta,0);
+		emRevisaoJuridica = emRevisaoJuridica + ifnull(registroFluxo.Em_Revis_o_Jur_dica,0);
+		emAnaliseGestaoContratos = emAnaliseGestaoContratos + ifnull(registroFluxo.Em_An_lise_da_Gest_o_de_Contratos,0);
+		emRevisaoContrato = emRevisaoContrato + ifnull(registroFluxo.Em_revis_o_de_contrato,0);
+		emRevisaoDiretoria = emRevisaoDiretoria + ifnull(registroFluxo.Em_revis_o_de_Diretoria,0);
+		aguardandoSolicitante = aguardandoSolicitante + ifnull(registroFluxo.Aguardando_conversa_com_Solicitante,0);
+		aprovadoDiretoria = aprovadoDiretoria + ifnull(registroFluxo.Aprovado_pela_Diretoria,0);
+		rejeitadoDiretoria = rejeitadoDiretoria + ifnull(registroFluxo.Rejeitado_pela_Diretoria,0);
+		emAssinatura = emAssinatura + ifnull(registroFluxo.Em_assinatura,0);
+		finalizado = finalizado + ifnull(registroFluxo.Finalizado,0);
+		cancelado = cancelado + ifnull(registroFluxo.Cancelado,0);
+	}
+	%>
+<style>
+	.gct-page,
+	.gct-page * {
+		box-sizing: border-box;
+	}
+
+	.gct-page {
+		--gct-navy: #0a2942;
+		--gct-navy-2: #123d5c;
+		--gct-blue: #0b6fa4;
+		--gct-blue-soft: #e9f3f8;
+		--gct-green: #14765b;
+		--gct-green-soft: #e7f6f0;
+		--gct-amber: #a96c13;
+		--gct-amber-soft: #fff5e5;
+		--gct-red: #b23b4a;
+		--gct-red-soft: #fff0f2;
+		--gct-ink: #1d3546;
+		--gct-muted: #637b8c;
+		--gct-line: #d8e4ea;
+		--gct-canvas: #eef3f6;
+		--gct-card: #ffffff;
+		width: 100%;
+		min-height: 100vh;
+		padding: 24px;
+		color: var(--gct-ink) !important;
+		background: var(--gct-canvas) !important;
+		font-family: "Segoe UI", Arial, sans-serif;
+	}
+
+	.gct-shell {
+		width: 100%;
+		max-width: 1600px;
+		margin: 0 auto;
+	}
+
+	.gct-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 18px;
+		margin-bottom: 15px;
+	}
+
+	.gct-brand {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.gct-brand-mark {
+		display: grid;
+		flex: 0 0 auto;
+		place-items: center;
+		width: 48px;
+		height: 48px;
+		border-radius: 13px;
+		color: #f3d18a;
+		background: var(--gct-navy);
+		box-shadow: 0 10px 24px rgba(10,41,66,.18);
+		font-family: Georgia, "Times New Roman", serif;
+		font-size: 18px;
+		font-weight: 700;
+	}
+
+	.gct-overline {
+		margin: 0 0 3px;
+		color: var(--gct-blue);
+		font-size: 10px;
+		font-weight: 800;
+		letter-spacing: .14em;
+		text-transform: uppercase;
+	}
+
+	.gct-title {
+		margin: 0;
+		color: var(--gct-navy);
+		font-family: Georgia, "Times New Roman", serif;
+		font-size: 30px;
+		font-weight: 500;
+		letter-spacing: -.035em;
+	}
+
+	.gct-header-status {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 8px 11px;
+		border: 1px solid var(--gct-line);
+		border-radius: 999px;
+		color: #496477;
+		background: #fff;
+		font-size: 10px;
+		font-weight: 800;
+		white-space: nowrap;
+	}
+
+	.gct-header-status::before {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: var(--gct-green);
+		box-shadow: 0 0 0 4px var(--gct-green-soft);
+		content: "";
+	}
+
+	.gct-hero {
+		position: relative;
+		display: grid;
+		grid-template-columns: minmax(0,1fr) auto;
+		align-items: center;
+		gap: 30px;
+		min-height: 176px;
+		padding: 32px 36px;
+		overflow: hidden;
+		border-radius: 18px;
+		color: #fff;
+		background: linear-gradient(120deg,var(--gct-navy) 0%,var(--gct-navy-2) 55%,#197fa9 100%);
+		box-shadow: 0 18px 38px rgba(10,41,66,.18);
+	}
+
+	.gct-hero::before,
+	.gct-hero::after {
+		position: absolute;
+		border: 1px solid rgba(243,209,138,.28);
+		border-radius: 50%;
+		content: "";
+	}
+
+	.gct-hero::before {
+		top: -205px;
+		right: -74px;
+		width: 320px;
+		height: 320px;
+	}
+
+	.gct-hero::after {
+		right: 165px;
+		bottom: -130px;
+		width: 190px;
+		height: 190px;
+	}
+
+	.gct-hero-copy,
+	.gct-hero-facts {
+		position: relative;
+		z-index: 1;
+	}
+
+	.gct-hero-kicker {
+		display: inline-block;
+		margin-bottom: 10px;
+		color: #f3d18a;
+		font-size: 10px;
+		font-weight: 800;
+		letter-spacing: .15em;
+		text-transform: uppercase;
+	}
+
+	.gct-hero h2 {
+		max-width: 760px;
+		margin: 0 0 9px;
+		font-family: Georgia, "Times New Roman", serif;
+		font-size: 35px;
+		font-weight: 500;
+		letter-spacing: -.035em;
+	}
+
+	.gct-hero p {
+		max-width: 790px;
+		margin: 0;
+		color: #d9eaf4;
+		font-size: 13px;
+		line-height: 1.6;
+	}
+
+	.gct-hero-facts {
+		display: grid;
+		grid-template-columns: repeat(3,minmax(92px,1fr));
+		gap: 8px;
+	}
+
+	.gct-hero-fact {
+		min-width: 94px;
+		padding: 13px 12px;
+		border: 1px solid rgba(255,255,255,.18);
+		border-radius: 11px;
+		background: rgba(255,255,255,.08);
+		text-align: center;
+	}
+
+	.gct-hero-fact strong {
+		display: block;
+		margin-bottom: 3px;
+		color: #fff;
+		font-size: 22px;
+		line-height: 1;
+	}
+
+	.gct-hero-fact span {
+		color: #cfe4f0;
+		font-size: 9px;
+		font-weight: 800;
+		letter-spacing: .06em;
+		text-transform: uppercase;
+	}
+
+	.gct-nav {
+		display: flex;
+		gap: 7px;
+		margin: 12px 0 14px;
+		padding: 9px;
+		overflow-x: auto;
+		border: 1px solid var(--gct-line);
+		border-radius: 12px;
+		background: #fff;
+		box-shadow: 0 5px 15px rgba(10,41,66,.04);
+	}
+
+	.gct-nav a {
+		flex: 0 0 auto;
+		padding: 8px 11px;
+		border-radius: 8px;
+		color: #476275;
+		background: #f3f7f9;
+		font-size: 10px;
+		font-weight: 800;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.gct-nav a:hover,
+	.gct-nav a:focus {
+		color: #fff;
+		background: var(--gct-blue);
+		outline: none;
+	}
+
+	.gct-card {
+		min-width: 0;
+		margin-bottom: 14px;
+		padding: 19px;
+		border: 1px solid var(--gct-line);
+		border-radius: 14px;
+		background: var(--gct-card);
+		box-shadow: 0 6px 18px rgba(10,41,66,.055);
+		scroll-margin-top: 14px;
+	}
+
+	.gct-card-head {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 16px;
+		margin-bottom: 15px;
+	}
+
+	.gct-card-title-wrap {
+		min-width: 0;
+	}
+
+	.gct-section-kicker {
+		display: block;
+		margin-bottom: 4px;
+		color: var(--gct-blue);
+		font-size: 9px;
+		font-weight: 800;
+		letter-spacing: .12em;
+		text-transform: uppercase;
+	}
+
+	.gct-card h2 {
+		margin: 0;
+		color: var(--gct-navy);
+		font-size: 19px;
+		letter-spacing: -.015em;
+	}
+
+	.gct-card-head p {
+		margin: 5px 0 0;
+		color: var(--gct-muted);
+		font-size: 11px;
+		line-height: 1.5;
+	}
+
+	.gct-source {
+		display: flex;
+		flex: 0 1 560px;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: 5px;
+	}
+
+	.gct-source span {
+		max-width: 100%;
+		padding: 5px 8px;
+		border-radius: 7px;
+		color: #426579;
+		background: var(--gct-blue-soft);
+		font-family: Consolas, "Courier New", monospace;
+		font-size: 9px;
+		font-weight: 700;
+		line-height: 1.25;
+		overflow-wrap: anywhere;
+	}
+
+	.gct-table-wrap {
+		max-height: 390px;
+		overflow: auto;
+		border: 1px solid #dfe8ed;
+		border-radius: 10px;
+	}
+
+	.gct-table {
+		width: 100%;
+		min-width: 720px;
+		border-collapse: collapse;
+	}
+
+	.gct-table.gct-table-compact {
+		min-width: 440px;
+	}
+
+	.gct-table.gct-table-medium {
+		min-width: 520px;
+	}
+
+	.gct-table.gct-table-financial {
+		min-width: 600px;
+	}
+
+	.gct-table th {
+		position: sticky;
+		z-index: 1;
+		top: 0;
+		padding: 12px 13px;
+		color: #536f80;
+		background: #f3f7f9;
+		font-size: 10px;
+		font-weight: 800;
+		letter-spacing: .055em;
+		text-align: left;
+		text-transform: uppercase;
+	}
+
+	.gct-table th.gct-num,
+	.gct-table td.gct-num {
+		text-align: right;
+	}
+
+	.gct-table td {
+		padding: 13px;
+		border-top: 1px solid #e8eef1;
+		color: #294556;
+		font-size: 12px;
+		line-height: 1.35;
+		vertical-align: middle;
+	}
+
+	.gct-table td:first-child {
+		font-weight: 700;
+	}
+
+	.gct-table td.gct-num {
+		font-variant-numeric: tabular-nums;
+		font-weight: 800;
+		white-space: nowrap;
+	}
+
+	.gct-table tbody tr:hover td {
+		background: #f9fcfd;
+	}
+
+	.gct-number {
+		display: inline-flex;
+		min-width: 38px;
+		justify-content: center;
+		padding: 5px 8px;
+		border-radius: 999px;
+		color: var(--gct-blue);
+		background: var(--gct-blue-soft);
+	}
+
+	.gct-number.is-good {
+		color: var(--gct-green);
+		background: var(--gct-green-soft);
+	}
+
+	.gct-number.is-alert {
+		color: var(--gct-red);
+		background: var(--gct-red-soft);
+	}
+
+	.gct-number.is-neutral {
+		color: var(--gct-amber);
+		background: var(--gct-amber-soft);
+	}
+
+	.gct-flow-caption {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin: -2px 0 13px;
+	}
+
+	.gct-flow-caption p {
+		margin: 0;
+		color: var(--gct-muted);
+		font-size: 10px;
+	}
+
+	.gct-legend {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: 6px;
+	}
+
+	.gct-legend span {
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+		padding: 4px 7px;
+		border-radius: 999px;
+		color: #4b6678;
+		background: #f0f5f7;
+		font-size: 9px;
+		font-weight: 800;
+	}
+
+	.gct-legend span::before {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: var(--gct-blue);
+		content: "";
+	}
+
+	.gct-legend .is-success::before {
+		background: var(--gct-green);
+	}
+
+	.gct-legend .is-rejected::before {
+		background: var(--gct-red);
+	}
+
+	.gct-flow {
+		display: grid;
+		grid-template-columns: repeat(6,minmax(0,1fr));
+		gap: 10px;
+	}
+
+	.gct-step {
+		position: relative;
+		min-height: 126px;
+		padding: 14px;
+		border: 1px solid #dae6ec;
+		border-radius: 11px;
+		background: #fbfdfe;
+	}
+
+	.gct-step-number {
+		display: grid;
+		place-items: center;
+		width: 25px;
+		height: 25px;
+		margin-bottom: 10px;
+		border-radius: 50%;
+		color: #fff;
+		background: var(--gct-blue);
+		font-size: 9px;
+		font-weight: 900;
+	}
+
+	.gct-step h3 {
+		min-height: 34px;
+		margin: 0;
+		color: #365365;
+		font-size: 11px;
+		font-weight: 750;
+		line-height: 1.35;
+	}
+
+	.gct-step strong {
+		display: block;
+		margin-top: 10px;
+		color: var(--gct-navy);
+		font-size: 28px;
+		font-weight: 800;
+		line-height: 1;
+	}
+
+	.gct-step.is-success {
+		border-color: #cfe9de;
+		background: #f3fbf8;
+	}
+
+	.gct-step.is-success .gct-step-number {
+		background: var(--gct-green);
+	}
+
+	.gct-step.is-success strong {
+		color: var(--gct-green);
+	}
+
+	.gct-step.is-rejected {
+		border-color: #f0d5da;
+		background: #fff9fa;
+	}
+
+	.gct-step.is-rejected .gct-step-number {
+		background: var(--gct-red);
+	}
+
+	.gct-step.is-rejected strong {
+		color: var(--gct-red);
+	}
+
+	.gct-step.is-highlight {
+		border-color: #ecd8b5;
+		background: #fffaf1;
+	}
+
+	.gct-step.is-highlight .gct-step-number {
+		background: var(--gct-amber);
+	}
+
+	.gct-step.is-highlight strong {
+		color: var(--gct-amber);
+	}
+
+	.gct-grid {
+		display: grid;
+		grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+		gap: 14px;
+		margin-bottom: 14px;
+	}
+
+	.gct-grid .gct-card {
+		height: 100%;
+		margin-bottom: 0;
+	}
+
+	.gct-footer {
+		padding: 4px 0 2px;
+		color: #708695;
+		font-size: 10px;
+		text-align: center;
+	}
+
+	@media (max-width:1180px) {
+		.gct-hero {
+			grid-template-columns: 1fr;
+		}
+
+		.gct-hero-facts {
+			max-width: 390px;
+		}
+
+		.gct-flow {
+			grid-template-columns: repeat(4,minmax(0,1fr));
+		}
+	}
+
+	@media (max-width:860px) {
+		.gct-page {
+			padding: 18px;
+		}
+
+		.gct-card-head,
+		.gct-flow-caption {
+			flex-direction: column;
+		}
+
+		.gct-source,
+		.gct-legend {
+			justify-content: flex-start;
+		}
+
+		.gct-source {
+			flex-basis: auto;
+		}
+
+		.gct-flow {
+			grid-template-columns: repeat(3,minmax(0,1fr));
+		}
+
+		.gct-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width:620px) {
+		.gct-header {
+			align-items: flex-start;
+			flex-direction: column;
+		}
+
+		.gct-title {
+			font-size: 27px;
+		}
+
+		.gct-hero {
+			padding: 25px 22px;
+		}
+
+		.gct-hero h2 {
+			font-size: 28px;
+		}
+
+		.gct-hero-facts {
+			width: 100%;
+			grid-template-columns: repeat(3,minmax(0,1fr));
+		}
+
+		.gct-flow {
+			grid-template-columns: repeat(2,minmax(0,1fr));
+		}
+	}
+
+	@media (max-width:390px) {
+		.gct-page {
+			padding: 12px;
+		}
+
+		.gct-hero-facts,
+		.gct-flow {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<section class="gct-page">
+	<div class="gct-shell">
+		<header class="gct-header">
+			<div class="gct-brand">
+				<div class="gct-brand-mark">GC</div>
+				<div>
+					<p class="gct-overline">Gest&atilde;o corporativa</p>
+					<h1 class="gct-title">Painel de contratos</h1>
+				</div>
+			</div>
+			<div class="gct-header-status">6 relat&oacute;rios conectados</div>
+		</header>
+
+		<section class="gct-hero">
+			<div class="gct-hero-copy">
+				<span class="gct-hero-kicker">Vis&atilde;o executiva integrada</span>
+				<h2>Gest&atilde;o de contratos corporativos</h2>
+				<p>Uma leitura &uacute;nica da carteira, do fluxo de aprova&ccedil;&atilde;o, dos novos contratos, das renova&ccedil;&otilde;es, dos vencimentos de julho e do resultado das negocia&ccedil;&otilde;es.</p>
+			</div>
+
+			<div class="gct-hero-facts">
+				<div class="gct-hero-fact"><strong>6</strong><span>Relat&oacute;rios</span></div>
+				<div class="gct-hero-fact"><strong>18</strong><span>Etapas</span></div>
+				<div class="gct-hero-fact"><strong>1</strong><span>Vis&atilde;o integrada</span></div>
+			</div>
+		</section>
+
+		<nav class="gct-nav">
+			<a href="#gct-carteira">Carteira</a>
+			<a href="#gct-fluxo">Fluxo de contratos</a>
+			<a href="#gct-novos">Novos contratos</a>
+			<a href="#gct-renovados">Renovados</a>
+			<a href="#gct-vencimentos">Vencimentos de julho</a>
+			<a href="#gct-orcado">Or&ccedil;ado x negociado</a>
+		</nav>
+
+		<section class="gct-card" id="gct-carteira">
+			<div class="gct-card-head">
+				<div class="gct-card-title-wrap">
+					<span class="gct-section-kicker">Carteira de contratos</span>
+					<h2>Vis&atilde;o da carteira de contratos</h2>
+					<p>Campos consolidados por &aacute;rea e r&oacute;tulo de linha.</p>
+				</div>
+
+				<div class="gct-source">
+					<span>Form: Contratos_vigentes_vencidos_encerrados</span>
+					<span>Report: Contratos_vigentes_vencidos_encerrados_Report</span>
+				</div>
+			</div>
+
+			<div class="gct-table-wrap">
+				<table class="gct-table">
+					<thead>
+						<tr>
+							<th>&Aacute;rea</th>
+							<th>R&oacute;tulos de linha</th>
+							<th class="gct-num">Vigentes</th>
+							<th class="gct-num">Vencidos</th>
+							<th class="gct-num">Total geral</th>
+						</tr>
+					</thead>
+					<tbody>
+<%
+	for each  registroCarteira in registrosCarteira
+	{
+		%>
+<tr>
+							<td><%=htmlEncode(ifnull(registroCarteira.rea,"-").toString())%></td>
+							<td><%=htmlEncode(ifnull(registroCarteira.R_tulos_de_Linha,"-").toString())%></td>
+							<td class="gct-num"><span class="gct-number is-good"><%=ifnull(registroCarteira.Vigente,0)%></span></td>
+							<td class="gct-num"><span class="gct-number is-alert"><%=ifnull(registroCarteira.Vencido,0)%></span></td>
+							<td class="gct-num"><span class="gct-number"><%=ifnull(registroCarteira.Total_Geral,0)%></span></td>
+						</tr>
+<%
+	}
+	%>
+</tbody>
+				</table>
+			</div>
+		</section>
+
+		<section class="gct-card" id="gct-fluxo">
+			<div class="gct-card-head">
+				<div class="gct-card-title-wrap">
+					<span class="gct-section-kicker">Fluxo de contratos</span>
+					<h2>Etapas do processo contratual</h2>
+					<p>Quantidade atual de contratos em cada etapa do fluxo.</p>
+				</div>
+
+				<div class="gct-source">
+					<span>Form: Fluxo</span>
+					<span>Report: Fluxo_Report</span>
+				</div>
+			</div>
+
+			<div class="gct-flow-caption">
+				<p>As etapas seguem a ordem operacional informada no formul&aacute;rio.</p>
+				<div class="gct-legend">
+					<span>Em andamento</span>
+					<span class="is-success">Aprovado ou finalizado</span>
+					<span class="is-rejected">Rejeitado ou cancelado</span>
+				</div>
+			</div>
+
+			<div class="gct-flow">
+				<article class="gct-step">
+					<div class="gct-step-number">01</div>
+					<h3>Em An&aacute;lise</h3>
+					<strong><%=emAnalise%></strong>
+				</article>
+
+				<article class="gct-step">
+					<div class="gct-step-number">02</div>
+					<h3>Em valida&ccedil;&atilde;o D. Or&ccedil;amento</h3>
+					<strong><%=emValidacaoOrcamento%></strong>
+				</article>
+
+				<article class="gct-step is-rejected">
+					<div class="gct-step-number">03</div>
+					<h3>Rejeitado por D. Or&ccedil;amento</h3>
+					<strong><%=rejeitadoOrcamento%></strong>
+				</article>
+
+				<article class="gct-step">
+					<div class="gct-step-number">04</div>
+					<h3>Departamento de Compras</h3>
+					<strong><%=departamentoCompras%></strong>
+				</article>
+
+				<article class="gct-step">
+					<div class="gct-step-number">05</div>
+					<h3>Informa&ccedil;&otilde;es Adicionais</h3>
+					<strong><%=informacoesAdicionais%></strong>
+				</article>
+
+				<article class="gct-step">
+					<div class="gct-step-number">06</div>
+					<h3>Em defini&ccedil;&atilde;o de Fornecedor</h3>
+					<strong><%=emDefinicaoFornecedor%></strong>
+				</article>
+
+				<article class="gct-step">
+					<div class="gct-step-number">07</div>
+					<h3>Revalida&ccedil;&atilde;o de Or&ccedil;amento</h3>
+					<strong><%=revalidacaoOrcamento%></strong>
+				</article>
+
+				<article class="gct-step">
+					<div class="gct-step-number">08</div>
+					<h3>Em processo de Minuta</h3>
+					<strong><%=emProcessoMinuta%></strong>
+				</article>
+
+				<article class="gct-step">
+					<div class="gct-step-number">09</div>
+					<h3>Em Revis&atilde;o Jur&iacute;dica</h3>
+					<strong><%=emRevisaoJuridica%></strong>
+				</article>
+
+				<article class="gct-step">
+					<div class="gct-step-number">10</div>
+					<h3>Em An&aacute;lise da Gest&atilde;o de Contratos</h3>
+					<strong><%=emAnaliseGestaoContratos%></strong>
+				</article>
+
+				<article class="gct-step">
+					<div class="gct-step-number">11</div>
+					<h3>Em revis&atilde;o de contrato</h3>
+					<strong><%=emRevisaoContrato%></strong>
+				</article>
+
+				<article class="gct-step">
+					<div class="gct-step-number">12</div>
+					<h3>Em revis&atilde;o de Diretoria</h3>
+					<strong><%=emRevisaoDiretoria%></strong>
+				</article>
+
+				<article class="gct-step is-highlight">
+					<div class="gct-step-number">13</div>
+					<h3>Aguardando conversa com Solicitante</h3>
+					<strong><%=aguardandoSolicitante%></strong>
+				</article>
+
+				<article class="gct-step is-success">
+					<div class="gct-step-number">14</div>
+					<h3>Aprovado pela Diretoria</h3>
+					<strong><%=aprovadoDiretoria%></strong>
+				</article>
+
+				<article class="gct-step is-rejected">
+					<div class="gct-step-number">15</div>
+					<h3>Rejeitado pela Diretoria</h3>
+					<strong><%=rejeitadoDiretoria%></strong>
+				</article>
+
+				<article class="gct-step is-highlight">
+					<div class="gct-step-number">16</div>
+					<h3>Em assinatura</h3>
+					<strong><%=emAssinatura%></strong>
+				</article>
+
+				<article class="gct-step is-success">
+					<div class="gct-step-number">17</div>
+					<h3>Finalizado</h3>
+					<strong><%=finalizado%></strong>
+				</article>
+
+				<article class="gct-step is-rejected">
+					<div class="gct-step-number">18</div>
+					<h3>Cancelado</h3>
+					<strong><%=cancelado%></strong>
+				</article>
+			</div>
+		</section>
+
+		<div class="gct-grid">
+			<section class="gct-card" id="gct-novos">
+				<div class="gct-card-head">
+					<div class="gct-card-title-wrap">
+						<span class="gct-section-kicker">Novos contratos</span>
+						<h2>Entradas em 2026</h2>
+						<p>Comparativo entre o acumulado de 2026 e o m&ecirc;s 06, por &aacute;rea.</p>
+					</div>
+
+					<div class="gct-source">
+						<span>Form: novos_contratos</span>
+						<span>Report: novos_contratos_Report</span>
+					</div>
+				</div>
+
+				<div class="gct-table-wrap">
+					<table class="gct-table gct-table-medium">
+						<thead>
+							<tr>
+								<th>&Aacute;rea</th>
+								<th class="gct-num">Novos contratos 2026</th>
+								<th class="gct-num">Novos contratos m&ecirc;s 06</th>
+							</tr>
+						</thead>
+						<tbody>
+<%
+	for each  registroNovoContrato in registrosNovosContratos
+	{
+		%>
+<tr>
+								<td><%=htmlEncode(ifnull(registroNovoContrato.rea,"-").toString())%></td>
+								<td class="gct-num"><%=ifnull(registroNovoContrato.Novos_contratos_2026,0)%></td>
+								<td class="gct-num"><%=ifnull(registroNovoContrato.Novos_contratos_m_s_06,0)%></td>
+							</tr>
+<%
+	}
+	%>
+</tbody>
+					</table>
+				</div>
+			</section>
+
+			<section class="gct-card" id="gct-renovados">
+				<div class="gct-card-head">
+					<div class="gct-card-title-wrap">
+						<span class="gct-section-kicker">Contratos renovados</span>
+						<h2>Renova&ccedil;&otilde;es e encerramentos</h2>
+						<p>Resumo dos contratos renovados e encerrados por &aacute;rea.</p>
+					</div>
+
+					<div class="gct-source">
+						<span>Form: Contratos_renovados</span>
+						<span>Report: Contratos_renovados_Report</span>
+					</div>
+				</div>
+
+				<div class="gct-table-wrap">
+					<table class="gct-table gct-table-medium">
+						<thead>
+							<tr>
+								<th>&Aacute;rea</th>
+								<th class="gct-num">Contratos renovados</th>
+								<th class="gct-num">Contratos encerrados</th>
+							</tr>
+						</thead>
+						<tbody>
+<%
+	for each  registroRenovado in registrosRenovados
+	{
+		%>
+<tr>
+								<td><%=htmlEncode(ifnull(registroRenovado.area,"-").toString())%></td>
+								<td class="gct-num">
+									<span class="gct-number is-good">
+										<%=ifnull(registroRenovado.Contratos_renovados2,0)%>
+									</span>
+								</td>
+								<td class="gct-num">
+									<span class="gct-number is-neutral">
+										<%=ifnull(registroRenovado.Contratos_encerrados,0)%>
+									</span>
+								</td>
+							</tr>
+<%
+	}
+	%>
+</tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+
+		<div class="gct-grid">
+			<section class="gct-card" id="gct-vencimentos">
+				<div class="gct-card-head">
+					<div class="gct-card-title-wrap">
+						<span class="gct-section-kicker">Vencimentos</span>
+						<h2>Contratos com vencimento em julho</h2>
+						<p>Quantidade de contratos que vencem no m&ecirc;s, por &aacute;rea.</p>
+					</div>
+
+					<div class="gct-source">
+						<span>Form: Contratos_com_vencimento_em_Julho</span>
+						<span>Report: Contratos_com_vencimento_em_Julho_Report</span>
+					</div>
+				</div>
+
+				<div class="gct-table-wrap">
+					<table class="gct-table gct-table-compact">
+						<thead>
+							<tr>
+								<th>&Aacute;rea</th>
+								<th class="gct-num">Quantidade</th>
+							</tr>
+						</thead>
+						<tbody>
+<%
+	for each  registroVencimentoJulho in registrosVencimentoJulho
+	{
+		%>
+<tr>
+								<td><%=htmlEncode(ifnull(registroVencimentoJulho.rea,"-").toString())%></td>
+								<td class="gct-num">
+									<span class="gct-number is-alert">
+										<%=ifnull(registroVencimentoJulho.Quantidade,0)%>
+									</span>
+								</td>
+							</tr>
+<%
+	}
+	%>
+</tbody>
+					</table>
+				</div>
+			</section>
+
+			<section class="gct-card" id="gct-orcado">
+				<div class="gct-card-head">
+					<div class="gct-card-title-wrap">
+						<span class="gct-section-kicker">Resultado financeiro</span>
+						<h2>Or&ccedil;ado x negociado</h2>
+						<p>Valores or&ccedil;ados, negociados e saving obtido por &aacute;rea.</p>
+					</div>
+
+					<div class="gct-source">
+						<span>Form: Or_ado_x_Realizado</span>
+						<span>Report: Or_ado_x_Realizado_Report</span>
+					</div>
+				</div>
+
+				<div class="gct-table-wrap">
+					<table class="gct-table gct-table-financial">
+						<thead>
+							<tr>
+								<th>&Aacute;rea</th>
+								<th class="gct-num">Or&ccedil;ado</th>
+								<th class="gct-num">Negociado</th>
+								<th class="gct-num">Saving</th>
+							</tr>
+						</thead>
+						<tbody>
+<%
+	for each  registroOrcadoNegociado in registrosOrcadoNegociado
+	{
+		%>
+<tr>
+								<td><%=htmlEncode(ifnull(registroOrcadoNegociado.rea,"-").toString())%></td>
+								<td class="gct-num"><%=ifnull(registroOrcadoNegociado.Or_ado,0)%></td>
+								<td class="gct-num"><%=ifnull(registroOrcadoNegociado.Nego_ciado,0)%></td>
+								<td class="gct-num">
+									<span class="gct-number is-good">
+										<%=ifnull(registroOrcadoNegociado.Savi_ng,0)%>
+									</span>
+								</td>
+							</tr>
+<%
+	}
+	%>
+</tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+
+		<footer class="gct-footer">
+			Painel de contratos corporativos &bull; Zoho Creator
+		</footer>
+	</div>
+</section>
+<%
+
+}%>
