@@ -1,0 +1,989 @@
+<%{
+	registros = Projetos_e_Processos[ID != null];
+	demandasPendentes = List();
+	demandasAndamento = List();
+	demandasFinalizadas = List();
+	for each  registro in registros
+	{
+		valorPendente = ifnull(registro.Demandas_Pendentes_teste,"").toString();
+		valorAndamento = ifnull(registro.Demandas_em_andamento,"").toString();
+		valorFinalizado = ifnull(registro.Demandas_finalizadas,"").toString();
+		if(valorPendente.trim() != "")
+		{
+			demandasPendentes.add(valorPendente.trim());
+		}
+		if(valorAndamento.trim() != "")
+		{
+			demandasAndamento.add(valorAndamento.trim());
+		}
+		if(valorFinalizado.trim() != "")
+		{
+			demandasFinalizadas.add(valorFinalizado.trim());
+		}
+	}
+	totalDemandas = demandasPendentes.size() + demandasAndamento.size() + demandasFinalizadas.size();
+	%>
+<style>
+    .pp-dashboard,
+    .pp-dashboard * {
+        box-sizing: border-box;
+    }
+
+    .pp-dashboard {
+        --blue: #0054a6;
+        --blue-dark: #003b75;
+        --blue-deep: #00264c;
+        --blue-soft: #e5f0fa;
+        --red: #e4232b;
+        --red-soft: #fce8e9;
+        --white: #ffffff;
+        --ink: #1d2b38;
+        --muted: #687988;
+        --line: #dbe4eb;
+        --background: #f3f6f8;
+
+        width: 100%;
+        min-height: 100vh;
+        padding: 32px 38px 48px;
+        color: var(--ink);
+        background:
+            radial-gradient(circle at 98% 0%, rgba(0,84,166,.10), transparent 24%),
+            radial-gradient(circle at 0% 100%, rgba(228,35,43,.06), transparent 25%),
+            linear-gradient(135deg, #edf1f4 0%, #f8fafb 50%, #edf1f4 100%);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .pp-shell {
+        width: 100%;
+        max-width: 1750px;
+        margin: 0 auto;
+    }
+
+    .pp-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 25px;
+    }
+
+    .pp-brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .pp-logo {
+        display: flex;
+        width: 58px;
+        height: 45px;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid var(--red);
+        border-radius: 11px;
+        color: #ffffff;
+        background: var(--blue);
+        box-shadow: 0 11px 22px rgba(0,59,117,.18);
+        font-size: 14px;
+        font-style: italic;
+        font-weight: 900;
+        letter-spacing: -.8px;
+    }
+
+    .pp-overline {
+        margin-bottom: 5px;
+        color: var(--blue);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+    }
+
+    .pp-title {
+        margin: 0;
+        color: var(--blue-deep);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(31px, 3vw, 44px);
+        font-weight: 500;
+        letter-spacing: -.05em;
+        line-height: 1;
+    }
+
+    .pp-subtitle {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    .pp-actions {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+    }
+
+    .pp-live,
+    .pp-print {
+        padding: 10px 14px;
+        border: 1px solid #d6e0e8;
+        border-radius: 8px;
+        color: #617383;
+        background: rgba(255,255,255,.88);
+        font-size: 11px;
+    }
+
+    .pp-live:before {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        margin-right: 7px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 0 4px rgba(228,35,43,.12);
+        content: "";
+    }
+
+    .pp-print {
+        color: var(--blue);
+        font-weight: 800;
+        cursor: pointer;
+    }
+
+    .pp-print:hover {
+        border-color: var(--blue);
+        color: #ffffff;
+        background: var(--blue);
+    }
+
+    .pp-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(350px, .9fr);
+        overflow: hidden;
+        margin-bottom: 20px;
+        border-radius: 19px;
+        background: var(--blue-deep);
+        box-shadow: 0 24px 48px rgba(0,59,117,.20);
+    }
+
+    .pp-hero-copy {
+        position: relative;
+        min-height: 350px;
+        overflow: hidden;
+        padding: 42px;
+        background:
+            radial-gradient(circle at 100% 0%, rgba(255,255,255,.14), transparent 28%),
+            linear-gradient(125deg, #00386f 0%, #0054a6 100%);
+    }
+
+    .pp-hero-copy:after {
+        position: absolute;
+        width: 340px;
+        height: 340px;
+        right: -130px;
+        bottom: -220px;
+        border: 1px solid rgba(255,255,255,.18);
+        border-radius: 50%;
+        box-shadow: 0 0 0 35px rgba(255,255,255,.035);
+        content: "";
+    }
+
+    .pp-hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 650px;
+    }
+
+    .pp-hero-label {
+        margin-bottom: 13px;
+        color: #b9ddf4;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+    }
+
+    .pp-hero-title {
+        margin: 0;
+        color: #ffffff;
+        font-family: Georgia, serif;
+        font-size: clamp(32px, 3vw, 45px);
+        font-weight: 500;
+        letter-spacing: -.05em;
+        line-height: 1.06;
+    }
+
+    .pp-hero-description {
+        max-width: 600px;
+        margin: 16px 0 0;
+        color: #d9edf9;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .pp-hero-line {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 30px;
+        color: #c9e5f5;
+        font-size: 11px;
+    }
+
+    .pp-hero-line:before {
+        width: 35px;
+        height: 3px;
+        background: var(--red);
+        content: "";
+    }
+
+    .pp-visual {
+        position: relative;
+        display: flex;
+        min-height: 350px;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-left: 1px solid rgba(255,255,255,.16);
+        background:
+            radial-gradient(circle at 50% 35%, rgba(22,109,184,.80), transparent 48%),
+            linear-gradient(155deg, #002c57, #001e3d);
+    }
+
+    .pp-visual:before {
+        position: absolute;
+        width: 385px;
+        height: 385px;
+        border: 1px solid rgba(255,255,255,.11);
+        border-radius: 50%;
+        box-shadow: 0 0 0 35px rgba(255,255,255,.025);
+        content: "";
+    }
+
+    .pp-visual svg {
+        position: relative;
+        z-index: 2;
+        width: min(92%, 460px);
+        height: auto;
+    }
+
+    .pp-visual-total {
+        position: absolute;
+        right: 25px;
+        bottom: 24px;
+        z-index: 3;
+        padding: 13px 16px;
+        border: 1px solid rgba(255,255,255,.18);
+        border-radius: 9px;
+        color: #d5ebf9;
+        background: rgba(0,31,61,.65);
+        font-size: 10px;
+        text-align: right;
+    }
+
+    .pp-visual-total strong {
+        display: block;
+        color: #ffffff;
+        font-family: Georgia, serif;
+        font-size: 38px;
+        font-weight: 400;
+        letter-spacing: -.07em;
+        line-height: 1;
+    }
+
+    .pp-metrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 11px;
+        margin-bottom: 34px;
+    }
+
+    .pp-metric {
+        position: relative;
+        min-height: 142px;
+        padding: 20px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: rgba(255,255,255,.93);
+        box-shadow: 0 10px 20px rgba(20,50,78,.06);
+    }
+
+    .pp-metric:before {
+        position: absolute;
+        top: 0;
+        right: 19px;
+        left: 19px;
+        height: 3px;
+        border-radius: 0 0 5px 5px;
+        background: var(--blue);
+        content: "";
+    }
+
+    .pp-metric:nth-child(2):before {
+        background: var(--red);
+    }
+
+    .pp-metric:nth-child(3):before {
+        background: var(--blue-dark);
+    }
+
+    .pp-metric:nth-child(4):before {
+        background: #8394a2;
+    }
+
+    .pp-metric-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+        min-height: 30px;
+        color: #667785;
+        font-size: 10px;
+        font-weight: 800;
+        line-height: 1.25;
+        text-transform: uppercase;
+    }
+
+    .pp-metric-icon {
+        display: grid;
+        width: 27px;
+        height: 27px;
+        flex: 0 0 auto;
+        place-items: center;
+        border-radius: 50%;
+        color: var(--blue);
+        background: var(--blue-soft);
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .pp-metric:nth-child(2) .pp-metric-icon {
+        color: var(--red);
+        background: var(--red-soft);
+    }
+
+    .pp-metric:nth-child(3) .pp-metric-icon {
+        color: var(--blue-dark);
+        background: #e5eef5;
+    }
+
+    .pp-metric:nth-child(4) .pp-metric-icon {
+        color: #60717f;
+        background: #edf0f2;
+    }
+
+    .pp-metric-value {
+        display: block;
+        margin-top: 25px;
+        color: var(--blue-deep);
+        font-family: Georgia, serif;
+        font-size: 40px;
+        font-weight: 500;
+        letter-spacing: -.08em;
+        line-height: 1;
+    }
+
+    .pp-metric-note {
+        margin-top: 9px;
+        color: #929da6;
+        font-size: 10px;
+    }
+
+    .pp-toolbar {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 15px;
+    }
+
+    .pp-section-title {
+        margin: 0;
+        color: var(--blue-deep);
+        font-family: Georgia, serif;
+        font-size: 29px;
+        font-weight: 500;
+        letter-spacing: -.035em;
+    }
+
+    .pp-section-description {
+        margin: 7px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    .pp-search {
+        position: relative;
+        width: 330px;
+    }
+
+    .pp-search:before {
+        position: absolute;
+        top: 11px;
+        left: 14px;
+        color: var(--blue);
+        content: "⌕";
+        font-size: 18px;
+        pointer-events: none;
+    }
+
+    .pp-search input {
+        width: 100%;
+        padding: 12px 14px 12px 40px;
+        border: 1px solid #d3e0e9;
+        border-radius: 8px;
+        outline: none;
+        color: var(--ink);
+        background: #ffffff;
+        font-size: 12px;
+    }
+
+    .pp-search input:focus {
+        border-color: var(--blue);
+        box-shadow: 0 0 0 3px rgba(0,84,166,.12);
+    }
+
+    .pp-board {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 15px;
+        align-items: start;
+    }
+
+    .pp-lane {
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: #ffffff;
+        box-shadow: 0 9px 21px rgba(23,44,63,.055);
+    }
+
+    .pp-lane-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 61px;
+        padding: 0 18px;
+        border-bottom: 1px solid #e2e9ee;
+        background: #fbfcfd;
+    }
+
+    .pp-lane-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #2b4255;
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .pp-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 0 4px var(--red-soft);
+    }
+
+    .pp-count {
+        min-width: 29px;
+        padding: 5px 8px;
+        border-radius: 999px;
+        color: var(--red);
+        background: var(--red-soft);
+        font-size: 10px;
+        font-weight: 800;
+        text-align: center;
+    }
+
+    .pp-lane-andamento .pp-dot {
+        background: var(--blue);
+        box-shadow: 0 0 0 4px var(--blue-soft);
+    }
+
+    .pp-lane-andamento .pp-count {
+        color: var(--blue);
+        background: var(--blue-soft);
+    }
+
+    .pp-lane-finalizadas .pp-dot {
+        background: var(--blue-deep);
+        box-shadow: 0 0 0 4px #dce9f4;
+    }
+
+    .pp-lane-finalizadas .pp-count {
+        color: var(--blue-deep);
+        background: #dce9f4;
+    }
+
+    .pp-list {
+        display: grid;
+        gap: 11px;
+        max-height: 590px;
+        overflow-y: auto;
+        padding: 12px;
+        background: #f7f9fb;
+    }
+
+    .pp-card {
+        position: relative;
+        padding: 18px 17px 16px 22px;
+        border: 1px solid #e0e8ee;
+        border-radius: 10px;
+        background: #ffffff;
+        box-shadow: 0 3px 8px rgba(25,46,64,.035);
+    }
+
+    .pp-card:before {
+        position: absolute;
+        top: 16px;
+        bottom: 16px;
+        left: 0;
+        width: 4px;
+        border-radius: 0 4px 4px 0;
+        background: var(--red);
+        content: "";
+    }
+
+    .pp-lane-andamento .pp-card:before {
+        background: var(--blue);
+    }
+
+    .pp-lane-finalizadas .pp-card:before {
+        background: var(--blue-deep);
+    }
+
+    .pp-card:hover {
+        transform: translateY(-2px);
+        border-color: #b7cad8;
+        box-shadow: 0 13px 23px rgba(22,53,82,.10);
+    }
+
+    .pp-card-title {
+        margin: 0;
+        color: #1f2d3a;
+        font-size: 17px;
+        font-weight: 650;
+        line-height: 1.52;
+    }
+
+    .pp-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 15px;
+        padding-top: 11px;
+        border-top: 1px solid #edf1f4;
+        color: #929ca5;
+        font-size: 10px;
+    }
+
+    .pp-status {
+        color: var(--red);
+        font-weight: 800;
+    }
+
+    .pp-lane-andamento .pp-status {
+        color: var(--blue);
+    }
+
+    .pp-lane-finalizadas .pp-status {
+        color: var(--blue-deep);
+    }
+
+    .pp-empty {
+        padding: 48px 15px;
+        color: #87929a;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .pp-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 20px;
+        color: #85919b;
+        font-size: 10px;
+    }
+
+    @media (max-width: 1200px) {
+        .pp-hero {
+            grid-template-columns: 1fr;
+        }
+
+        .pp-visual {
+            min-height: 300px;
+            border-top: 1px solid rgba(255,255,255,.16);
+            border-left: 0;
+        }
+    }
+
+    @media (max-width: 980px) {
+        .pp-metrics {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .pp-board {
+            grid-template-columns: 1fr;
+        }
+
+        .pp-list {
+            max-height: none;
+        }
+    }
+
+    @media (max-width: 650px) {
+        .pp-dashboard {
+            padding: 20px 13px 34px;
+        }
+
+        .pp-header,
+        .pp-toolbar {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .pp-actions,
+        .pp-search {
+            width: 100%;
+        }
+
+        .pp-hero-copy {
+            min-height: 310px;
+            padding: 28px 24px;
+        }
+
+        .pp-visual {
+            min-height: 265px;
+        }
+
+        .pp-metrics {
+            grid-template-columns: 1fr;
+        }
+
+        .pp-page-title {
+            font-size: 33px;
+        }
+    }
+
+    @media print {
+        .pp-dashboard {
+            padding: 0;
+            background: #ffffff;
+        }
+
+        .pp-actions,
+        .pp-search {
+            display: none;
+        }
+    }
+</style>
+
+<div class="pp-dashboard" id="ppDashboard">
+    <div class="pp-shell">
+
+        <header class="pp-header">
+            <div class="pp-brand">
+                <div class="pp-logo">gazin</div>
+
+                <div>
+                    <div class="pp-overline">Painel de governanca operacional</div>
+                    <h1 class="pp-title">Projetos e Processos</h1>
+                    <p class="pp-subtitle">Acompanhamento executivo das demandas e iniciativas da organizacao.</p>
+                </div>
+            </div>
+
+            <div class="pp-actions">
+                <span class="pp-live" id="ppUpdate">Atualizacao automatica</span>
+                <button class="pp-print" type="button" onclick="window.print();">Imprimir painel</button>
+            </div>
+        </header>
+
+        <section class="pp-hero">
+            <div class="pp-hero-copy">
+                <div class="pp-hero-content">
+                    <div class="pp-hero-label">Governanca de projetos</div>
+                    <h2 class="pp-hero-title">Projetos e processos em uma visao executiva.</h2>
+                    <p class="pp-hero-description">Uma leitura objetiva das prioridades da organizacao, das frentes em execucao e das entregas concluidas.</p>
+                    <div class="pp-hero-line">Dados consolidados diretamente do relatorio</div>
+                </div>
+            </div>
+
+            <div class="pp-visual">
+                <svg viewBox="0 0 500 360" role="img" aria-label="Fluxo de projetos e processos">
+                    <path d="M91 198 C145 120 195 114 244 161 S339 250 413 177" fill="none" stroke="#79bde6" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"></path>
+
+                    <circle cx="94" cy="198" r="10" fill="#e4232b"></circle>
+                    <circle cx="246" cy="161" r="10" fill="#0054a6"></circle>
+                    <circle cx="413" cy="177" r="10" fill="#003a73"></circle>
+
+                    <rect x="35" y="54" width="130" height="81" rx="14" fill="#ffffff"></rect>
+                    <rect x="45" y="66" width="35" height="35" rx="9" fill="#e4232b"></rect>
+                    <path d="M56 83 L65 92 L73 76" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <text x="91" y="82" fill="#1c3955" font-family="Arial" font-size="12" font-weight="800">Planejar</text>
+                    <text x="91" y="101" fill="#62788d" font-family="Arial" font-size="10" font-weight="700">Prioridades</text>
+                    <text x="91" y="117" fill="#62788d" font-family="Arial" font-size="10" font-weight="700">e escopo</text>
+
+                    <rect x="184" y="44" width="136" height="81" rx="14" fill="#ffffff"></rect>
+                    <rect x="194" y="56" width="35" height="35" rx="9" fill="#0054a6"></rect>
+                    <path d="M203 80 H220 M211 71 V88" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"></path>
+                    <text x="239" y="73" fill="#1c3955" font-family="Arial" font-size="12" font-weight="800">Executar</text>
+                    <text x="239" y="92" fill="#62788d" font-family="Arial" font-size="10" font-weight="700">Projetos</text>
+                    <text x="239" y="108" fill="#62788d" font-family="Arial" font-size="10" font-weight="700">e processos</text>
+
+                    <rect x="337" y="54" width="128" height="81" rx="14" fill="#ffffff"></rect>
+                    <rect x="347" y="66" width="35" height="35" rx="9" fill="#003a73"></rect>
+                    <path d="M355 83 L364 92 L374 75" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <text x="392" y="82" fill="#1c3955" font-family="Arial" font-size="12" font-weight="800">Entregar</text>
+                    <text x="392" y="101" fill="#62788d" font-family="Arial" font-size="10" font-weight="700">Resultados</text>
+                    <text x="392" y="117" fill="#62788d" font-family="Arial" font-size="10" font-weight="700">monitorados</text>
+
+                    <rect x="72" y="235" width="356" height="75" rx="15" fill="#e7f1fa"></rect>
+                    <rect x="92" y="254" width="87" height="11" rx="5.5" fill="#0054a6"></rect>
+                    <rect x="92" y="277" width="196" height="8" rx="4" fill="#a8c9df"></rect>
+                    <rect x="92" y="291" width="141" height="8" rx="4" fill="#c0d9e9"></rect>
+                    <circle cx="382" cy="272" r="22" fill="#e4232b"></circle>
+                    <path d="M372 272 H392 M382 262 V282" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"></path>
+                    <text x="197" y="262" fill="#1c3955" font-family="Arial" font-size="12" font-weight="800">Gestao integrada</text>
+                    <text x="197" y="283" fill="#62788d" font-family="Arial" font-size="10" font-weight="700">Acompanhamento de ponta a ponta</text>
+                </svg>
+
+                <div class="pp-visual-total">
+                    <strong><%=totalDemandas%></strong>
+                    iniciativas monitoradas
+                </div>
+            </div>
+        </section>
+
+        <section class="pp-metrics">
+            <article class="pp-metric">
+                <div class="pp-metric-top">
+                    Total de iniciativas
+                    <span class="pp-metric-icon">&Sigma;</span>
+                </div>
+                <span class="pp-metric-value"><%=totalDemandas%></span>
+                <div class="pp-metric-note">Demandas no portifolio</div>
+            </article>
+
+            <article class="pp-metric">
+                <div class="pp-metric-top">
+                    Demandas pendentes
+                    <span class="pp-metric-icon">!</span>
+                </div>
+                <span class="pp-metric-value"><%=demandasPendentes.size()%></span>
+                <div class="pp-metric-note">Aguardando priorizacao</div>
+            </article>
+
+            <article class="pp-metric">
+                <div class="pp-metric-top">
+                    Em andamento
+                    <span class="pp-metric-icon">&#8599;</span>
+                </div>
+                <span class="pp-metric-value"><%=demandasAndamento.size()%></span>
+                <div class="pp-metric-note">Frentes em execucao</div>
+            </article>
+
+            <article class="pp-metric">
+                <div class="pp-metric-top">
+                    Finalizadas
+                    <span class="pp-metric-icon">&#10003;</span>
+                </div>
+                <span class="pp-metric-value"><%=demandasFinalizadas.size()%></span>
+                <div class="pp-metric-note">Entregas concluidas</div>
+            </article>
+        </section>
+
+        <div class="pp-toolbar">
+            <div>
+                <h2 class="pp-section-title">Mapa executivo de demandas</h2>
+                <p class="pp-section-description">Consulte rapidamente cada projeto ou processo do portifolio.</p>
+            </div>
+
+            <label class="pp-search">
+                <input id="ppBusca" type="search" placeholder="Buscar iniciativa..." oninput="window.ppFiltrarProjetos();">
+            </label>
+        </div>
+
+        <section class="pp-board">
+            <article class="pp-lane">
+                <header class="pp-lane-header">
+                    <div class="pp-lane-title">
+                        <span class="pp-dot"></span>
+                        Demandas pendentes
+                    </div>
+
+                    <span class="pp-count" data-count="pendente"><%=demandasPendentes.size()%></span>
+                </header>
+
+                <div class="pp-list">
+<%
+	if(demandasPendentes.size() == 0)
+	{
+		%>
+<div class="pp-empty">Nenhuma demanda pendente encontrada.</div>
+<%
+	}
+	else
+	{
+		for each  itemPendente in demandasPendentes
+		{
+			%>
+<article class="pp-card" data-status="pendente">
+                        <h3 class="pp-card-title"><%=itemPendente%></h3>
+                        <div class="pp-card-footer">
+                            <span class="pp-status">Pendente</span>
+                            <span>Em acompanhamento</span>
+                        </div>
+                    </article>
+<%
+		}
+	}
+	%>
+</div>
+            </article>
+
+            <article class="pp-lane pp-lane-andamento">
+                <header class="pp-lane-header">
+                    <div class="pp-lane-title">
+                        <span class="pp-dot"></span>
+                        Demandas em andamento
+                    </div>
+
+                    <span class="pp-count" data-count="andamento"><%=demandasAndamento.size()%></span>
+                </header>
+
+                <div class="pp-list">
+<%
+	if(demandasAndamento.size() == 0)
+	{
+		%>
+<div class="pp-empty">Nenhuma demanda em andamento encontrada.</div>
+<%
+	}
+	else
+	{
+		for each  itemAndamento in demandasAndamento
+		{
+			%>
+<article class="pp-card" data-status="andamento">
+                        <h3 class="pp-card-title"><%=itemAndamento%></h3>
+                        <div class="pp-card-footer">
+                            <span class="pp-status">Em andamento</span>
+                            <span>Em execucao</span>
+                        </div>
+                    </article>
+<%
+		}
+	}
+	%>
+</div>
+            </article>
+
+            <article class="pp-lane pp-lane-finalizadas">
+                <header class="pp-lane-header">
+                    <div class="pp-lane-title">
+                        <span class="pp-dot"></span>
+                        Demandas finalizadas
+                    </div>
+
+                    <span class="pp-count" data-count="finalizada"><%=demandasFinalizadas.size()%></span>
+                </header>
+
+                <div class="pp-list">
+<%
+	if(demandasFinalizadas.size() == 0)
+	{
+		%>
+<div class="pp-empty">Nenhuma demanda finalizada encontrada.</div>
+<%
+	}
+	else
+	{
+		for each  itemFinalizado in demandasFinalizadas
+		{
+			%>
+<article class="pp-card" data-status="finalizada">
+                        <h3 class="pp-card-title"><%=itemFinalizado%></h3>
+                        <div class="pp-card-footer">
+                            <span class="pp-status">Finalizada</span>
+                            <span>Entrega concluida</span>
+                        </div>
+                    </article>
+<%
+		}
+	}
+	%>
+</div>
+            </article>
+        </section>
+
+        <footer class="pp-footer">
+            <span>Fonte: Projetos_e_Processos_Report</span>
+            <span id="ppResultado">Exibindo todas as iniciativas</span>
+        </footer>
+    </div>
+</div>
+
+<script>
+window.ppFiltrarProjetos = function() {
+    var painel = document.getElementById("ppDashboard");
+    var campo = document.getElementById("ppBusca");
+
+    if (!painel || !campo) {
+        return;
+    }
+
+    var termo = campo.value.toLowerCase().trim();
+    var cards = painel.querySelectorAll(".pp-card");
+    var contagens = {
+        pendente: 0,
+        andamento: 0,
+        finalizada: 0
+    };
+
+    var totalVisivel = 0;
+
+    for (var i = 0; i < cards.length; i++) {
+        var card = cards[i];
+        var status = card.getAttribute("data-status");
+        var encontrado = card.textContent.toLowerCase().indexOf(termo) !== -1;
+
+        card.style.display = encontrado ? "" : "none";
+
+        if (encontrado) {
+            totalVisivel++;
+            contagens[status]++;
+        }
+    }
+
+    var badges = painel.querySelectorAll("[data-count]");
+
+    for (var j = 0; j < badges.length; j++) {
+        var badge = badges[j];
+        var chave = badge.getAttribute("data-count");
+
+        badge.textContent = contagens[chave];
+    }
+
+    var resultado = document.getElementById("ppResultado");
+
+    if (resultado) {
+        resultado.textContent = termo === ""
+            ? "Exibindo todas as iniciativas"
+            : "Exibindo " + totalVisivel + "resultado(s)";
+    }
+};
+
+(function() {
+    var update = document.getElementById("ppUpdate");
+
+    if (update) {
+        update.textContent = "Atualizado em " + new Date().toLocaleDateString("pt-BR");
+    }
+})();
+</script>
+<%
+
+}%>
