@@ -1,0 +1,371 @@
+<%{
+	/*
+	 * Página Zoho Creator — Gestão energética
+	 * O registro "Total" é uma agregação do relatório e nunca entra em recs.
+	 */
+	recs = Gest_o_energ_tica[ID != 0 && Usina != "Total"];
+	totUsinas = recs.count();
+	totGerMes = 0.0;
+	totGerAnt = 0.0;
+	totGerAcum = 0.0;
+	totInvTotal = 0.0;
+	totDespReal = 0.0;
+	totDesarmes = 0;
+	totManConc = 0;
+	qtdOnline = 0;
+	qtdParcial = 0;
+	qtdOffline = 0;
+	qtdSemStatus = 0;
+	cardsHtml = "";
+	for each  r in recs
+	{
+		// Geração: nas linhas individuais, os valores do relatório são decimais simples.
+		gerMes = 0.0;
+		gerAnt = 0.0;
+		gerAcum = 0.0;
+		try 
+		{
+			s = ifnull(r.Gera_o_M_s,"0").toString();
+			if(s == "" || s.toLowerCase() == "null")
+			{
+				s = "0";
+			}
+			if(s.contains(","))
+			{
+				s = s.replaceAll("[.]","").replaceAll(",",".");
+			}
+			gerMes = s.toDecimal();
+		}		catch (e)
+		{
+			gerMes = 0.0;
+		}
+		try 
+		{
+			s = ifnull(r.Gera_o_m_s_anterior,"0").toString();
+			if(s == "" || s.toLowerCase() == "null")
+			{
+				s = "0";
+			}
+			if(s.contains(","))
+			{
+				s = s.replaceAll("[.]","").replaceAll(",",".");
+			}
+			gerAnt = s.toDecimal();
+		}		catch (e)
+		{
+			gerAnt = 0.0;
+		}
+		try 
+		{
+			s = ifnull(r.Gera_o_acumulada,"0").toString();
+			if(s == "" || s.toLowerCase() == "null")
+			{
+				s = "0";
+			}
+			if(s.contains(","))
+			{
+				s = s.replaceAll("[.]","").replaceAll(",",".");
+			}
+			gerAcum = s.toDecimal();
+		}		catch (e)
+		{
+			gerAcum = 0.0;
+		}
+		/*
+		 * Valores financeiros do relatório vêm formatados com ponto de milhar
+		 * (por exemplo, 102.518). Remove-se somente o separador de milhar.
+		 */
+		invTotal = 0.0;
+		invOrc = 0.0;
+		invReal = 0.0;
+		aDeprec = 0.0;
+		despOrc = 0.0;
+		despReal = 0.0;
+		try 
+		{
+			s = ifnull(r.Investimento_total,"0").toString();
+			if(s == "" || s.toLowerCase() == "null")
+			{
+				s = "0";
+			}
+			s = s.replaceAll("[.]","").replaceAll(",",".");
+			invTotal = s.toDecimal();
+		}		catch (e)
+		{
+			invTotal = 0.0;
+		}
+		try 
+		{
+			s = ifnull(r.Inevestimentos_or_ado,"0").toString();
+			if(s == "" || s.toLowerCase() == "null")
+			{
+				s = "0";
+			}
+			s = s.replaceAll("[.]","").replaceAll(",",".");
+			invOrc = s.toDecimal();
+		}		catch (e)
+		{
+			invOrc = 0.0;
+		}
+		try 
+		{
+			s = ifnull(r.Investimento_Realizado,"0").toString();
+			if(s == "" || s.toLowerCase() == "null")
+			{
+				s = "0";
+			}
+			s = s.replaceAll("[.]","").replaceAll(",",".");
+			invReal = s.toDecimal();
+		}		catch (e)
+		{
+			invReal = 0.0;
+		}
+		try 
+		{
+			s = ifnull(r.A_depreciar1,"0").toString();
+			if(s == "" || s.toLowerCase() == "null")
+			{
+				s = "0";
+			}
+			s = s.replaceAll("[.]","").replaceAll(",",".");
+			aDeprec = s.toDecimal();
+		}		catch (e)
+		{
+			aDeprec = 0.0;
+		}
+		try 
+		{
+			s = ifnull(r.Despesa_Or_ada,"0").toString();
+			if(s == "" || s.toLowerCase() == "null")
+			{
+				s = "0";
+			}
+			s = s.replaceAll("[.]","").replaceAll(",",".");
+			despOrc = s.toDecimal();
+		}		catch (e)
+		{
+			despOrc = 0.0;
+		}
+		try 
+		{
+			s = ifnull(r.Despesa_Real,"0").toString();
+			if(s == "" || s.toLowerCase() == "null")
+			{
+				s = "0";
+			}
+			s = s.replaceAll("[.]","").replaceAll(",",".");
+			despReal = s.toDecimal();
+		}		catch (e)
+		{
+			despReal = 0.0;
+		}
+		manConc = 0;
+		desarmes = 0;
+		try 
+		{
+			s = ifnull(r.Manuten_es_conclu_das,"0").toString();
+			if(s == "" || s.toLowerCase() == "null")
+			{
+				s = "0";
+			}
+			manConc = s.toDecimal().round(0);
+		}		catch (e)
+		{
+			manConc = 0;
+		}
+		try 
+		{
+			s = ifnull(r.Quantidades_de_desarmes,"0").toString();
+			if(s == "" || s.toLowerCase() == "null")
+			{
+				s = "0";
+			}
+			desarmes = s.toDecimal().round(0);
+		}		catch (e)
+		{
+			desarmes = 0;
+		}
+		totGerMes = totGerMes + gerMes;
+		totGerAnt = totGerAnt + gerAnt;
+		totGerAcum = totGerAcum + gerAcum;
+		totInvTotal = totInvTotal + invTotal;
+		totDespReal = totDespReal + despReal;
+		totManConc = totManConc + manConc;
+		totDesarmes = totDesarmes + desarmes;
+		// Status livre convertido em categorias confiáveis para a leitura executiva.
+		statusRaw = ifnull(r.Status_Atual,"").toString();
+		statusLower = statusRaw.toLowerCase();
+		statusLabel = "A informar";
+		badgeCls = "muted";
+		if(statusLower.contains("offline"))
+		{
+			statusLabel = "Offline";
+			badgeCls = "danger";
+			qtdOffline = qtdOffline + 1;
+		}
+		else if(statusLower.contains("/") && statusLower.contains("gerando"))
+		{
+			statusLabel = "Parcial · " + statusRaw;
+			badgeCls = "warn";
+			qtdParcial = qtdParcial + 1;
+		}
+		else if(statusLower.contains("online") && statusLower.contains("gerando"))
+		{
+			statusLabel = "Online";
+			badgeCls = "ok";
+			qtdOnline = qtdOnline + 1;
+		}
+		else
+		{
+			qtdSemStatus = qtdSemStatus + 1;
+		}
+		varGer = 0.0;
+		varGerTxt = "Sem base anterior";
+		varGerCls = "ge-muted";
+		if(gerAnt > 0)
+		{
+			varGer = ((gerMes - gerAnt) * 100 / gerAnt).round(1);
+			if(varGer > 0)
+			{
+				varGerTxt = "+" + varGer + "%";
+				varGerCls = "ge-pos";
+			}
+			else if(varGer < 0)
+			{
+				varGerTxt = varGer + "%";
+				varGerCls = "ge-neg";
+			}
+			else
+			{
+				varGerTxt = "0%";
+			}
+		}
+		nome = ifnull(r.Usina,"Usina sem nome").toString();
+		nomeHtml = nome.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+		statusLabelHtml = statusLabel.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+		rota = ifnull(r.In_cio_da_pr_xima_rota,"—").toString();
+		rotaHtml = rota.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+		ufCard = "Sem UF";
+		try 
+		{
+			ufCard = ifnull(r.UF.UF,"Sem UF").toString();
+		}		catch (e)
+		{
+			ufCard = "Sem UF";
+		}
+		competenciaCard = "";
+		try 
+		{
+			if(r.Competencia != null)
+			{
+				competenciaCard = r.Competencia.toString("yyyy-MM-dd");
+			}
+		}		catch (e)
+		{
+			competenciaCard = "";
+		}
+		// Não há orçamento de investimento nas linhas atuais: evita uma barra falsa de 0%.
+		invHtml = "<div class='ge-sec'><h4>Patrimônio</h4>" + "<div class='ge-row'><span>Investimento informado</span><b>R$ " + invTotal.toString("#,##0.00") + "</b></div>";
+		if(aDeprec > 0)
+		{
+			invHtml = invHtml + "<div class='ge-row'><span>A depreciar <em>(campo informado)</em></span><b>R$ " + aDeprec.toString("#,##0.00") + "</b></div>";
+		}
+		if(invOrc > 0 || invReal > 0)
+		{
+			invHtml = invHtml + "<div class='ge-row'><span>Orçado</span><b>R$ " + invOrc.toString("#,##0.00") + "</b></div>" + "<div class='ge-row'><span>Realizado</span><b>R$ " + invReal.toString("#,##0.00") + "</b></div>";
+		}
+		else
+		{
+			invHtml = invHtml + "<p class='ge-empty'>Orçamento e realizado não informados.</p>";
+		}
+		invHtml = invHtml + "</div>";
+		// Diferença é omitida quando o orçamento é zero: nesse caso ela é apenas o negativo da despesa real.
+		despHtml = "<div class='ge-sec'><h4>Despesas</h4>" + "<div class='ge-row'><span>Real registrada</span><b>R$ " + despReal.toString("#,##0.00") + "</b></div>";
+		if(despOrc > 0)
+		{
+			dif = despOrc - despReal;
+			difCls = "ge-pos";
+			if(dif < 0)
+			{
+				difCls = "ge-neg";
+			}
+			despHtml = despHtml + "<div class='ge-row'><span>Orçada</span><b>R$ " + despOrc.toString("#,##0.00") + "</b></div>" + "<div class='ge-row'><span>Saldo</span><b class='" + difCls + "'>R$ " + dif.toString("#,##0.00") + "</b></div>";
+		}
+		else
+		{
+			despHtml = despHtml + "<p class='ge-empty'>Sem orçamento informado no relatório.</p>";
+		}
+		despHtml = despHtml + "</div>";
+		/*
+		 * Manutenção preventiva e corretiva não entram aqui:
+		 * no export recebido, preventiva replica a geração e corretiva replica concluídas.
+		 */
+		cardsHtml = cardsHtml + "<article class='ge-card' data-uf='" + ufCard + "' data-comp='" + competenciaCard + "' data-ger='" + gerMes + "' data-ant='" + gerAnt + "' data-acum='" + gerAcum + "' data-inv='" + invTotal + "' data-desp='" + despReal + "' data-desarmes='" + desarmes + "' data-manut='" + manConc + "' data-status='" + badgeCls + "'>" + "<div class='ge-card-head'><h3>" + nomeHtml + "</h3><span class='ge-badge " + badgeCls + "'>" + statusLabelHtml + "</span></div>" + "<div class='ge-sec'><h4>Geração</h4>" + "<div class='ge-row'><span>Campo “mês”</span><b>" + gerMes.toString("#,##0.00") + " MWh</b></div>" + "<div class='ge-row'><span>Campo “mês anterior”</span><b>" + gerAnt.toString("#,##0.00") + " MWh</b></div>" + "<div class='ge-row'><span>Variação</span><b class='" + varGerCls + "'>" + varGerTxt + "</b></div>" + "<div class='ge-row'><span>Acumulada</span><b>" + gerAcum.toString("#,##0.00") + " MWh</b></div>" + "</div>" + invHtml + despHtml + "<div class='ge-sec'><h4>Operação</h4><div class='ge-pills'>" + "<div class='ge-pill'><b>" + manConc + "</b>Concluídas</div>" + "<div class='ge-pill'><b>" + desarmes + "</b>Desarmes</div>" + "</div><div class='ge-row ge-route'><span>Próxima rota</span><b>" + rotaHtml + "</b></div></div>" + "</article>";
+	}
+	varGerTotalTxt = "Sem base anterior";
+	varGerTotalCls = "ge-muted";
+	if(totGerAnt > 0)
+	{
+		varGerTotal = ((totGerMes - totGerAnt) * 100 / totGerAnt).round(1);
+		if(varGerTotal > 0)
+		{
+			varGerTotalTxt = "+" + varGerTotal + "%";
+			varGerTotalCls = "ge-pos";
+		}
+		else if(varGerTotal < 0)
+		{
+			varGerTotalTxt = varGerTotal + "%";
+			varGerTotalCls = "ge-neg";
+		}
+		else
+		{
+			varGerTotalTxt = "0%";
+		}
+	}
+	%>
+<style>
+	.ge-wrap{font-family:"Segoe UI",system-ui,sans-serif;background:#f4f6fa;padding:20px;color:#1e2a3a}
+	.ge-title{font-size:20px;font-weight:700;margin:0 0 4px}
+	.ge-sub{font-size:12px;color:#69758a;margin:0 0 12px}
+	.ge-alert{background:#fdf3e0;border:1px solid #f2dba8;border-radius:10px;color:#805a13;padding:10px 12px;font-size:12px;margin:0 0 18px}
+	.ge-alert b{color:#69490c}
+	.ge-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin-bottom:22px}
+	.ge-kpi{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(20,40,80,.08);border-left:4px solid #2f6fed}
+	.ge-kpi.green{border-left-color:#1fa66a}.ge-kpi.amber{border-left-color:#e8a020}.ge-kpi.red{border-left-color:#d9534f}
+	.ge-kpi small{display:block;font-size:10.5px;color:#7a8699;text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
+	.ge-kpi b{font-size:18px;line-height:1.25}.ge-kpi span{display:block;font-size:11px;margin-top:5px;color:#69758a}
+	.ge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+	.ge-card{background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(20,40,80,.09);overflow:hidden}
+	.ge-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid #eef1f6}
+	.ge-card-head h3{margin:0;font-size:15px;font-weight:700}
+	.ge-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:#fdf3e0;color:#a66c08;white-space:nowrap}
+	.ge-badge.ok{background:#e6f7ef;color:#168454}.ge-badge.warn{background:#fdf3e0;color:#a66c08}.ge-badge.danger{background:#fdecec;color:#c03935}.ge-badge.muted{background:#edf0f5;color:#69758a}
+	.ge-sec{padding:11px 16px;border-bottom:1px solid #f2f4f8}.ge-sec:last-child{border-bottom:none}
+	.ge-sec h4{margin:0 0 7px;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:#9aa5b5}
+	.ge-row{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;padding:2px 0}.ge-row span{color:#69758a}.ge-row b{font-variant-numeric:tabular-nums;text-align:right}.ge-row em{font-style:normal;font-size:10px}
+	.ge-pills{display:flex;gap:8px;flex-wrap:wrap}.ge-pill{background:#f4f6fa;border-radius:8px;padding:6px 10px;font-size:11.5px;text-align:center;flex:1}.ge-pill b{display:block;font-size:15px}
+	.ge-empty{color:#7a8699;font-size:11px;margin:7px 0 0}.ge-route{margin-top:8px}.ge-pos{color:#168454}.ge-neg{color:#c03935}.ge-muted{color:#69758a}
+</style>
+
+<div class="ge-wrap">
+	<p class="ge-title">⚡ Gestão energética · usinas</p>
+	<p class="ge-sub"><%=totUsinas%> usinas monitoradas · fotografia atual do relatório</p>
+	<div class="ge-alert"><b>Leitura do dado:</b> este relatório não tem competência. “Mês” e “mês anterior” são campos do retrato atual, não uma série histórica. O registro <b>Total</b> foi excluído para evitar dupla contagem.</div>
+
+	<div class="ge-kpis">
+		<div class="ge-kpi"><small>Geração no relatório</small><b><%=totGerMes.toString("#,##0.00")%> MWh</b><span>soma das usinas</span></div>
+		<div class="ge-kpi"><small>Variação da geração</small><b class="<%=varGerTotalCls%>"><%=varGerTotalTxt%></b><span>contra o campo “mês anterior”</span></div>
+		<div class="ge-kpi green"><small>Geração acumulada</small><b><%=totGerAcum.toString("#,##0.00")%> MWh</b><span>valor informado</span></div>
+		<div class="ge-kpi"><small>Investimento informado</small><b>R$ <%=totInvTotal.toString("#,##0.00")%></b><span>sem cálculo de payback</span></div>
+		<div class="ge-kpi amber"><small>Situação operacional</small><b><%=qtdOnline%> / <%=qtdParcial%> / <%=qtdOffline%></b><span>online / parcial / offline</span></div>
+		<div class="ge-kpi red"><small>Desarmes</small><b><%=totDesarmes%></b><span><%=totManConc%> manutenções concluídas</span></div>
+		<div class="ge-kpi red"><small>Despesa registrada</small><b>R$ <%=totDespReal.toString("#,##0.00")%></b><span>orçamento não informado</span></div>
+	</div>
+
+	<div class="ge-grid">
+		<%=cardsHtml%>
+	</div>
+</div>
+<%
+
+}%>
