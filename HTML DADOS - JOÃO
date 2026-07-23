@@ -1,0 +1,1040 @@
+<%{
+	registros = Dados1[ID != null];
+	pendentes = List();
+	andamento = List();
+	finalizadas = List();
+	emDesenvolvimento = List();
+	continuas = List();
+	prontosParaIniciar = List();
+	for each  registro in registros
+	{
+		valorPendente = ifnull(registro.Demandas_Pendentes,"").toString().trim();
+		valorAndamento = ifnull(registro.Demandas_em_andamento,"").toString().trim();
+		valorFinalizado = ifnull(registro.Demandas_finalizadas,"").toString().trim();
+		valorDesenvolvimento = ifnull(registro.Projetos_em_desenvolvimento,"").toString().trim();
+		valorContinuo = ifnull(registro.Atividades_continuas,"").toString().trim();
+		valorPronto = ifnull(registro.Projetos_prontos_para_iniciar,"").toString().trim();
+		if(valorPendente != "")
+		{
+			pendentes.add(valorPendente);
+		}
+		if(valorAndamento != "")
+		{
+			andamento.add(valorAndamento);
+		}
+		if(valorFinalizado != "")
+		{
+			finalizadas.add(valorFinalizado);
+		}
+		if(valorDesenvolvimento != "")
+		{
+			emDesenvolvimento.add(valorDesenvolvimento);
+		}
+		if(valorContinuo != "")
+		{
+			continuas.add(valorContinuo);
+		}
+		if(valorPronto != "")
+		{
+			prontosParaIniciar.add(valorPronto);
+		}
+	}
+	totalItens = pendentes.size() + andamento.size() + finalizadas.size() + emDesenvolvimento.size() + continuas.size() + prontosParaIniciar.size();
+	%>
+<style>
+	.gazin-dashboard,
+	.gazin-dashboard * {
+		box-sizing: border-box;
+	}
+
+	.gazin-dashboard {
+		--gazin-blue: #0054a6;
+		--gazin-blue-dark: #003b75;
+		--gazin-blue-deep: #00264d;
+		--gazin-blue-soft: #e7f1fa;
+		--gazin-red: #e4232b;
+		--gazin-red-soft: #fce9ea;
+		--ink: #1a2734;
+		--muted: #687887;
+		--paper: #f4f6f8;
+		--white: #ffffff;
+		--line: #dbe3ea;
+		--gray-card: #f8fafc;
+		--slate: #526170;
+
+		width: 100%;
+		min-height: 100vh;
+		padding: 32px 38px 48px;
+		color: var(--ink);
+		background:
+			radial-gradient(circle at 97% 0%, rgba(0,84,166,.10), transparent 22%),
+			linear-gradient(135deg, #eef2f5 0%, #f8fafb 50%, #edf1f4 100%);
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	.gazin-shell {
+		width: 100%;
+		max-width: 1760px;
+		margin: 0 auto;
+	}
+
+	.gazin-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 24px;
+		margin-bottom: 25px;
+	}
+
+	.gazin-brand {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+	}
+
+	.gazin-logo {
+		display: flex;
+		width: 58px;
+		height: 45px;
+		align-items: center;
+		justify-content: center;
+		border: 3px solid var(--gazin-red);
+		border-radius: 11px;
+		color: #ffffff;
+		background: var(--gazin-blue);
+		box-shadow: 0 10px 20px rgba(0,59,117,.18);
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 14px;
+		font-style: italic;
+		font-weight: 900;
+		letter-spacing: -.8px;
+	}
+
+	.gazin-overline {
+		margin-bottom: 5px;
+		color: var(--gazin-blue);
+		font-size: 10px;
+		font-weight: 800;
+		letter-spacing: .18em;
+		text-transform: uppercase;
+	}
+
+	.gazin-title {
+		margin: 0;
+		color: var(--gazin-blue-deep);
+		font-family: Georgia, "Times New Roman", serif;
+		font-size: clamp(31px, 3vw, 44px);
+		font-weight: 500;
+		letter-spacing: -.05em;
+		line-height: 1;
+	}
+
+	.gazin-subtitle {
+		margin: 8px 0 0;
+		color: var(--muted);
+		font-size: 13px;
+	}
+
+	.gazin-actions {
+		display: flex;
+		align-items: center;
+		gap: 9px;
+	}
+
+	.gazin-live,
+	.gazin-print {
+		padding: 10px 14px;
+		border: 1px solid #d5e0e9;
+		border-radius: 8px;
+		color: #647381;
+		background: rgba(255,255,255,.82);
+		font-size: 11px;
+	}
+
+	.gazin-live:before {
+		display: inline-block;
+		width: 7px;
+		height: 7px;
+		margin-right: 7px;
+		border-radius: 50%;
+		background: var(--gazin-red);
+		box-shadow: 0 0 0 4px rgba(228,35,43,.11);
+		content: "";
+	}
+
+	.gazin-print {
+		color: var(--gazin-blue);
+		font-weight: 800;
+		cursor: pointer;
+		transition: .18s ease;
+	}
+
+	.gazin-print:hover {
+		border-color: var(--gazin-blue);
+		color: #fff;
+		background: var(--gazin-blue);
+	}
+
+	.gazin-resumo {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 325px;
+		margin-bottom: 20px;
+		overflow: hidden;
+		border-radius: 18px;
+		background: var(--gazin-blue);
+		box-shadow: 0 20px 38px rgba(0,59,117,.18);
+	}
+
+	.gazin-resumo-main {
+		position: relative;
+		overflow: hidden;
+		padding: 39px 42px;
+		background:
+			radial-gradient(circle at 96% 0%, rgba(255,255,255,.12), transparent 26%),
+			linear-gradient(120deg, #00366c 0%, #0054a6 100%);
+	}
+
+	.gazin-resumo-main:after {
+		position: absolute;
+		width: 355px;
+		height: 355px;
+		top: -230px;
+		right: 5%;
+		border: 1px solid rgba(255,255,255,.16);
+		border-radius: 50%;
+		box-shadow: 0 0 0 37px rgba(255,255,255,.035), 0 0 0 74px rgba(255,255,255,.018);
+		content: "";
+	}
+
+	.gazin-resumo-content {
+		position: relative;
+		z-index: 1;
+		max-width: 720px;
+	}
+
+	.gazin-resumo-label {
+		margin-bottom: 13px;
+		color: #b8ddf5;
+		font-size: 10px;
+		font-weight: 800;
+		letter-spacing: .17em;
+		text-transform: uppercase;
+	}
+
+	.gazin-resumo-main h2 {
+		margin: 0;
+		color: #fff;
+		font-family: Georgia, serif;
+		font-size: clamp(31px, 3vw, 43px);
+		font-weight: 500;
+		letter-spacing: -.04em;
+	}
+
+	.gazin-resumo-main p {
+		max-width: 690px;
+		margin: 13px 0 0;
+		color: #d6ecfa;
+		font-size: 14px;
+		line-height: 1.65;
+	}
+
+	.gazin-resumo-line {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin-top: 28px;
+		color: #c7e3f5;
+		font-size: 11px;
+	}
+
+	.gazin-resumo-line:before {
+		width: 34px;
+		height: 2px;
+		background: var(--gazin-red);
+		content: "";
+	}
+
+	.gazin-total {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		padding: 30px;
+		border-left: 1px solid rgba(255,255,255,.20);
+		background: var(--gazin-blue-deep);
+		text-align: center;
+	}
+
+	.gazin-total-label {
+		color: #b9d9ed;
+		font-size: 10px;
+		font-weight: 800;
+		letter-spacing: .14em;
+		text-transform: uppercase;
+	}
+
+	.gazin-total strong {
+		display: block;
+		margin-top: 16px;
+		color: #ffffff;
+		font-family: Georgia, serif;
+		font-size: 76px;
+		font-weight: 400;
+		letter-spacing: -.09em;
+		line-height: .85;
+	}
+
+	.gazin-total span {
+		display: block;
+		margin-top: 11px;
+		color: #c5ddeb;
+		font-size: 12px;
+	}
+
+	.gazin-total:after {
+		width: 42px;
+		height: 3px;
+		margin-top: 23px;
+		background: var(--gazin-red);
+		content: "";
+	}
+
+	.gazin-metrics {
+		display: grid;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		gap: 11px;
+		margin-bottom: 33px;
+	}
+
+	.gazin-metric {
+		position: relative;
+		min-height: 143px;
+		padding: 20px 19px;
+		overflow: hidden;
+		border: 1px solid var(--line);
+		border-radius: 13px;
+		background: rgba(255,255,255,.92);
+		box-shadow: 0 10px 20px rgba(23,44,63,.06);
+	}
+
+	.gazin-metric:before {
+		position: absolute;
+		top: 0;
+		right: 18px;
+		left: 18px;
+		height: 3px;
+		border-radius: 0 0 5px 5px;
+		background: var(--gazin-red);
+		content: "";
+	}
+
+	.gazin-metric:nth-child(2):before,
+	.gazin-metric:nth-child(4):before,
+	.gazin-metric:nth-child(5):before {
+		background: var(--gazin-blue);
+	}
+
+	.gazin-metric:nth-child(3):before,
+	.gazin-metric:nth-child(6):before {
+		background: var(--gazin-blue-deep);
+	}
+
+	.gazin-metric-heading {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 8px;
+		min-height: 31px;
+		color: #687784;
+		font-size: 10px;
+		font-weight: 800;
+		line-height: 1.28;
+		text-transform: uppercase;
+	}
+
+	.gazin-metric-icon {
+		display: grid;
+		width: 26px;
+		height: 26px;
+		flex: 0 0 auto;
+		place-items: center;
+		border-radius: 50%;
+		color: var(--gazin-red);
+		background: var(--gazin-red-soft);
+		font-size: 11px;
+		font-weight: 800;
+	}
+
+	.gazin-metric:nth-child(2) .gazin-metric-icon,
+	.gazin-metric:nth-child(4) .gazin-metric-icon,
+	.gazin-metric:nth-child(5) .gazin-metric-icon {
+		color: var(--gazin-blue);
+		background: var(--gazin-blue-soft);
+	}
+
+	.gazin-metric:nth-child(3) .gazin-metric-icon,
+	.gazin-metric:nth-child(6) .gazin-metric-icon {
+		color: var(--gazin-blue-deep);
+		background: #dce9f4;
+	}
+
+	.gazin-metric-number {
+		display: block;
+		margin-top: 25px;
+		color: var(--gazin-blue-deep);
+		font-family: Georgia, serif;
+		font-size: 38px;
+		font-weight: 500;
+		letter-spacing: -.07em;
+		line-height: 1;
+	}
+
+	.gazin-metric-note {
+		margin-top: 9px;
+		color: #929ca5;
+		font-size: 10px;
+	}
+
+	.gazin-toolbar {
+		display: flex;
+		align-items: end;
+		justify-content: space-between;
+		gap: 20px;
+		margin-bottom: 15px;
+	}
+
+	.gazin-board-title {
+		margin: 0;
+		color: var(--gazin-blue-deep);
+		font-family: Georgia, serif;
+		font-size: 29px;
+		font-weight: 500;
+		letter-spacing: -.035em;
+	}
+
+	.gazin-board-subtitle {
+		margin: 7px 0 0;
+		color: var(--muted);
+		font-size: 13px;
+	}
+
+	.gazin-search {
+		position: relative;
+		width: 320px;
+	}
+
+	.gazin-search:before {
+		position: absolute;
+		top: 11px;
+		left: 13px;
+		color: var(--gazin-blue);
+		content: "⌕";
+		font-size: 18px;
+		pointer-events: none;
+	}
+
+	.gazin-search input {
+		width: 100%;
+		padding: 12px 14px 12px 39px;
+		border: 1px solid #d5e0e9;
+		border-radius: 8px;
+		outline: none;
+		color: var(--ink);
+		background: #fff;
+		font-size: 12px;
+		transition: .18s ease;
+	}
+
+	.gazin-search input:focus {
+		border-color: var(--gazin-blue);
+		box-shadow: 0 0 0 3px rgba(0,84,166,.12);
+	}
+
+	.gazin-board {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 15px;
+		align-items: start;
+	}
+
+	.gazin-lane {
+		min-width: 0;
+		overflow: hidden;
+		border: 1px solid var(--line);
+		border-radius: 13px;
+		background: #fff;
+		box-shadow: 0 9px 20px rgba(23,44,63,.055);
+	}
+
+	.gazin-lane-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		min-height: 60px;
+		padding: 0 18px;
+		border-bottom: 1px solid #e1e8ee;
+		background: #fbfcfd;
+	}
+
+	.gazin-lane-title {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		color: #2b4052;
+		font-size: 12px;
+		font-weight: 800;
+	}
+
+	.gazin-dot {
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		background: var(--gazin-red);
+		box-shadow: 0 0 0 4px var(--gazin-red-soft);
+	}
+
+	.gazin-count {
+		min-width: 28px;
+		padding: 5px 8px;
+		border-radius: 999px;
+		color: var(--gazin-red);
+		background: var(--gazin-red-soft);
+		font-size: 10px;
+		font-weight: 800;
+		text-align: center;
+	}
+
+	.gazin-list {
+		display: grid;
+		gap: 10px;
+		max-height: 520px;
+		overflow-y: auto;
+		padding: 11px;
+		background: var(--gray-card);
+	}
+
+	.gazin-ist::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	.gazin-ist::-webkit-scrollbar-thumb {
+		border-radius: 9px;
+		background: #c5d2dc;
+	}
+
+	.gazin-card {
+		position: relative;
+		padding: 17px 16px 15px 21px;
+		border: 1px solid #e0e7ec;
+		border-radius: 9px;
+		background: #ffffff;
+		box-shadow: 0 3px 8px rgba(25,46,64,.035);
+		transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+	}
+
+	.gazin-card:before {
+		position: absolute;
+		top: 15px;
+		bottom: 15px;
+		left: 0;
+		width: 4px;
+		border-radius: 0 4px 4px 0;
+		background: var(--gazin-red);
+		content: "";
+	}
+
+	.gazin-card:hover {
+		transform: translateY(-2px);
+		border-color: #b8c9d6;
+		box-shadow: 0 12px 21px rgba(25,46,64,.09);
+	}
+
+	.gazin-card h3 {
+		margin: 0;
+		color: #202d39;
+		font-size: 16px;
+		font-weight: 650;
+		line-height: 1.5;
+	}
+
+	.gazin-card-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		margin-top: 14px;
+		padding-top: 10px;
+		border-top: 1px solid #edf1f4;
+		color: #919ba3;
+		font-size: 10px;
+	}
+
+	.gazin-card-status {
+		color: var(--gazin-red);
+		font-weight: 800;
+	}
+
+	.gazin-empty {
+		padding: 44px 15px;
+		color: #858f97;
+		font-size: 12px;
+		text-align: center;
+	}
+
+	.lane-andamento .gazin-dot,
+	.lane-desenvolvimento .gazin-dot,
+	.lane-continuas .gazin-dot {
+		background: var(--gazin-blue);
+		box-shadow: 0 0 0 4px var(--gazin-blue-soft);
+	}
+
+	.lane-andamento .gazin-count,
+	.lane-desenvolvimento .gazin-count,
+	.lane-continuas .gazin-count {
+		color: var(--gazin-blue);
+		background: var(--gazin-blue-soft);
+	}
+
+	.lane-andamento .gazin-card:before,
+	.lane-desenvolvimento .gazin-card:before,
+	.lane-continuas .gazin-card:before {
+		background: var(--gazin-blue);
+	}
+
+	.lane-andamento .gazin-card-status,
+	.lane-desenvolvimento .gazin-card-status,
+	.lane-continuas .gazin-card-status {
+		color: var(--gazin-blue);
+	}
+
+	.lane-finalizadas .gazin-dot,
+	.lane-prontos .gazin-dot {
+		background: var(--gazin-blue-deep);
+		box-shadow: 0 0 0 4px #dce9f4;
+	}
+
+	.lane-finalizadas .gazin-count,
+	.lane-prontos .gazin-count {
+		color: var(--gazin-blue-deep);
+		background: #dce9f4;
+	}
+
+	.lane-finalizadas .gazin-card:before,
+	.lane-prontos .gazin-card:before {
+		background: var(--gazin-blue-deep);
+	}
+
+	.lane-finalizadas .gazin-card-status,
+	.lane-prontos .gazin-card-status {
+		color: var(--gazin-blue-deep);
+	}
+
+	.gazin-footer {
+		display: flex;
+		justify-content: space-between;
+		gap: 12px;
+		margin-top: 19px;
+		color: #87929b;
+		font-size: 10px;
+	}
+
+	@media (max-width: 1250px) {
+		.gazin-metrics {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	@media (max-width: 980px) {
+		.gazin-resumo {
+			grid-template-columns: 1fr;
+		}
+
+		.gazin-total {
+			align-items: flex-start;
+			border-top: 1px solid rgba(255,255,255,.20);
+			border-left: 0;
+			text-align: left;
+		}
+
+		.gazin-board {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 650px) {
+		.gazin-dashboard {
+			padding: 19px 13px 32px;
+		}
+
+		.gazin-header,
+		.gazin-toolbar {
+			align-items: flex-start;
+			flex-direction: column;
+		}
+
+		.gazin-actions,
+		.gazin-search {
+			width: 100%;
+		}
+
+		.gazin-resumo {
+			border-radius: 14px;
+		}
+
+		.gazin-resumo-main,
+		.gazin-total {
+			padding: 27px 23px;
+		}
+
+		.gazin-metrics,
+		.gazin-board {
+			grid-template-columns: 1fr;
+		}
+
+		.gazin-list {
+			max-height: none;
+		}
+	}
+
+	@media print {
+		.gazin-dashboard {
+			padding: 0;
+			background: #fff;
+		}
+
+		.gazin-actions,
+		.gazin-search {
+			display: none;
+		}
+	}
+</style>
+
+<div class="gazin-dashboard" id="gazinDashboard">
+	<div class="gazin-shell">
+
+		<header class="gazin-header">
+			<div class="gazin-brand">
+				<div class="gazin-logo">gazin</div>
+
+				<div>
+					<div class="gazin-overline">Painel executivo</div>
+					<h1 class="gazin-title">Intelig&ecirc;ncia de dados</h1>
+					<p class="gazin-subtitle">Vis&atilde;o estrat&eacute;gica das demandas, projetos e atividades.</p>
+				</div>
+			</div>
+
+			<div class="gazin-actions">
+				<span class="gazin-live">Atualiza&ccedil;&atilde;o autom&aacute;tica</span>
+				<button class="gazin-print" type="button" onclick="window.print();">Imprimir painel</button>
+			</div>
+		</header>
+
+		<section class="gazin-resumo">
+			<div class="gazin-resumo-main">
+				<div class="gazin-resumo-content">
+					<div class="gazin-resumo-label">Vis&atilde;o consolidada</div>
+					<h2>Resumo</h2>
+					<p>Acompanhamento executivo das prioridades corporativas, entregas, projetos em desenvolvimento e iniciativas prontas para iniciar.</p>
+					<div class="gazin-resumo-line">Dados atualizados diretamente do relat&oacute;rio</div>
+				</div>
+			</div>
+
+			<div class="gazin-total">
+				<div class="gazin-total-label">Volume acompanhado</div>
+				<strong><%=totalItens%></strong>
+				<span>itens monitorados</span>
+			</div>
+		</section>
+
+		<section class="gazin-metrics">
+			<article class="gazin-metric">
+				<div class="gazin-metric-heading">Demandas pendentes <span class="gazin-metric-icon">!</span></div>
+				<span class="gazin-metric-number"><%=pendentes.size()%></span>
+				<div class="gazin-metric-note">Aguardando prioriza&ccedil;&atilde;o</div>
+			</article>
+
+			<article class="gazin-metric">
+				<div class="gazin-metric-heading">Em andamento <span class="gazin-metric-icon">&#8599;</span></div>
+				<span class="gazin-metric-number"><%=andamento.size()%></span>
+				<div class="gazin-metric-note">Frentes em execu&ccedil;&atilde;o</div>
+			</article>
+
+			<article class="gazin-metric">
+				<div class="gazin-metric-heading">Finalizadas <span class="gazin-metric-icon">&#10003;</span></div>
+				<span class="gazin-metric-number"><%=finalizadas.size()%></span>
+				<div class="gazin-metric-note">Entregas conclu&iacute;das</div>
+			</article>
+
+			<article class="gazin-metric">
+				<div class="gazin-metric-heading">Em desenvolvimento <span class="gazin-metric-icon">D</span></div>
+				<span class="gazin-metric-number"><%=emDesenvolvimento.size()%></span>
+				<div class="gazin-metric-note">Projetos em constru&ccedil;&atilde;o</div>
+			</article>
+
+			<article class="gazin-metric">
+				<div class="gazin-metric-heading">Atividades cont&iacute;nuas <span class="gazin-metric-icon">C</span></div>
+				<span class="gazin-metric-number"><%=continuas.size()%></span>
+				<div class="gazin-metric-note">Rotinas recorrentes</div>
+			</article>
+
+			<article class="gazin-metric">
+				<div class="gazin-metric-heading">Prontos para iniciar <span class="gazin-metric-icon">P</span></div>
+				<span class="gazin-metric-number"><%=prontosParaIniciar.size()%></span>
+				<div class="gazin-metric-note">Pr&oacute;ximas oportunidades</div>
+			</article>
+		</section>
+
+		<div class="gazin-toolbar">
+			<div>
+				<h2 class="gazin-board-title">Mapa executivo de demandas</h2>
+				<p class="gazin-board-subtitle">Leitura detalhada de todas as frentes de trabalho do portf&oacute;lio.</p>
+			</div>
+
+			<label class="gazin-search">
+				<input id="gazinBusca" type="search" placeholder="Buscar demanda, projeto ou atividade..." oninput="window.gazinFiltrar();">
+			</label>
+		</div>
+
+		<section class="gazin-board">
+
+			<article class="gazin-lane">
+				<header class="gazin-lane-header">
+					<div class="gazin-lane-title"><span class="gazin-dot"></span>Demandas pendentes</div>
+					<span class="gazin-count" data-count="pendente"><%=pendentes.size()%></span>
+				</header>
+
+				<div class="gazin-list">
+<%
+	if(pendentes.size() == 0)
+	{
+		%>
+<div class="gazin-empty">Nenhuma demanda pendente encontrada.</div>
+<%
+	}
+	else
+	{
+		for each  itemPendente in pendentes
+		{
+			%>
+<article class="gazin-card" data-status="pendente">
+						<h3><%=itemPendente%></h3>
+						<div class="gazin-card-footer"><span class="gazin-card-status">Pendente</span><span>Em acompanhamento</span></div>
+					</article>
+<%
+		}
+	}
+	%>
+</div>
+			</article>
+
+			<article class="gazin-lane lane-andamento">
+				<header class="gazin-lane-header">
+					<div class="gazin-lane-title"><span class="gazin-dot"></span>Demandas em andamento</div>
+					<span class="gazin-count" data-count="andamento"><%=andamento.size()%></span>
+				</header>
+
+				<div class="gazin-list">
+<%
+	if(andamento.size() == 0)
+	{
+		%>
+<div class="gazin-empty">Nenhuma demanda em andamento encontrada.</div>
+<%
+	}
+	else
+	{
+		for each  itemAndamento in andamento
+		{
+			%>
+<article class="gazin-card" data-status="andamento">
+						<h3><%=itemAndamento%></h3>
+						<div class="gazin-card-footer"><span class="gazin-card-status">Em andamento</span><span>Em execu&ccedil;&atilde;o</span></div>
+					</article>
+<%
+		}
+	}
+	%>
+</div>
+			</article>
+
+			<article class="gazin-lane lane-finalizadas">
+				<header class="gazin-lane-header">
+					<div class="gazin-lane-title"><span class="gazin-dot"></span>Demandas finalizadas</div>
+					<span class="gazin-count" data-count="finalizada"><%=finalizadas.size()%></span>
+				</header>
+
+				<div class="gazin-list">
+<%
+	if(finalizadas.size() == 0)
+	{
+		%>
+<div class="gazin-empty">Nenhuma demanda finalizada encontrada.</div>
+<%
+	}
+	else
+	{
+		for each  itemFinalizado in finalizadas
+		{
+			%>
+<article class="gazin-card" data-status="finalizada">
+						<h3><%=itemFinalizado%></h3>
+						<div class="gazin-card-footer"><span class="gazin-card-status">Finalizada</span><span>Entrega conclu&iacute;da</span></div>
+					</article>
+<%
+		}
+	}
+	%>
+</div>
+			</article>
+
+			<article class="gazin-lane lane-desenvolvimento">
+				<header class="gazin-lane-header">
+					<div class="gazin-lane-title"><span class="gazin-dot"></span>Projetos em desenvolvimento</div>
+					<span class="gazin-count" data-count="desenvolvimento"><%=emDesenvolvimento.size()%></span>
+				</header>
+
+				<div class="gazin-list">
+<%
+	if(emDesenvolvimento.size() == 0)
+	{
+		%>
+<div class="gazin-empty">Nenhum projeto em desenvolvimento encontrado.</div>
+<%
+	}
+	else
+	{
+		for each  itemDesenvolvimento in emDesenvolvimento
+		{
+			%>
+<article class="gazin-card" data-status="desenvolvimento">
+						<h3><%=itemDesenvolvimento%></h3>
+						<div class="gazin-card-footer"><span class="gazin-card-status">Em desenvolvimento</span><span>Em constru&ccedil;&atilde;o</span></div>
+					</article>
+<%
+		}
+	}
+	%>
+</div>
+			</article>
+
+			<article class="gazin-lane lane-continuas">
+				<header class="gazin-lane-header">
+					<div class="gazin-lane-title"><span class="gazin-dot"></span>Atividades cont&iacute;nuas</div>
+					<span class="gazin-count" data-count="continuas"><%=continuas.size()%></span>
+				</header>
+
+				<div class="gazin-list">
+<%
+	if(continuas.size() == 0)
+	{
+		%>
+<div class="gazin-empty">Nenhuma atividade cont&iacute;nua encontrada.</div>
+<%
+	}
+	else
+	{
+		for each  itemContinuo in continuas
+		{
+			%>
+<article class="gazin-card" data-status="continuas">
+						<h3><%=itemContinuo%></h3>
+						<div class="gazin-card-footer"><span class="gazin-card-status">Atividade cont&iacute;nua</span><span>Rotina ativa</span></div>
+					</article>
+<%
+		}
+	}
+	%>
+</div>
+			</article>
+
+			<article class="gazin-lane lane-prontos">
+				<header class="gazin-lane-header">
+					<div class="gazin-lane-title"><span class="gazin-dot"></span>Projetos prontos para iniciar</div>
+					<span class="gazin-count" data-count="prontos"><%=prontosParaIniciar.size()%></span>
+				</header>
+
+				<div class="gazin-list">
+<%
+	if(prontosParaIniciar.size() == 0)
+	{
+		%>
+<div class="gazin-empty">Nenhum projeto pronto para iniciar encontrado.</div>
+<%
+	}
+	else
+	{
+		for each  itemPronto in prontosParaIniciar
+		{
+			%>
+<article class="gazin-card" data-status="prontos">
+						<h3><%=itemPronto%></h3>
+						<div class="gazin-card-footer"><span class="gazin-card-status">Pronto para iniciar</span><span>Pr&oacute;xima etapa</span></div>
+					</article>
+<%
+		}
+	}
+	%>
+</div>
+			</article>
+
+		</section>
+
+		<footer class="gazin-footer">
+			<span>Fonte: Dados1_Report</span>
+			<span id="gazinResultado">Exibindo todos os itens</span>
+		</footer>
+	</div>
+</div>
+
+<script>
+window.gazinFiltrar = function() {
+	var painel = document.getElementById("gazinDashboard");
+	var campo = document.getElementById("gazinBusca");
+
+	if (!painel || !campo) {
+		return;
+	}
+
+	var termo = campo.value.toLowerCase().trim();
+	var cards = painel.querySelectorAll(".gazin-card");
+	var contagens = {
+		pendente: 0,
+		andamento: 0,
+		finalizada: 0,
+		desenvolvimento: 0,
+		continuas: 0,
+		prontos: 0
+	};
+
+	var totalVisivel = 0;
+
+	for (var i = 0; i < cards.length; i++) {
+		var card = cards[i];
+		var encontrado = card.textContent.toLowerCase().indexOf(termo) !== -1;
+
+		card.style.display = encontrado ? "" : "none";
+
+		if (encontrado) {
+			totalVisivel++;
+			contagens[card.getAttribute("data-status")]++;
+		}
+	}
+
+	var badges = painel.querySelectorAll("[data-count]");
+
+	for (var j = 0; j < badges.length; j++) {
+		badges[j].textContent = contagens[badges[j].getAttribute("data-count")];
+	}
+
+	var resultado = document.getElementById("gazinResultado");
+
+	if (resultado) {
+		resultado.textContent = termo === ""
+			? "Exibindo todos os itens"
+			: "Exibindo " + totalVisivel + "resultado(s)";
+	}
+};
+</script>
+<%
+
+}%>
