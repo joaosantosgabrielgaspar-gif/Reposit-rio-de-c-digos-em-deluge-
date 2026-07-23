@@ -1,0 +1,826 @@
+<%{
+	registros = Dados_Rafael_Akira[ID != null];
+	pendentes = List();
+	andamento = List();
+	finalizadas = List();
+	desenvolvimento = List();
+	continuas = List();
+	prontos = List();
+	for each  registro in registros
+	{
+		valor = ifnull(registro.Demandas_Pendentes_Rafael,"").toString();
+		if(valor.trim() != "")
+		{
+			pendentes.add(valor.trim());
+		}
+		valor = ifnull(registro.Demandas_em_andamento_Rafael,"").toString();
+		if(valor.trim() != "")
+		{
+			andamento.add(valor.trim());
+		}
+		valor = ifnull(registro.Demandas_finalizadas_Rafael,"").toString();
+		if(valor.trim() != "")
+		{
+			finalizadas.add(valor.trim());
+		}
+		valor = ifnull(registro.Projetos_em_desenvolvimento_Rafael,"").toString();
+		if(valor.trim() != "")
+		{
+			desenvolvimento.add(valor.trim());
+		}
+		valor = ifnull(registro.Atividades_continuas_Rafael,"").toString();
+		if(valor.trim() != "")
+		{
+			continuas.add(valor.trim());
+		}
+		valor = ifnull(registro.Projetos_prontos_para_iniciar_Rafael,"").toString();
+		if(valor.trim() != "")
+		{
+			prontos.add(valor.trim());
+		}
+	}
+	total = pendentes.size() + andamento.size() + finalizadas.size() + desenvolvimento.size() + continuas.size() + prontos.size();
+	%>
+<style>
+    .rafael-dashboard,
+    .rafael-dashboard * {
+        box-sizing: border-box;
+    }
+
+    .rafael-dashboard {
+        --blue: #0054a6;
+        --blue-dark: #003b75;
+        --blue-deep: #00264c;
+        --blue-soft: #e6f1fa;
+        --red: #e4232b;
+        --red-soft: #fce9ea;
+        --white: #ffffff;
+        --ink: #1c2b39;
+        --muted: #6d7d8b;
+        --line: #dbe4eb;
+        --surface: #f6f8fa;
+
+        width: 100%;
+        min-height: 100vh;
+        padding: 32px 38px 48px;
+        color: var(--ink);
+        background:
+            radial-gradient(circle at 98% 0%, rgba(0,84,166,.11), transparent 24%),
+            radial-gradient(circle at 0% 100%, rgba(228,35,43,.05), transparent 26%),
+            linear-gradient(135deg, #edf1f4 0%, #f8fafb 50%, #edf1f4 100%);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .rafael-shell {
+        width: 100%;
+        max-width: 1780px;
+        margin: 0 auto;
+    }
+
+    .rafael-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 25px;
+    }
+
+    .rafael-brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .rafael-logo {
+        display: flex;
+        width: 58px;
+        height: 45px;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid var(--red);
+        border-radius: 11px;
+        color: #ffffff;
+        background: var(--blue);
+        box-shadow: 0 11px 22px rgba(0,59,117,.18);
+        font-size: 14px;
+        font-style: italic;
+        font-weight: 900;
+        letter-spacing: -.8px;
+    }
+
+    .rafael-overline {
+        margin-bottom: 5px;
+        color: var(--blue);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+    }
+
+    .rafael-title {
+        margin: 0;
+        color: var(--blue-deep);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(31px, 3vw, 44px);
+        font-weight: 500;
+        letter-spacing: -.05em;
+        line-height: 1;
+    }
+
+    .rafael-subtitle {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    .rafael-live {
+        padding: 10px 14px;
+        border: 1px solid #d6e0e8;
+        border-radius: 8px;
+        color: #617383;
+        background: rgba(255,255,255,.86);
+        font-size: 11px;
+    }
+
+    .rafael-live:before {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        margin-right: 7px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 0 4px rgba(228,35,43,.11);
+        content: "";
+    }
+
+    .rafael-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 285px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        border-radius: 19px;
+        background: var(--blue-deep);
+        box-shadow: 0 24px 48px rgba(0,59,117,.20);
+    }
+
+    .rafael-hero-copy {
+        position: relative;
+        min-height: 245px;
+        overflow: hidden;
+        padding: 42px;
+        background:
+            radial-gradient(circle at 100% 0%, rgba(255,255,255,.14), transparent 28%),
+            linear-gradient(125deg, #00386f 0%, #0054a6 100%);
+    }
+
+    .rafael-hero-copy:after {
+        position: absolute;
+        width: 340px;
+        height: 340px;
+        right: -150px;
+        bottom: -230px;
+        border: 1px solid rgba(255,255,255,.18);
+        border-radius: 50%;
+        box-shadow: 0 0 0 36px rgba(255,255,255,.035);
+        content: "";
+    }
+
+    .rafael-hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 690px;
+    }
+
+    .rafael-hero-label {
+        margin-bottom: 13px;
+        color: #b9ddf4;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+    }
+
+    .rafael-hero h2 {
+        margin: 0;
+        color: #ffffff;
+        font-family: Georgia, serif;
+        font-size: clamp(32px, 3vw, 45px);
+        font-weight: 500;
+        letter-spacing: -.05em;
+        line-height: 1.06;
+    }
+
+    .rafael-hero p {
+        max-width: 640px;
+        margin: 16px 0 0;
+        color: #d9edf9;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .rafael-hero-line {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 28px;
+        color: #c9e5f5;
+        font-size: 11px;
+    }
+
+    .rafael-hero-line:before {
+        width: 35px;
+        height: 3px;
+        background: var(--red);
+        content: "";
+    }
+
+    .rafael-total-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 30px;
+        border-left: 1px solid rgba(255,255,255,.18);
+        background: #002c57;
+        text-align: center;
+    }
+
+    .rafael-total-box span {
+        color: #b9d9ed;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+    }
+
+    .rafael-total-box strong {
+        display: block;
+        margin: 17px 0 10px;
+        color: #ffffff;
+        font-family: Georgia, serif;
+        font-size: 76px;
+        font-weight: 400;
+        letter-spacing: -.09em;
+        line-height: .85;
+    }
+
+    .rafael-total-box small {
+        color: #c5ddeb;
+        font-size: 12px;
+    }
+
+    .rafael-total-box:after {
+        width: 42px;
+        height: 3px;
+        margin-top: 22px;
+        background: var(--red);
+        content: "";
+    }
+
+    .rafael-kpis {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 11px;
+        margin-bottom: 34px;
+    }
+
+    .rafael-kpi {
+        position: relative;
+        min-height: 143px;
+        padding: 20px 19px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: rgba(255,255,255,.93);
+        box-shadow: 0 10px 20px rgba(20,50,78,.06);
+    }
+
+    .rafael-kpi:before {
+        position: absolute;
+        top: 0;
+        right: 18px;
+        left: 18px;
+        height: 3px;
+        border-radius: 0 0 5px 5px;
+        background: var(--blue);
+        content: "";
+    }
+
+    .rafael-kpi:nth-child(2):before,
+    .rafael-kpi:nth-child(5):before {
+        background: var(--red);
+    }
+
+    .rafael-kpi:nth-child(3):before,
+    .rafael-kpi:nth-child(6):before {
+        background: var(--blue-deep);
+    }
+
+    .rafael-kpi:nth-child(4):before {
+        background: #6e89a3;
+    }
+
+    .rafael-kpi-title {
+        min-height: 31px;
+        color: #687784;
+        font-size: 10px;
+        font-weight: 800;
+        line-height: 1.28;
+        text-transform: uppercase;
+    }
+
+    .rafael-kpi-value {
+        display: block;
+        margin-top: 25px;
+        color: var(--blue-deep);
+        font-family: Georgia, serif;
+        font-size: 38px;
+        font-weight: 500;
+        letter-spacing: -.07em;
+        line-height: 1;
+    }
+
+    .rafael-kpi-note {
+        margin-top: 9px;
+        color: #929ca5;
+        font-size: 10px;
+    }
+
+    .rafael-section {
+        margin-bottom: 15px;
+    }
+
+    .rafael-section h2 {
+        margin: 0;
+        color: var(--blue-deep);
+        font-family: Georgia, serif;
+        font-size: 29px;
+        font-weight: 500;
+        letter-spacing: -.035em;
+    }
+
+    .rafael-section p {
+        margin: 7px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    .rafael-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 15px;
+        align-items: start;
+    }
+
+    .rafael-lane {
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: #ffffff;
+        box-shadow: 0 9px 20px rgba(23,44,63,.055);
+    }
+
+    .rafael-lane-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 61px;
+        padding: 0 18px;
+        border-bottom: 1px solid #e1e8ee;
+        background: #fbfcfd;
+    }
+
+    .rafael-lane-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #2b4052;
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .rafael-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 0 4px var(--red-soft);
+    }
+
+    .rafael-count {
+        min-width: 28px;
+        padding: 5px 8px;
+        border-radius: 999px;
+        color: var(--red);
+        background: var(--red-soft);
+        font-size: 10px;
+        font-weight: 800;
+        text-align: center;
+    }
+
+    .rafael-lane-blue .rafael-dot {
+        background: var(--blue);
+        box-shadow: 0 0 0 4px var(--blue-soft);
+    }
+
+    .rafael-lane-blue .rafael-count {
+        color: var(--blue);
+        background: var(--blue-soft);
+    }
+
+    .rafael-lane-dark .rafael-dot {
+        background: var(--blue-deep);
+        box-shadow: 0 0 0 4px #dce9f4;
+    }
+
+    .rafael-lane-dark .rafael-count {
+        color: var(--blue-deep);
+        background: #dce9f4;
+    }
+
+    .rafael-list {
+        display: grid;
+        gap: 11px;
+        max-height: 540px;
+        overflow-y: auto;
+        padding: 12px;
+        background: var(--surface);
+    }
+
+    .rafael-card {
+        position: relative;
+        padding: 18px 17px 16px 22px;
+        border: 1px solid #e0e7ec;
+        border-radius: 10px;
+        background: #ffffff;
+        box-shadow: 0 3px 8px rgba(25,46,64,.035);
+    }
+
+    .rafael-card:before {
+        position: absolute;
+        top: 16px;
+        bottom: 16px;
+        left: 0;
+        width: 4px;
+        border-radius: 0 4px 4px 0;
+        background: var(--red);
+        content: "";
+    }
+
+    .rafael-lane-blue .rafael-card:before {
+        background: var(--blue);
+    }
+
+    .rafael-lane-dark .rafael-card:before {
+        background: var(--blue-deep);
+    }
+
+    .rafael-card h3 {
+        margin: 0;
+        color: #1f2d3a;
+        font-size: 17px;
+        font-weight: 650;
+        line-height: 1.52;
+    }
+
+    .rafael-card-footer {
+        margin-top: 14px;
+        padding-top: 10px;
+        border-top: 1px solid #edf1f4;
+        color: #929ca5;
+        font-size: 10px;
+    }
+
+    .rafael-empty {
+        padding: 46px 15px;
+        color: #87929a;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .rafael-footer {
+        margin-top: 20px;
+        color: #85919b;
+        font-size: 10px;
+        text-align: right;
+    }
+
+    @media (max-width: 1250px) {
+        .rafael-hero {
+            grid-template-columns: 1fr;
+        }
+
+        .rafael-total-box {
+            align-items: flex-start;
+            border-top: 1px solid rgba(255,255,255,.18);
+            border-left: 0;
+            text-align: left;
+        }
+
+        .rafael-kpis {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 980px) {
+        .rafael-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 650px) {
+        .rafael-dashboard {
+            padding: 20px 13px 34px;
+        }
+
+        .rafael-header {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .rafael-hero-copy {
+            min-height: 270px;
+            padding: 28px 24px;
+        }
+
+        .rafael-kpis,
+        .rafael-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .rafael-list {
+            max-height: none;
+        }
+    }
+</style>
+
+<div class="rafael-dashboard">
+    <div class="rafael-shell">
+
+        <header class="rafael-header">
+            <div class="rafael-brand">
+                <div class="rafael-logo">gazin</div>
+
+                <div>
+                    <div class="rafael-overline">Painel executivo</div>
+                    <h1 class="rafael-title">Intelig&ecirc;ncia de dados - Rafael</h1>
+                    <p class="rafael-subtitle">Vis&atilde;o estrat&eacute;gica das demandas, projetos e atividades.</p>
+                </div>
+            </div>
+
+            <span class="rafael-live">Atualiza&ccedil;&atilde;o autom&aacute;tica</span>
+        </header>
+
+        <section class="rafael-hero">
+            <div class="rafael-hero-copy">
+                <div class="rafael-hero-content">
+                    <div class="rafael-hero-label">Intelig&ecirc;ncia anal&iacute;tica</div>
+                    <h2>Resumo executivo.</h2>
+                    <p>Uma leitura executiva das prioridades, entregas, projetos em desenvolvimento e oportunidades de in&iacute;cio.</p>
+                    <div class="rafael-hero-line">Base de dados atualizada automaticamente</div>
+                </div>
+            </div>
+
+            <div class="rafael-total-box">
+                <span>Quantidade total</span>
+                <strong><%=total%></strong>
+                <small>registros monitorados</small>
+            </div>
+        </section>
+
+        <section class="rafael-kpis">
+            <article class="rafael-kpi">
+                <div class="rafael-kpi-title">Demandas pendentes</div>
+                <span class="rafael-kpi-value"><%=pendentes.size()%></span>
+                <div class="rafael-kpi-note">Aguardando prioriza&ccedil;&atilde;o</div>
+            </article>
+
+            <article class="rafael-kpi">
+                <div class="rafael-kpi-title">Em andamento</div>
+                <span class="rafael-kpi-value"><%=andamento.size()%></span>
+                <div class="rafael-kpi-note">Frentes em execu&ccedil;&atilde;o</div>
+            </article>
+
+            <article class="rafael-kpi">
+                <div class="rafael-kpi-title">Finalizadas</div>
+                <span class="rafael-kpi-value"><%=finalizadas.size()%></span>
+                <div class="rafael-kpi-note">Entregas conclu&iacute;das</div>
+            </article>
+
+            <article class="rafael-kpi">
+                <div class="rafael-kpi-title">Em desenvolvimento</div>
+                <span class="rafael-kpi-value"><%=desenvolvimento.size()%></span>
+                <div class="rafael-kpi-note">Projetos em constru&ccedil;&atilde;o</div>
+            </article>
+
+            <article class="rafael-kpi">
+                <div class="rafael-kpi-title">Atividades cont&iacute;nuas</div>
+                <span class="rafael-kpi-value"><%=continuas.size()%></span>
+                <div class="rafael-kpi-note">Rotinas recorrentes</div>
+            </article>
+
+            <article class="rafael-kpi">
+                <div class="rafael-kpi-title">Prontos para iniciar</div>
+                <span class="rafael-kpi-value"><%=prontos.size()%></span>
+                <div class="rafael-kpi-note">Pr&oacute;ximas oportunidades</div>
+            </article>
+        </section>
+
+        <section class="rafael-section">
+            <h2>Mapa executivo de demandas</h2>
+            <p>Leitura detalhada de todos os projetos, demandas e atividades.</p>
+        </section>
+
+        <section class="rafael-grid">
+
+            <article class="rafael-lane">
+                <header class="rafael-lane-header">
+                    <div class="rafael-lane-title"><span class="rafael-dot"></span>Demandas pendentes</div>
+                    <span class="rafael-count"><%=pendentes.size()%></span>
+                </header>
+
+                <div class="rafael-list">
+<%
+	if(pendentes.size() == 0)
+	{
+		%>
+<div class="rafael-empty">Nenhuma demanda pendente encontrada.</div>
+<%
+	}
+	else
+	{
+		for each  itemPendente in pendentes
+		{
+			%>
+<article class="rafael-card">
+                        <h3><%=itemPendente%></h3>
+                        <div class="rafael-card-footer">Pendente</div>
+                    </article>
+<%
+		}
+	}
+	%>
+</div>
+            </article>
+
+            <article class="rafael-lane rafael-lane-blue">
+                <header class="rafael-lane-header">
+                    <div class="rafael-lane-title"><span class="rafael-dot"></span>Demandas em andamento</div>
+                    <span class="rafael-count"><%=andamento.size()%></span>
+                </header>
+
+                <div class="rafael-list">
+<%
+	if(andamento.size() == 0)
+	{
+		%>
+<div class="rafael-empty">Nenhuma demanda em andamento encontrada.</div>
+<%
+	}
+	else
+	{
+		for each  itemAndamento in andamento
+		{
+			%>
+<article class="rafael-card">
+                        <h3><%=itemAndamento%></h3>
+                        <div class="rafael-card-footer">Em execu&ccedil;&atilde;o</div>
+                    </article>
+<%
+		}
+	}
+	%>
+</div>
+            </article>
+
+            <article class="rafael-lane rafael-lane-dark">
+                <header class="rafael-lane-header">
+                    <div class="rafael-lane-title"><span class="rafael-dot"></span>Demandas finalizadas</div>
+                    <span class="rafael-count"><%=finalizadas.size()%></span>
+                </header>
+
+                <div class="rafael-list">
+<%
+	if(finalizadas.size() == 0)
+	{
+		%>
+<div class="rafael-empty">Nenhuma demanda finalizada encontrada.</div>
+<%
+	}
+	else
+	{
+		for each  itemFinalizado in finalizadas
+		{
+			%>
+<article class="rafael-card">
+                        <h3><%=itemFinalizado%></h3>
+                        <div class="rafael-card-footer">Entrega conclu&iacute;da</div>
+                    </article>
+<%
+		}
+	}
+	%>
+</div>
+            </article>
+
+            <article class="rafael-lane rafael-lane-blue">
+                <header class="rafael-lane-header">
+                    <div class="rafael-lane-title"><span class="rafael-dot"></span>Projetos em desenvolvimento</div>
+                    <span class="rafael-count"><%=desenvolvimento.size()%></span>
+                </header>
+
+                <div class="rafael-list">
+<%
+	if(desenvolvimento.size() == 0)
+	{
+		%>
+<div class="rafael-empty">Nenhum projeto em desenvolvimento encontrado.</div>
+<%
+	}
+	else
+	{
+		for each  itemDesenvolvimento in desenvolvimento
+		{
+			%>
+<article class="rafael-card">
+                        <h3><%=itemDesenvolvimento%></h3>
+                        <div class="rafael-card-footer">Em constru&ccedil;&atilde;o</div>
+                    </article>
+<%
+		}
+	}
+	%>
+</div>
+            </article>
+
+            <article class="rafael-lane rafael-lane-blue">
+                <header class="rafael-lane-header">
+                    <div class="rafael-lane-title"><span class="rafael-dot"></span>Atividades cont&iacute;nuas</div>
+                    <span class="rafael-count"><%=continuas.size()%></span>
+                </header>
+
+                <div class="rafael-list">
+<%
+	if(continuas.size() == 0)
+	{
+		%>
+<div class="rafael-empty">Nenhuma atividade cont&iacute;nua encontrada.</div>
+<%
+	}
+	else
+	{
+		for each  itemContinuo in continuas
+		{
+			%>
+<article class="rafael-card">
+                        <h3><%=itemContinuo%></h3>
+                        <div class="rafael-card-footer">Rotina ativa</div>
+                    </article>
+<%
+		}
+	}
+	%>
+</div>
+            </article>
+
+            <article class="rafael-lane rafael-lane-dark">
+                <header class="rafael-lane-header">
+                    <div class="rafael-lane-title"><span class="rafael-dot"></span>Projetos prontos para iniciar</div>
+                    <span class="rafael-count"><%=prontos.size()%></span>
+                </header>
+
+                <div class="rafael-list">
+<%
+	if(prontos.size() == 0)
+	{
+		%>
+<div class="rafael-empty">Nenhum projeto pronto para iniciar encontrado.</div>
+<%
+	}
+	else
+	{
+		for each  itemPronto in prontos
+		{
+			%>
+<article class="rafael-card">
+                        <h3><%=itemPronto%></h3>
+                        <div class="rafael-card-footer">Pr&oacute;xima etapa</div>
+                    </article>
+<%
+		}
+	}
+	%>
+</div>
+            </article>
+
+        </section>
+
+        <footer class="rafael-footer">
+            Fonte: Dados_Rafael_Akira_Report
+        </footer>
+    </div>
+</div>
+<%
+
+}%>
