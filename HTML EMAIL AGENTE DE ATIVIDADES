@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviso - Plataforma Não Preenchida</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; background-color: #f5f5f5;">
+    
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
+        <tr>
+            <td align="center" style="padding: 40px 20px;">
+                
+                <!-- CARD PRINCIPAL -->
+                <table width="500" border="0" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 500px;">
+                    
+                    <!-- BARRA SUPERIOR AMARELA -->
+                    <tr>
+                        <td style="background-color: #f59e0b; height: 5px; border-radius: 12px 12px 0 0;"></td>
+                    </tr>
+                    
+                    <!-- ÍCONE E TÍTULO -->
+                    <tr>
+                        <td align="center" style="padding: 40px 30px 20px 30px;">
+                            <div style="font-size: 56px; margin-bottom: 15px;"></div>
+                        </td>
+                    </tr>
+                    
+                    <!-- TÍTULO -->
+                    <tr>
+                        <td align="center" style="padding: 0 30px;">
+                            <h1 style="margin: 0 0 12px 0; font-size: 24px; font-weight: 700; color: #1f2937; line-height: 1.3;">
+                                Plataforma Não Preenchida
+                            </h1>
+                        </td>
+                    </tr>
+                    
+                    <!-- DESCRIÇÃO -->
+                    <tr>
+                        <td align="center" style="padding: 0 30px 20px 30px;">
+                            <p style="margin: 0; font-size: 15px; color: #6b7280; line-height: 1.6;">
+                                Identificamos que as atividades referentes ao dia anterior ainda não foram registradas no sistema.
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- CAIXA DE INFORMAÇÕES -->
+                    <tr>
+                        <td style="padding: 0 30px 20px 30px;">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 6px;">
+                                
+                                <!-- ITEM 1 -->
+                                <tr>
+                                    <td style="padding: 12px 15px; font-size: 14px; color: #78350f; border-bottom: 1px solid #fcd34d;">
+                                        <span style="font-weight: bold;">Data de referência:</span> (data do dia atual)
+                                    </td>
+                                </tr>
+                                
+                                <!-- ITEM 2 -->
+                                <tr>
+                                    <td style="padding: 12px 15px; font-size: 14px; color: #78350f; border-bottom: 1px solid #fcd34d;">
+                                        <span style="font-weight: bold;">Responsável:</span> (nome do usuário pendente)
+                                    </td>
+                                </tr>
+                                
+                                <!-- ITEM 3 -->
+                                <tr>
+                                    <td style="padding: 12px 15px; font-size: 14px; color: #78350f; border-bottom: 1px solid #fcd34d;">
+                                        <span style="font-weight: bold;">Ação necessária:</span> Preencher atividades iniciadas e finalizadas
+                                    </td>
+                                </tr>
+                                
+                                <!-- ITEM 4 -->
+                                <tr>
+                                    <td style="padding: 12px 15px; font-size: 14px; color: #78350f;">
+                                        <span style="font-weight: bold;">Prazo:</span> 15 minutos para o iníco da reunião. 
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- BOTÕES -->
+                    <tr>
+                        <td align="center" style="padding: 0 30px 30px 30px;">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <!-- BOTÃO PRIMÁRIO -->
+                                    <td style="padding-right: 10px;">
+                                        <a href="https://creatorapp.zoho.com/gazinadmin/administrativo-geral-gazin-2#Page:DashBoard" style="display: block; background-color: #667eea; color: white; padding: 12px 28px; text-align: center ;text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px;">
+                                            Acessar Plataforma
+                                        </a>
+                                    </td>
+                     
+                    <!-- RODAPÉ -->
+                    <tr>
+                        <td style="padding: 0 30px 30px 30px; border-top: 1px solid #e5e7eb; text-align: center;">
+                            <p style="margin: 15px 0 0 0; font-size: 12px; color: #9ca3af; line-height: 1.6;">
+                                Caso o preenchimento já tenha sido realizado, desconsidere este aviso.<br>
+                                Dúvidas? Entre em contato com o suporte.
+                            </p>
+                        </td>
+                    </tr>
+                    
+                </table>
+                
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>
+
