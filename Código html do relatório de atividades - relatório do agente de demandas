@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relatório Diário de Atividades</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #f5f5f5;
+      color: #333;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 900px;
+      max-width: 100%;
+      margin: 0 auto;
+      background: #fff;
+    }
+
+    .header {
+      padding: 30px 20px;
+      color: #fff;
+      text-align: center;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      border-bottom: 4px solid #d4af37;
+    }
+
+    .header h1 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .header-info {
+      font-size: 12px;
+      line-height: 1.8;
+      opacity: .92;
+    }
+
+    .content { padding: 20px; }
+
+    .section-title {
+      margin: 0 0 20px;
+      color: #1e3c72;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .area-section { margin-bottom: 40px; }
+
+    .area-header {
+      margin-bottom: 18px;
+      padding: 14px 20px;
+      color: #fff;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+
+    .area-header::before { content: "📁 "; }
+
+    .colaborador-section {
+      margin-bottom: 24px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+    }
+
+    .colaborador-section:last-child { margin-bottom: 0; }
+
+    .colaborador-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 15px 20px;
+      background: #f0f4f8;
+      border-bottom: 2px solid #2a5298;
+    }
+
+    .colaborador-nome {
+      color: #1e3c72;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .status-preenchido { background: #d4edda; color: #155724; }
+    .status-pendente,
+    .status-erro { background: #f8d7da; color: #721c24; }
+    .status-parcial { background: #fff3cd; color: #856404; }
+
+    .activity-section { padding: 20px; }
+    .activity-section + .activity-section { padding-top: 0; }
+
+    .activity-title {
+      margin: 0 0 12px;
+      color: #2a5298;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      font-size: 13px;
+    }
+
+    th {
+      padding: 12px;
+      color: #fff;
+      background: #2a5298;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .5px;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #e0e0e0;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: #f9f9f9; }
+
+    .sem-dados {
+      padding: 20px;
+      color: #999;
+      background: #fafafa;
+      border-radius: 4px;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .status-em-andamento { color: #1976d2; }
+    .status-concluido { color: #388e3c; }
+    .status-pendente-item { color: #f57c00; }
+
+    .pendencias { margin-top: 36px; }
+
+    .pendencias h2 {
+      margin: 0 0 14px;
+      color: #1e3c72;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .footer {
+      padding: 20px;
+      color: #666;
+      background: #f0f4f8;
+      border-top: 1px solid #ddd;
+      font-size: 11px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .rodape-data {
+      margin-top: 10px;
+      color: #999;
+      font-size: 10px;
+    }
+
+    @media (max-width: 760px) {
+      .content { padding: 14px; }
+      .colaborador-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .activity-section { padding: 14px; }
+    }
+
+    @media (max-width: 600px) {
+      table, thead, tbody, tr, th, td {
+        display: block;
+        width: 100%;
+      }
+
+      thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+
+      tr {
+        padding: 8px 0;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      td {
+        padding: 6px 0;
+        border: 0;
+      }
+
+      td::before {
+        content: attr(data-label);
+        display: block;
+        color: #666;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: .5px;
+        text-transform: uppercase;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>Relatório Diário de Atividades</h1>
+      <div class="header-info">
+        <div><strong>Data analisada:</strong> {{data_analisada}}</div>
+        <div><strong>Gerado em:</strong> {{data_hora_geracao}}</div>
+      </div>
+    </header>
+
+    <section class="content">
+      <h2 class="section-title">Detalhamento por área</h2>
+
+      <!-- GESTÃO ENERGÉTICA -->
+      <section class="area-section">
+        <div class="area-header">Gestão Energética</div>
+
+        <article class="colaborador-section">
+          <header class="colaborador-header">
+            <div class="colaborador-nome">Ariel Luz</div>
+            <span class="status-badge {{classe_status_ariel}}">{{status_ariel}}</span>
+          </header>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades iniciadas ({{qtd_iniciadas_ariel}})</h3>
+            {{tabela_iniciadas_ariel}}
+          </section>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades finalizadas ({{qtd_finalizadas_ariel}})</h3>
+            {{tabela_finalizadas_ariel}}
+          </section>
+        </article>
+
+        <article class="colaborador-section">
+          <header class="colaborador-header">
+            <div class="colaborador-nome">Heitor Correa</div>
+            <span class="status-badge {{classe_status_heitor}}">{{status_heitor}}</span>
+          </header>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades iniciadas ({{qtd_iniciadas_heitor}})</h3>
+            {{tabela_iniciadas_heitor}}
+          </section>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades finalizadas ({{qtd_finalizadas_heitor}})</h3>
+            {{tabela_finalizadas_heitor}}
+          </section>
+        </article>
+      </section>
+
+      <!-- INTELIGÊNCIA DE DADOS -->
+      <section class="area-section">
+        <div class="area-header">Inteligência de Dados</div>
+
+        <article class="colaborador-section">
+          <header class="colaborador-header">
+            <div class="colaborador-nome">João</div>
+            <span class="status-badge {{classe_status_joao}}">{{status_joao}}</span>
+          </header>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades iniciadas ({{qtd_iniciadas_joao}})</h3>
+            {{tabela_iniciadas_joao}}
+          </section>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades finalizadas ({{qtd_finalizadas_joao}})</h3>
+            {{tabela_finalizadas_joao}}
+          </section>
+        </article>
+
+        <article class="colaborador-section">
+          <header class="colaborador-header">
+            <div class="colaborador-nome">Rafael Akira</div>
+            <span class="status-badge {{classe_status_rafael}}">{{status_rafael}}</span>
+          </header>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades iniciadas ({{qtd_iniciadas_rafael}})</h3>
+            {{tabela_iniciadas_rafael}}
+          </section>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades finalizadas ({{qtd_finalizadas_rafael}})</h3>
+            {{tabela_finalizadas_rafael}}
+          </section>
+        </article>
+      </section>
+
+      <!-- ALUGUÉIS -->
+      <section class="area-section">
+        <div class="area-header">Aluguéis</div>
+
+        <article class="colaborador-section">
+          <header class="colaborador-header">
+            <div class="colaborador-nome">Daiane</div>
+            <span class="status-badge {{classe_status_daiane}}">{{status_daiane}}</span>
+          </header>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades iniciadas ({{qtd_iniciadas_daiane}})</h3>
+            {{tabela_iniciadas_daiane}}
+          </section>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades finalizadas ({{qtd_finalizadas_daiane}})</h3>
+            {{tabela_finalizadas_daiane}}
+          </section>
+        </article>
+
+        <article class="colaborador-section">
+          <header class="colaborador-header">
+            <div class="colaborador-nome">Heloisa</div>
+            <span class="status-badge {{classe_status_heloisa}}">{{status_heloisa}}</span>
+          </header>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades iniciadas ({{qtd_iniciadas_heloisa}})</h3>
+            {{tabela_iniciadas_heloisa}}
+          </section>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades finalizadas ({{qtd_finalizadas_heloisa}})</h3>
+            {{tabela_finalizadas_heloisa}}
+          </section>
+        </article>
+      </section>
+
+      <!-- CONTRATOS CORPORATIVOS -->
+      <section class="area-section">
+        <div class="area-header">Contratos Corporativos</div>
+
+        <article class="colaborador-section">
+          <header class="colaborador-header">
+            <div class="colaborador-nome">Fabielly</div>
+            <span class="status-badge {{classe_status_fabielly}}">{{status_fabielly}}</span>
+          </header>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades iniciadas ({{qtd_iniciadas_fabielly}})</h3>
+            {{tabela_iniciadas_fabielly}}
+          </section>
+          <section class="activity-section">
+            <h3 class="activity-title">Atividades finalizadas ({{qtd_finalizadas_fabielly}})</h3>
+            {{tabela_finalizadas_fabielly}}
+          </section>
+        </article>
+      </section>
+
+      <section class="pendencias">
+        <h2>Pendências de preenchimento</h2>
+        {{tabela_pendencias}}
+      </section>
+    </section>
+
+    <footer class="footer">
+      <strong>Acompanhamento de Atividades Diárias</strong><br>
+      Gazin Grupo Empresarial
+      <div class="rodape-data">
+        Gerado automaticamente em {{data_hora_geracao}}<br>
+        Este é um relatório automático.
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
+
+
